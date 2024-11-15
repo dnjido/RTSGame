@@ -18,7 +18,6 @@ namespace RTS
         [SerializeField] private Canvas canvas;
         [SerializeField] private Camera cam;
         private BorderPos positions;
-        private CursorRay ray;
         private CursorPosition cPos;
         private SelectedUnits selectedUnits;
 
@@ -31,7 +30,6 @@ namespace RTS
 
             rectTransform = selectionBox.GetComponent<RectTransform>();
             positions = new BorderPos();
-            ray = new CursorRay();
             cPos = new CursorPosition(cam, canvas);
         }
 
@@ -53,12 +51,12 @@ namespace RTS
             selectionBox.gameObject.SetActive(true);
             rectTransform.anchoredPosition = startMousePosition;
             rectTransform.sizeDelta = Vector2.zero;
-            positions.pos1 = ray.Ray();
+            positions.pos1 = new CursorRay().RayPoint();
         }
 
         private void Selecting()
         {
-            positions.pos2 = ray.Ray();
+            positions.pos2 = new CursorRay().RayPoint();
             Vector2 currentMousePosition = cPos.LocalPos();
             Vector2 size = currentMousePosition - startMousePosition;
             rectTransform.sizeDelta = new Vector2(Mathf.Abs(size.x), Mathf.Abs(size.y));
@@ -76,11 +74,12 @@ namespace RTS
         private void SetOverlap(Vector3 pos1, Vector3 pos2)
         {
             Vector3 center = (pos1 + pos2) / 2;
-            float halfx = Mathf.Abs(pos1.x - pos2.x);
-            float halfz = Mathf.Abs(pos1.z - pos2.z);
+            float halfx = Mathf.Abs(pos1.x - pos2.x) / 2;
+            float halfz = Mathf.Abs(pos1.z - pos2.z) / 2;
             Vector3 half = new Vector3(halfx, 20, halfz);
 
-            Collider[] hitColliders = Physics.OverlapBox(center, half, Quaternion.identity);
+            //print(); //LayerMask.LayerToName(6)
+            Collider[] hitColliders = Physics.OverlapBox(center, half, Quaternion.identity);// , 1 << 6
             selectedUnits.AddUnits(hitColliders);
         }
     }

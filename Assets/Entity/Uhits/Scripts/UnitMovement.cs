@@ -17,7 +17,7 @@ namespace RTS
         [SerializeField] private float speed;
         private NavMeshAgent agent;
         private MoveStruct moveStruct;
-        // Start is called before the first frame update
+
         void Start()
         {
             moveStruct = new MoveStruct();
@@ -26,17 +26,16 @@ namespace RTS
             moveStruct.point = transform.position;
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-            if (hasMove) Movement();
-        }
+        void FixedUpdate() => Movement();
+
         public void Movement()
         {
-            agent.SetDestination(moveStruct.VectorSelector());
+            if (hasMove)
+                agent.SetDestination(moveStruct.VectorSelector());
         }
         public void SetPoint(Vector3 p)
         {
+            moveStruct.unit = null;
             moveStruct.point = p;
         }
         public void SetUnit(GameObject u)
