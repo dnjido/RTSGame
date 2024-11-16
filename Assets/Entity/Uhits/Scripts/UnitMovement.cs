@@ -28,19 +28,29 @@ namespace RTS
 
         void FixedUpdate() => Movement();
 
-        public void Movement()
+        private void Movement()
         {
-            if (hasMove)
+            if (hasMove) 
                 agent.SetDestination(moveStruct.VectorSelector());
         }
-        public void SetPoint(Vector3 p)
+        private void SetPoint(Vector3 p)
         {
+            //print(moveStruct.VectorSelector());
             moveStruct.unit = null;
             moveStruct.point = p;
         }
-        public void SetUnit(GameObject u)
+        private void SetUnit(GameObject u)
         {
             moveStruct.unit = u;
+        }
+        public void Command()
+        {
+            GameObject ray = CursorRay.RayUnit();
+
+            if (ray != null && ray.tag == "Unit")
+                SetUnit(CursorRay.RayUnit());
+            else
+                SetPoint(CursorRay.RayPoint());
         }
     }
 }

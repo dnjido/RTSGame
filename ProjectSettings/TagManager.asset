@@ -7,6 +7,7 @@ TagManager:
   - ship
   - asteroid
   - Unit
+  - Projectile
   layers:
   - Default
   - TransparentFX
@@ -23,7 +24,7 @@ TagManager:
   - Team6
   - Team7
   - Team8
-  - 
+  - Projectile
   - 
   - 
   - 

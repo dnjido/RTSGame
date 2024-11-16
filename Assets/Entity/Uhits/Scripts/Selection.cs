@@ -3,6 +3,11 @@ using UnityEngine;
 
 namespace RTS
 {
+    public interface ISelecting
+    {
+        void Select();
+    }
+
     public class Selection : MonoBehaviour // Stores information about the unit selection.
     {
         [SerializeField] private GameObject circle;

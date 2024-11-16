@@ -8,6 +8,7 @@ namespace RTS
         public override void InstallBindings()
         {
             Container.Bind<SelectedUnits>().AsSingle();
+            Container.Bind<MoveCommand>().AsSingle();
         }
     }
 }

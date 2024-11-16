@@ -3,19 +3,22 @@ using UnityEngine;
 
 namespace RTS
 {
-    struct SelectedUnitsList
+    public struct SelectedUnitsList
     {
         public GameObject[] units;
     }
 
     public class SelectedUnits // Stores information about the selected units.
     {
-        SelectedUnitsList selected = new SelectedUnitsList();
+        public SelectedUnitsList selected = new SelectedUnitsList();
+        private int count;
 
         public void AddUnits(Collider[] col)
         {
+            if (col.Length != count) ClearUnits();
+            count = col.Length;
+
             List<GameObject> u = new List<GameObject>();
-            ClearUnits();
             foreach (Collider collider in col)
             {
                 Selection sel = collider.gameObject.GetComponent<Selection>();
@@ -27,6 +30,7 @@ namespace RTS
             }
             selected.units = u.ToArray();
         }
+
         public void ClearUnits()
         {
             List<GameObject> u = new List<GameObject>();

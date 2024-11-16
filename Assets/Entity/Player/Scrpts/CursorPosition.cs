@@ -4,16 +4,7 @@ namespace RTS
 {
     public class CursorPosition //The position of the cursor on the screen.
     {
-        private readonly Camera cam;
-        private readonly Canvas can;
-
-        public CursorPosition(Camera camera, Canvas canvas)
-        {
-            cam = camera;
-            can = canvas;
-        }
-
-        public Vector2 LocalPos()
+        public static Vector2 LocalPos(Camera cam, Canvas can)
         {
             Vector2 loc;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(

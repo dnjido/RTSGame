@@ -8,30 +8,14 @@ namespace RTS
         [SerializeField] private float range;
         [SerializeField] private Collider target;
         [SerializeField] private GameObject unit;
-        //[SerializeField] private int layer;
-        // Start is called before the first frame update
-        void Start()
-        {
-            //if (layer == 0) layer = SetLayers();
-        }
 
-        // Update is called once per frame
         void Update() => Check();
-
-        private int SetLayers()
-        {
-            int l = 11111111 << 7;
-            UnitTeam team = GetComponent<UnitTeam>();
-            int t = 1 << 6 + team.team.team;
-            t = ~t;
-            return l & t;
-        }
 
         private void Check()
         {
-            //Collider[] hitColliders = new Collider[0];
-            //Physics.OverlapCapsuleNonAlloc(transform.position, transform.position, range, hitColliders, 1 << 6);
-            Collider[] hitColliders = Physics.OverlapCapsule(transform.position, transform.position, range, SetLayers());
+            Collider[] hitColliders = Physics.OverlapCapsule(transform.position, 
+                transform.position, range, 
+                DetectLayers.Layers(GetComponent<UnitTeam>()));
 
             if (hitColliders.Length == 0 && target) { Clear(); return; }
 
@@ -63,6 +47,19 @@ namespace RTS
         {
             target = null; 
             unit = null;
+        }
+
+        public GameObject GetUnit() => unit;
+    }
+
+    public class DetectLayers
+    {
+        public static int Layers(UnitTeam team)
+        {
+            int l = 11111111 << 7;
+            int t = 1 << 6 + team.team.team;
+            t = ~t;
+            return l & t;
         }
     }
 }
