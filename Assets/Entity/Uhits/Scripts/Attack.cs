@@ -1,13 +1,9 @@
-using NUnit;
-using RTS;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace RTS
 {
-    public class Attack : MonoBehaviour
+    public class Attack : MonoBehaviour // Attack enemy
     {
         [SerializeField] private float rate, damage;
         [SerializeField] private GameObject proj;

@@ -87,6 +87,7 @@
     <Compile Include="Assets\Entity\Uhits\Scripts\HealthSystem.cs" />
     <Compile Include="Assets\Entity\Player\Scrpts\CursorPosition.cs" />
     <Compile Include="Assets\Entity\Uhits\Scripts\RotateBody.cs" />
+    <Compile Include="Assets\Entity\Uhits\Scripts\ColorfulParts.cs" />
     <Compile Include="Assets\Entity\Uhits\Scripts\UnitTeam.cs" />
     <Compile Include="Assets\Entity\Player\Scrpts\SelectingInstaller.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
     <Compile Include="Assets\Game\ScriptableObjects\Relationship.cs" />
+    <Compile Include="Assets\Game\ScriptableObjects\TeamColors.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
@@ -114,6 +116,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
     <Compile Include="Assets\Entity\Projectile\Scripts\ProjectileMove.cs" />
+    <Compile Include="Assets\Entity\Uhits\Scripts\CommandsState.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -15,7 +15,7 @@ namespace RTS
         public float Duration(float speed) => speed / Distance();
     }
 
-    public class ProjectileMove : MonoBehaviour
+    public class ProjectileMove : MonoBehaviour // Projectile movement to a point
     {
         [SerializeField] private float speed;
         private ProjectileTransform projTr;

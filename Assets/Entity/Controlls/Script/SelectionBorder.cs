@@ -75,7 +75,7 @@ namespace RTS
             float halfz = Mathf.Abs(pos1.z - pos2.z) / 2;
             Vector3 half = new Vector3(halfx, 20, halfz);
 
-            Collider[] hitColliders = Physics.OverlapBox(center, half, Quaternion.identity);// , 1 << 6
+            Collider[] hitColliders = Physics.OverlapBox(center, half, Quaternion.identity, 11111111 << 7);// , 1 << 6
             selectedUnits.AddUnits(hitColliders);
         }
     }

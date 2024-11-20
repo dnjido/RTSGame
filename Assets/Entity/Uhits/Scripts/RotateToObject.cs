@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace RTS
 {
-    public class RotateToObject
+    public class RotateToObject // Rotate object to target
     {
         public static Quaternion Rotate(Vector3 start, Vector3 end, Quaternion rotate, float speed)
         {

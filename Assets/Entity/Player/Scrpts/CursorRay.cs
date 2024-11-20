@@ -4,26 +4,28 @@ namespace RTS
 {
     public class CursorRay //The position of the cursor in the world.
     {
-        static RaycastHit hitInfo;
-
-        public static bool Ray() 
+        public static RaycastHit RayHit()  
         {
+            RaycastHit hitInfo;
             Ray rayOrigin = Camera.main.ScreenPointToRay(Input.mousePosition);
-            return Physics.Raycast(rayOrigin, out hitInfo, Mathf.Infinity);
+            Physics.Raycast(rayOrigin, out hitInfo, Mathf.Infinity);
+            return hitInfo;
         }
 
         public static Vector3 RayPoint()
         {
-            if (Ray())
-                return hitInfo.point;
-            else
+            RaycastHit hit = RayHit();
+            if(hit.point != null)
+                return hit.point;
+            else 
                 return Vector3.zero;
         }
 
         public static GameObject RayUnit()
         {
-            if (Ray())
-                return hitInfo.transform.gameObject;
+            RaycastHit hit = RayHit();
+            if (hit.transform != null)
+                return hit.transform.gameObject;
             else
                 return null;
         }

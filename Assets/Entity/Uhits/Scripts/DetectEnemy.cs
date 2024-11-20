@@ -5,7 +5,7 @@ namespace RTS
 {
     public class DetectEnemy : MonoBehaviour //Detection of the enemy within range.
     {
-        [SerializeField] private float range;
+        [field: SerializeField] public float range { get; private set; }
         [SerializeField] private Collider target;
         [SerializeField] private GameObject unit;
 
@@ -50,6 +50,12 @@ namespace RTS
         }
 
         public GameObject GetUnit() => unit;
+
+        public void SetTarget(GameObject u)
+        {
+            unit = u;
+            target = u.GetComponent<Collider>();
+        }
     }
 
     public class DetectLayers

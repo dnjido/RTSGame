@@ -22,6 +22,7 @@ namespace RTS
             foreach (Collider collider in col)
             {
                 Selection sel = collider.gameObject.GetComponent<Selection>();
+                //TeamNumber team = collider.gameObject.GetComponent<TeamNumber>();
                 if (sel)
                 {
                     sel.isSelected = true;
