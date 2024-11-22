@@ -1,14 +1,22 @@
 using System.Collections;
 using UnityEngine;
+using Zenject;
 
 namespace RTS
 {
     public class Attack : MonoBehaviour // Attack enemy
     {
         [SerializeField] private float rate, damage;
-        [SerializeField] private GameObject proj;
+        [SerializeField] private GameObject projectile;
         [SerializeField] private GameObject firePoint;
+        ProjectileFacade.Factory projectileFactory;
         private bool hasFire = true;
+
+        [Inject]
+        public void ProjectileFactory(ProjectileFacade.Factory f)
+        {
+            projectileFactory = f;
+        }
 
         // Update is called once per frame
         void Update()
@@ -19,12 +27,11 @@ namespace RTS
 
         private void Fire()
         {
-            GameObject p = Instantiate(proj, firePoint.transform.position, firePoint.transform.rotation);
-            ProjectileTransform tr = SetProjectile.Create(damage, 
-                GetComponent<DetectEnemy>().GetUnit(), 
+            ProjectileTransform tr = SetProjectile.Create(damage,
+                GetComponent<DetectEnemy>().GetUnit(),
                 firePoint.transform.position);
 
-            p.GetComponent<ProjectileMove>().StartMove(tr);
+            GameObject p = projectileFactory.Create(projectile, tr);
             hasFire = false;
         }
 

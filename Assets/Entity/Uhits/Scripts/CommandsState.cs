@@ -17,7 +17,7 @@ namespace RTS
         readonly NavMeshAgent agent;
         readonly Vector3 point;
 
-        public MoveState(NavMeshAgent a, Vector3 p)
+        public MoveState(NavMeshAgent a, Vector3 p) // Move command
         {
             agent = a;
             point = p;
@@ -30,7 +30,7 @@ namespace RTS
         }
     }
 
-    public class FollowState : IStart, IUpdate
+    public class FollowState : IStart, IUpdate // Follow command
     {
         public readonly NavMeshAgent agent;
         public readonly GameObject unit;
@@ -57,7 +57,7 @@ namespace RTS
         }
     }
 
-    public class AttackState : IStart, IUpdate
+    public class AttackState : IStart, IUpdate // Attack command
     {
         public readonly NavMeshAgent agent;
         public readonly GameObject unit;
@@ -101,7 +101,7 @@ namespace RTS
         }
     }
 
-    public class MoveAttackState : IStart, IUpdate
+    public class MoveAttackState : IStart, IUpdate // Attack while moving command
     {
         public readonly NavMeshAgent agent;
         public readonly Vector3 point;

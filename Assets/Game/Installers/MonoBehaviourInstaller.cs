@@ -8,5 +8,7 @@ public class MonoBehaviourInstaller : MonoInstaller
     {
         Container.Bind<DetectEnemy>().FromComponentInHierarchy().AsTransient();
         Container.Bind<RotateBody>().FromComponentInHierarchy().AsTransient();
+        //Container.Bind<DetectEnemy>().To<UnitMovement>().AsTransient();
+        //Container.Bind<Bullet>().WithId("ServiceB");
     }
 }
