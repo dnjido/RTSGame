@@ -30,6 +30,8 @@ public class Timer
 
     public void SetPause(bool p) => pause = p;
 
+    public bool GetPause() => pause;
+
     public float GetTimeLeft() => timeLeft;
 
     public void Timeout()

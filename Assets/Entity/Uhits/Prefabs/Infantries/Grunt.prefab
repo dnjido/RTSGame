@@ -482,7 +482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9e15580dee7a9542ba55e0d6722931e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildTime: 0
+  buildTime: 2
 --- !u!114 &3527236495079419573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -538,7 +538,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd0dfb3e85b566641864bdfb0724e194, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <range>k__BackingField: 0
+  <range>k__BackingField: 10
   target: {fileID: 0}
   unit: {fileID: 0}
 --- !u!114 &1938849721309117139
@@ -567,7 +567,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rate: 0.5
   damage: 3
-  projectile: {fileID: 0}
+  projectile: {fileID: 483396936959846643, guid: ad8b874c7cfa370489b66c2ea6b83611, type: 3}
   firePoint: {fileID: 8749230303869074707}
 --- !u!114 &7442462877519038010
 MonoBehaviour:

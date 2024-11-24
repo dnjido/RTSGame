@@ -17,5 +17,8 @@ namespace RTS
 
         public void Ñountdown() =>
             progressBar.GetComponent<Image>().fillAmount = Mathf.InverseLerp(0, timer.duration, timer.GetTimeLeft());
+        
+        public void Set(float c) =>
+            progressBar.GetComponent<Image>().fillAmount = c;
     }
 }
