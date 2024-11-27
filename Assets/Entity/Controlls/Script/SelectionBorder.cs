@@ -25,7 +25,7 @@ namespace RTS
 
         void Start()
         {
-            if (!selectionBox) return;
+            //if (!selectionBox) return;
 
             rectTransform = selectionBox.GetComponent<RectTransform>();
             positions = new BorderPos();
@@ -34,8 +34,6 @@ namespace RTS
         // Update is called once per frame
         void Update()
         {
-            if (!selectionBox) return;
-
             if (Input.GetMouseButtonDown(0)) StartSelection();
             if (isSelecting) Selecting();
             if (Input.GetMouseButtonUp(0)) StopSelection();
@@ -43,6 +41,8 @@ namespace RTS
 
         private void StartSelection()
         {
+            if (CursorOnUI.CursorOverUI()) return;
+
             selectedUnits.ClearUnits();
             isSelecting = true;
             startMousePosition = CursorPosition.LocalPos(cam, canvas);

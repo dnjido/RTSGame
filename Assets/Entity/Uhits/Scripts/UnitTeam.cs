@@ -2,45 +2,38 @@ using UnityEngine;
 
 namespace RTS
 {
-    public struct TeamNumber
-    {
-        public int team;
-        public int status;
-        public Material color;
-    }
 
     public class UnitTeam : MonoBehaviour
     {
-        //[SerializeField] private int _team { 
-        //    get => team.team;
-        //    set 
-        //    {
-        //        team.team = value;
-        //        SetStatus();
-        //    }
-        //}
         [SerializeField] private int _team;
-        public TeamNumber team;
-        public TeamColors color;
+        public int team { get => _team;
+            private set { ChangeTeam(); _team = value; }
+        }
+        public TeamColors teamColor;
 
-        void Start() => ChangeTeam();
+        public Material color;
+        public int status;
 
-        //private void OnValidate() { if () ChangeTeam(); } 
+        void Start() => SetTeam(_team);
+
+        public void SetTeam(int t) => team = t;
+
         void OnValidate() => ValidateColor();
 
         public void ChangeTeam()
         {
-            team = new TeamNumber();
-            team.team = _team;
-            team.color = color.materials[team.team - 1];
+            color = teamColor.materials[team - 1];
             SetStatus();
         }
 
         public void SetStatus()
         {
-            gameObject.layer = 6 + team.team;
-            team.status = 6 + team.team;
+            gameObject.layer = 6 + team;
+            status = 6 + team;
             SetColor();
+
+            if (GetComponent<DetectEnemy>() == null) return;
+            GetComponent<DetectEnemy>().layer = DetectLayers.Layers(this);
         }
 
         private void SetColor()
@@ -50,7 +43,7 @@ namespace RTS
             ColorfulParts part = GetComponent<ColorfulParts>();
             foreach (GameObject parts in part.parts)
             {
-                parts.GetComponent<Renderer>().material = team.color;
+                parts.GetComponent<Renderer>().material = color;
             }
         }
 
@@ -61,7 +54,7 @@ namespace RTS
             ColorfulParts part = GetComponent<ColorfulParts>();
             foreach (GameObject parts in part.parts)
             {
-                parts.GetComponent<Renderer>().material = color.materials[_team - 1];
+                parts.GetComponent<Renderer>().material = teamColor.materials[_team - 1];
             }
         }
     }

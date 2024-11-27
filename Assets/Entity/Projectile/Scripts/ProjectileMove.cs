@@ -1,7 +1,5 @@
 using DG.Tweening;
-using Unity.VisualScripting;
 using UnityEngine;
-using Zenject;
 
 namespace RTS 
 {
@@ -10,7 +8,6 @@ namespace RTS
         [SerializeField] private float speed;
         private ProjectileTransform projTr;
 
-        //[Inject]
         public void StartMove(ProjectileTransform pt)
         {
             projTr = pt;

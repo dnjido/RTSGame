@@ -13,6 +13,7 @@ namespace RTS
         public Vector3 spawnPoint;
         public Quaternion rotate;
         public GameObject target;
+        public int team;
     }
 
     public class UnitFacade : MonoBehaviour, IUnitConstruct
@@ -26,6 +27,7 @@ namespace RTS
             transform.position = unitTr.spawnPoint;
             transform.rotation = unitTr.rotate;
             //transform.LookAt(unitTr.end);
+            GetComponent<UnitTeam>().SetTeam(unitTr.team);
         }
 
         public float GetBuildTime() => buildTime;
@@ -37,11 +39,12 @@ namespace RTS
 
     public class SetUnit
     {
-        public static UnitTransform Create(Vector3 point, Quaternion rotate)
+        public static UnitTransform Create(Vector3 point, Quaternion rotate, int t)
         {
             UnitTransform tr = new UnitTransform();
             tr.spawnPoint = point;
             tr.rotate = rotate;
+            tr.team = t;
             return tr;
         }
     }

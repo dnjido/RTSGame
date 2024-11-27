@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
+using Zenject;
 
 namespace RTS
 {
-    public class BuildCommand : MonoBehaviour
+    public class BuildCommand : MonoBehaviour //Buttons responsible for unit production.
     {
         private BuildUnit builder;
         private int ID;
@@ -11,17 +13,32 @@ namespace RTS
         {
             builder = b;
             ID = id;
+            Recovery();
 
-            builder.GetQueue().BuildStartEvent += StartBuild;
-            builder.GetQueue().BuildAddEvent += ChangeCount;
-            builder.GetQueue().BuildEndEvent += Clear;
-            builder.GetQueue().BuildRemoveEvent += Clear;
+            builder.queue.BuildStartEvent += StartBuild;
+            builder.queue.BuildAddEvent += ChangeCount;
+            builder.queue.BuildEndEvent += Clear;
+            builder.queue.BuildRemoveEvent += Clear;
         }
 
         public void Command()
         {
             builder.StartQueue(ID);
             GetComponent<ButtonProgressBar>()?.Set(1);
+        }
+
+        private void Recovery()
+        {
+            GameObject unit = builder.GetUnit(ID);
+            int count = builder.queue.QueueCount(unit);
+            if (count == 0) return;
+
+            if(unit == builder.queue.currentUnit) 
+                GetComponent<ButtonProgressBar>()?.Recovery(builder?.queue?.timer);
+            else
+                GetComponent<ButtonProgressBar>()?.Set(1);
+
+            GetComponent<ButtonCounter>()?.SetCount(count);
         }
 
         private void StartBuild(Timer t, GameObject unit)
@@ -34,13 +51,13 @@ namespace RTS
         {
             if(unit != builder.GetUnit(ID)) return;
 
-            GetComponent<ButtonCounter>().SetCount(builder.GetQueueCount(unit)); 
+            GetComponent<ButtonCounter>().SetCount(builder.queue.QueueCount(unit)); 
             GetComponent<ButtonProgressBar>().Set(1);
         }
 
         private void Clear(GameObject unit)
         {
-            int count = builder.GetQueueCount(unit);
+            int count = builder.queue.QueueCount(unit);
             if (unit != builder.GetUnit(ID) && unit != null) return;
                 GetComponent<ButtonCounter>().SetCount(count);
 
@@ -51,7 +68,15 @@ namespace RTS
         public void RightClick()
         {
             builder.Undo(ID);
-        } 
+        }
+
+        public void OnDestroy()
+        {
+            builder.queue.BuildStartEvent -= StartBuild;
+            builder.queue.BuildAddEvent -= ChangeCount;
+            builder.queue.BuildEndEvent -= Clear;
+            builder.queue.BuildRemoveEvent -= Clear;
+        }
     }
 }
 

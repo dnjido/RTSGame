@@ -21,7 +21,7 @@ namespace RTS
         public BuilderStateIdle(BuildQueue q, BuildCommandsStruct s) : base(q, s) { }
 
         public override void Start() =>
-            queue.BuildAdd(str.unit, str.time);
+            queue?.BuildAdd(str.unit, str.time);
 
         public override void Undo() { }
     }
@@ -31,10 +31,10 @@ namespace RTS
         public BuilderStateProcess(BuildQueue q, BuildCommandsStruct s) : base(q, s) { }
 
         public override void Start() =>
-            queue.BuildAdd(str.unit, str.time);
+            queue?.BuildAdd(str.unit, str.time);
 
         public override void Undo() =>
-            queue?.timer?.SetPause(true);
+            queue.timer.pause = true;
     }
     
     public class BuilderStatePause : BuilderStates
@@ -42,9 +42,9 @@ namespace RTS
         public BuilderStatePause(BuildQueue q, BuildCommandsStruct s) : base(q, s) { }
 
         public override void Start() =>
-            queue?.timer?.SetPause(false);
+            queue.timer.pause = false;
 
         public override void Undo() =>
-            queue.BuildRemove(str);
+            queue?.BuildRemove(str);
     }
 }

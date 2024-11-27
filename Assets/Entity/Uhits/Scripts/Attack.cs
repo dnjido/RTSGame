@@ -8,29 +8,32 @@ namespace RTS
     {
         [SerializeField] private float rate, damage;
         [SerializeField] private GameObject projectile;
-        [SerializeField] private GameObject firePoint;
+        [SerializeField] private Transform firePoint;
         ProjectileFacade.Factory projectileFactory;
         private bool hasFire = true;
+        private GameObject target;
 
         [Inject]
-        public void ProjectileFactory(ProjectileFacade.Factory f)
-        {
+        public void ProjectileFactory(ProjectileFacade.Factory f) =>
             projectileFactory = f;
-        }
 
-        // Update is called once per frame
+        void Start() =>
+            GetComponent<DetectEnemy>().TargetEvent += SetTarget;
+
+        void OnDestroy() =>
+            GetComponent<DetectEnemy>().TargetEvent -= SetTarget;
+
         void Update()
         {
-            if (hasFire && GetComponent<DetectEnemy>()?.GetUnit())
+            if (hasFire && target)
                 StartCoroutine(FireCoroutine());
         }
 
+        private void SetTarget(GameObject u) => target = u;
+
         private void Fire()
         {
-            ProjectileTransform tr = SetProjectile.Create(damage,
-                GetComponent<DetectEnemy>().GetUnit(),
-                firePoint.transform.position);
-
+            ProjectileTransform tr = SetProjectile.Create(damage, target, transform.position);
             GameObject p = projectileFactory.Create(projectile, tr);
             hasFire = false;
         }

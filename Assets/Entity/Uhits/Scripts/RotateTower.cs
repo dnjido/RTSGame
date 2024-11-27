@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 namespace RTS
 {
@@ -7,19 +8,26 @@ namespace RTS
         [SerializeField] private float speed;
         [SerializeField] private GameObject tower;
         private Quaternion initRot;
+        private GameObject target;
 
         void Start()
         {
-            initRot = tower.transform.localRotation;
+            initRot = tower.transform.localRotation; 
+            GetComponent<DetectEnemy>().TargetEvent += SetTarget;
         }
+
+        void OnDestroy() =>
+            GetComponent<DetectEnemy>().TargetEvent -= SetTarget;
 
         void Update() => Rotating();
 
+        private void SetTarget(GameObject u) => target = u;
+
         public void Rotating()
         {
-            if (!GetComponent<DetectEnemy>()?.GetUnit()) { Return(); return; }
+            if (!target) { Return(); return; }
 
-            GameObject unit = GetComponent<DetectEnemy>()?.GetUnit();
+            GameObject unit = target;
 
             tower.transform.rotation = RotateToObject.Rotate(unit.transform.position, tower.transform.position, tower.transform.rotation, speed);
         }

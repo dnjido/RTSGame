@@ -1,13 +1,12 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace RTS
 {
     public class ButtonCounter : MonoBehaviour
     {
         [SerializeField] private GameObject counter, panel;
-        private int count;
+        public int count;
 
         private void Start() =>
             SetAlpha();
@@ -18,8 +17,6 @@ namespace RTS
             counter.GetComponent<TMP_Text>().text = count.ToString();
             SetAlpha();
         }
-
-        public int GetCount() => count;
 
         public void SetAlpha() =>
             panel.GetComponent<CanvasGroup>().alpha = count > 0 ? 1 : 0;

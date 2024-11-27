@@ -1,7 +1,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Drawing;
+using System;
 
 namespace RTS
 {
@@ -22,10 +22,12 @@ namespace RTS
         }
     }
 
-    public class BuildQueue
+    public class BuildQueue // Build queue
     {
         List<BuildCommandsStruct> build = new List<BuildCommandsStruct>();
-        public Timer timer;
+        public Timer timer { get; private set; }
+
+        public GameObject currentUnit => build[0].unit;
 
         public delegate void StartDelegate(Timer timer, GameObject unit);
         public event StartDelegate BuildStartEvent;
@@ -49,7 +51,7 @@ namespace RTS
             GameObject last = LastUnit(build[0].unit);
             build.RemoveAt(0);
 
-            if (build.Count > 0) BuildStart(); 
+            if (build.Count > 0) BuildStart();
             else timer = null;
 
             BuildEndEvent?.Invoke(last);
@@ -79,7 +81,7 @@ namespace RTS
 
             if (build.Count <= 0) timer = null;
             else { BuildStart(); 
-                timer.SetPause(true); }
+                timer.pause = true; }
 
             BuildRemoveEvent?.Invoke(LastUnit(c.unit));
         }
@@ -89,5 +91,7 @@ namespace RTS
 
         public GameObject LastUnit(GameObject unit) =>
             build.Count > 0 ? unit : null;
+
+        //public GameObject CurrentUnit() => build[0].unit;
     }
 }

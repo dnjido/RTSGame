@@ -6,17 +6,27 @@ namespace RTS
     public class DetectEnemy : MonoBehaviour //Detection of the enemy within range.
     {
         [field: SerializeField] public float range { get; private set; }
-        [SerializeField] private Collider target;
-        [SerializeField] private GameObject unit;
+        private Collider target;
+        public int layer;
+
+        private GameObject _unit;
+        private GameObject unit { get => _unit;
+            set {
+                _unit = value;
+                TargetEvent?.Invoke(value);} 
+        }
+
+        public delegate void TargetDelegate(GameObject u);
+        public event TargetDelegate TargetEvent;
 
         void Update() => Check();
 
         private void Check()
         {
             Collider[] hitColliders = Physics.OverlapCapsule(transform.position, 
-                transform.position, range, 
-                DetectLayers.Layers(GetComponent<UnitTeam>()));
+                transform.position, range, layer);
 
+            
             if (hitColliders.Length == 0 && target) { Clear(); return; }
 
             if (hitColliders.Length == 0) return;
@@ -60,10 +70,10 @@ namespace RTS
 
     public class DetectLayers
     {
-        public static int Layers(UnitTeam team)
+        public static int Layers(UnitTeam tm)
         {
             int l = 11111111 << 7;
-            int t = 1 << 6 + team.team.team;
+            int t = 1 << 6 + tm.team;
             t = ~t;
             return l & t;
         }

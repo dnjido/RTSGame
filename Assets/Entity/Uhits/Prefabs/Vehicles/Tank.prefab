@@ -533,6 +533,37 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!1 &1179747423678242075
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5097289701495981104}
+  m_Layer: 0
+  m_Name: BarPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5097289701495981104
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1179747423678242075}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 3, z: -0.5}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7931592220866867305}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1487227320454070435
 GameObject:
   m_ObjectHideFlags: 0
@@ -1942,7 +1973,7 @@ Transform:
   m_GameObject: {fileID: 6907143448070082300}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.056156974, w: 0.998422}
-  m_LocalPosition: {x: 0.4409, y: -0, z: 0}
+  m_LocalPosition: {x: 0.441, y: 0.03, z: -0}
   m_LocalScale: {x: 0.25, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2230,6 +2261,7 @@ GameObject:
   - component: {fileID: 8586478196264530092}
   - component: {fileID: 4425032795919837680}
   - component: {fileID: 1270421364333849810}
+  - component: {fileID: 2602091116069572837}
   m_Layer: 7
   m_Name: Tank
   m_TagString: Unit
@@ -2255,6 +2287,7 @@ Transform:
   - {fileID: 3859402770791593932}
   - {fileID: 8214804006696760655}
   - {fileID: 8997557715195287742}
+  - {fileID: 5097289701495981104}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &987920180347182144
@@ -2292,9 +2325,9 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 5
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 0
+  m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 0
@@ -2349,8 +2382,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasMove: 1
   speed: 5
-  rangeStop: 0
-  rangeAttack: 0
+  rangeStop: 10
+  rangeAttack: 10
 --- !u!114 &1520904896261252758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2377,8 +2410,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <range>k__BackingField: 10
-  target: {fileID: 0}
-  unit: {fileID: 0}
+  layer: 0
 --- !u!114 &1818135356738668414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2392,7 +2424,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _team: 1
-  color: {fileID: 11400000, guid: 119ae537ca48130449b641f84f379918, type: 2}
+  teamColor: {fileID: 11400000, guid: 119ae537ca48130449b641f84f379918, type: 2}
+  color: {fileID: 0}
+  status: 0
 --- !u!114 &668850522247469136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2422,7 +2456,7 @@ MonoBehaviour:
   rate: 2
   damage: 10
   projectile: {fileID: 483396936959846643, guid: 58f9bcbd2bf4b3c4887ebedafb3c2bb4, type: 3}
-  firePoint: {fileID: 3865013757120192768}
+  firePoint: {fileID: 2281755699667100520}
 --- !u!114 &4425032795919837680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2456,6 +2490,21 @@ MonoBehaviour:
   - {fileID: 1946067767001182900}
   - {fileID: 941187063743810319}
   - {fileID: 124735952977805554}
+--- !u!114 &2602091116069572837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7577197719430435339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 894da75e58d4ac24b9bafe520bac0a53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 9157667814318108553, guid: b295b687240ab034fb5ae92ae334d8e5, type: 3}
+  parent: {fileID: 1179747423678242075}
+  UI: {fileID: 0}
 --- !u!1 &7616492720146028709
 GameObject:
   m_ObjectHideFlags: 0

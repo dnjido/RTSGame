@@ -30,7 +30,9 @@ namespace RTS
 
         public void MoveTo()
         {
-            if (selectedUnits.selected.units.Length <= 0) return;
+            if (CursorOnUI.CursorOverUI()) return;
+            if (selectedUnits?.selected.units.Length <= 0) return;
+
             foreach (GameObject unit in selectedUnits.selected.units)
             {
                 if(unit != null) SetTarget(unit);

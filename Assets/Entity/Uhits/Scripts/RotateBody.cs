@@ -11,23 +11,28 @@ namespace RTS
 
     public class RotateBody : MonoBehaviour, IRotate
     {
-        //[SerializeField] private float speed;
-        //private Quaternion initRot;
         private float initAngularSpeed;
         private NavMeshAgent agent;
+        private GameObject target;
 
         void Start()
         {
             agent = GetComponent<NavMeshAgent>();
             initAngularSpeed = agent.angularSpeed;
+            GetComponent<DetectEnemy>().TargetEvent += SetTarget;
         }
+
+        void OnDestroy() =>
+            GetComponent<DetectEnemy>().TargetEvent -= SetTarget;
 
         void Update() => Rotating();
 
+        private void SetTarget(GameObject u) => target = u;
+
         public void Rotating()
         {
-            if (!GetComponent<DetectEnemy>()?.GetUnit()) { Return(); return; }
-            GameObject unit = GetComponent<DetectEnemy>()?.GetUnit();
+            if (!target) { Return(); return; }
+            GameObject unit = target;
 
             agent.angularSpeed = 0;
 

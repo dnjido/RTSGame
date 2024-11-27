@@ -17,8 +17,13 @@ namespace RTS
             {
                 _isSelected = value;
                 circle.SetActive(value);
+                SelectedEvent?.Invoke(value);
             }
         }
+
+        public delegate void SelectedDelegate(bool select);
+        public event SelectedDelegate SelectedEvent;
+
         private bool _isSelected;
     }
 }

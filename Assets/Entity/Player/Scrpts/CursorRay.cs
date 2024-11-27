@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace RTS
 {
@@ -28,6 +30,20 @@ namespace RTS
                 return hit.transform.gameObject;
             else
                 return null;
+        }
+    }
+
+    public class CursorOnUI
+    {
+        public static bool CursorOverUI()
+        {
+            PointerEventData pointerData = new PointerEventData(EventSystem.current)
+            {
+                position = Input.mousePosition
+            };
+            List<RaycastResult> results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(pointerData, results);
+            return results.Count > 0;
         }
     }
 }

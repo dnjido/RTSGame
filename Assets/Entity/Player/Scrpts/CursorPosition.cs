@@ -14,5 +14,15 @@ namespace RTS
                 out loc);
             return loc;
         }
+        public static Vector2 Pos(Camera cam, Canvas can, Vector3 pos)
+        {
+            Vector2 loc;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                can.GetComponent<RectTransform>(),
+                pos,
+                cam,
+                out loc);
+            return loc;
+        }
     }
 }

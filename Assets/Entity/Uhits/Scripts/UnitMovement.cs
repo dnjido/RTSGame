@@ -40,7 +40,7 @@ namespace RTS
 
         private float GetDistance() => Vector3.Distance(transform.position, moveStruct.unit.transform.position);
 
-        private void SetPoint(Vector3 p)
+        public void SetPoint(Vector3 p)
         {
             moveStruct.unit = null;
             moveStruct.enemy = false;
@@ -58,7 +58,7 @@ namespace RTS
         private void SetUnit(GameObject u)
         {
             moveStruct.unit = u;
-            moveStruct.enemy = u.GetComponent<UnitTeam>().team.team != 1;
+            moveStruct.enemy = u.GetComponent<UnitTeam>().team != 1;
 
             if(!moveStruct.enemy)
                 updater = new FollowState(agent, moveStruct.unit);
