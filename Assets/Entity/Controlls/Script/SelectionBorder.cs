@@ -19,6 +19,7 @@ namespace RTS
         [SerializeField] private Camera cam;
         private BorderPos positions;
         private SelectedUnits selectedUnits;
+        public bool canSelection = true;
 
         [Inject]
         public void Construct(SelectedUnits su) => selectedUnits = su;
@@ -34,6 +35,7 @@ namespace RTS
         // Update is called once per frame
         void Update()
         {
+            if (!canSelection) return;
             if (Input.GetMouseButtonDown(0)) StartSelection();
             if (isSelecting) Selecting();
             if (Input.GetMouseButtonUp(0)) StopSelection();

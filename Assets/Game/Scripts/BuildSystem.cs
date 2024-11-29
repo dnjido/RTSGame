@@ -27,7 +27,7 @@ namespace RTS
         List<BuildCommandsStruct> build = new List<BuildCommandsStruct>();
         public Timer timer { get; private set; }
 
-        public GameObject currentUnit => build[0].unit;
+        public GameObject currentUnit => build.Count > 0 ? build[0].unit : null;
 
         public delegate void StartDelegate(Timer timer, GameObject unit);
         public event StartDelegate BuildStartEvent;
@@ -86,12 +86,16 @@ namespace RTS
             BuildRemoveEvent?.Invoke(LastUnit(c.unit));
         }
 
+        public void Remove(BuildCommandsStruct c)
+        {
+            build.Remove(c);
+            BuildRemoveEvent?.Invoke(c.unit);
+        }
+
         public int QueueCount(GameObject unit) => 
             build.Count(x => x.unit == unit);
 
         public GameObject LastUnit(GameObject unit) =>
             build.Count > 0 ? unit : null;
-
-        //public GameObject CurrentUnit() => build[0].unit;
     }
 }

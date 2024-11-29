@@ -8,6 +8,7 @@ namespace RTS
         {
             Container.Bind<SelectedUnits>().AsSingle();
             Container.Bind<MoveCommand>().AsSingle();
+            Container.Bind<SelectionBorder>().FromComponentInHierarchy().AsSingle();
         }
     }
 }

@@ -6,7 +6,7 @@ namespace RTS
 {
     public struct UnitButtonStruct
     {
-        public int count;
+        public int id;
         public BuildUnit builder;
         public Transform parent;
     }
@@ -16,7 +16,7 @@ namespace RTS
         static public UnitButtonStruct Make(int id, BuildUnit b, Transform p)
         {
             UnitButtonStruct str = new UnitButtonStruct();
-            str.count = id;
+            str.id = id;
             str.builder = b;
             str.parent = p;
             return str;
@@ -34,7 +34,7 @@ namespace RTS
         }
 
 
-        public class Factory : PlaceholderFactory<GameObject, UnitButtonStruct, GameObject[]>
+        public class Factory : PlaceholderFactory<GameObject, UnitButtonStruct, GameObject>
         {
         }
     }

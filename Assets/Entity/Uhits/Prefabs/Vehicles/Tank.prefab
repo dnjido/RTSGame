@@ -2397,6 +2397,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   circle: {fileID: 7223126914390480705}
+  hasSelecting: 1
 --- !u!114 &5302891501017340911
 MonoBehaviour:
   m_ObjectHideFlags: 0

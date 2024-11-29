@@ -7,13 +7,15 @@ namespace RTS
     public class BuildUnit : MonoBehaviour  // Produces units that are in the queue.
     {
         [field: SerializeField] public GameObject ButtonPrefab { get; private set; }
-        [field: SerializeField] public Transform Parent { get; private set; }
+        public Transform panel { get; private set; }
+
         [SerializeField] private Transform point, movePoint;
         [SerializeField] private GameObject[] unitsList;
 
         private UnitFacade.Factory unitFactory;
         public BuildQueue queue { get; private set; }
-        ButtonSpawner buttons;
+        public Timer timer => queue.timer;
+        protected ButtonSpawner buttons;
 
         public int countList => unitsList.Length;
 
@@ -24,17 +26,21 @@ namespace RTS
         }
 
         [Inject]
+        public void ButtonPanel(SidePanel p) =>
+            panel = p.transform;
+
+        [Inject]
         public void UnitFactory(UnitFacade.Factory f) =>
             unitFactory = f;
 
         [Inject]
-        public void UnitButtonFactory(ButtonFacade.Factory f) =>
+        public void ButtonFactory(ButtonFacade.Factory f) =>
             buttons = new ButtonSpawner(f, this);
 
         private void Start()
         {
             queue = new BuildQueue();
-            queue.BuildSpawnEvent += Spawn;
+            queue.BuildSpawnEvent += Complete;
             GetComponent<Selection>().SelectedEvent += Selected;
         }
 
@@ -49,6 +55,15 @@ namespace RTS
 
         public void Undo(int id) =>
             SelectClass(id)?.Undo();
+
+        public void Remove(int id) 
+        {
+            BuildCommandsStruct str = MakeBuildStruct.Make(unitsList[id], BuildTime(id));
+            queue?.Remove(str);
+        }
+
+        public void Add(int id) =>
+            queue?.BuildAdd(unitsList[id], BuildTime(id));
 
         public GameObject GetUnit(int id) => unitsList[id];
 
@@ -73,17 +88,25 @@ namespace RTS
                 movePoint.transform.position = CursorRay.RayPoint();
         }
 
-        private void Spawn(GameObject unit) => StartCoroutine(SpawnCoroutine(unit));
+        protected virtual void Complete(GameObject unit)
+        {
+            GameObject u = Spawn(unit);
+            StartCoroutine(MoveToPoint(u));
+        }
 
-        IEnumerator SpawnCoroutine(GameObject unit)
+        protected GameObject Spawn(GameObject unit)
         {
             UnitTransform tr = SetUnit.Create(
                 point.position,
                 transform.rotation,
                 GetComponent<UnitTeam>().team);
-            GameObject u = unitFactory.Create(unit, tr);
+            return unitFactory.Create(unit, tr);
+        }
+
+        private IEnumerator MoveToPoint(GameObject unit)
+        {
             yield return new WaitForSeconds(Time.deltaTime);
-            u.GetComponentInChildren<UnitMovement>().SetPoint(movePoint.position);
+            unit.GetComponentInChildren<UnitMovement>().SetPoint(movePoint.position);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace RTS
         {
             Container.BindFactory<GameObject, ProjectileTransform, GameObject, ProjectileFacade.Factory>().FromFactory<ProjectileFactory>();
             Container.BindFactory<GameObject, UnitTransform, GameObject, UnitFacade.Factory>().FromFactory<UnitFactory>();
-            Container.BindFactory<GameObject, UnitButtonStruct, GameObject[], ButtonFacade.Factory>().FromFactory<UnitButtonFactory>();
+            Container.BindFactory<GameObject, UnitButtonStruct, GameObject, ButtonFacade.Factory>().FromFactory<UnitButtonFactory>();
         }
     }
 }

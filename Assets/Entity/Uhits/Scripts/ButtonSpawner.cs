@@ -1,6 +1,4 @@
-using RTS;
 using UnityEngine;
-
 
 namespace RTS
 {
@@ -9,14 +7,12 @@ namespace RTS
         private bool created;
         private readonly BuildUnit builder;
         private readonly ButtonFacade.Factory buttonFactory;
-        private readonly int count;
 
 
         public ButtonSpawner(ButtonFacade.Factory f, BuildUnit b)
         {
             buttonFactory = f;
             builder = b;
-            count = builder.countList;
         }
 
 
@@ -30,9 +26,10 @@ namespace RTS
         {
             if (created) return;
 
-            buttonFactory.Create(
-                builder.ButtonPrefab,
-                MakeUnitButtonStruct.Make(count, builder, builder.Parent));
+            for (int i = 0; i < builder.countList; i++)
+                buttonFactory.Create(
+                    builder.ButtonPrefab,
+                    MakeUnitButtonStruct.Make(i, builder, builder.panel));
 
             created = true;
         }
@@ -41,7 +38,7 @@ namespace RTS
         {
             if (!created) return;
 
-            foreach (Transform child in builder.Parent.transform)
+            foreach (Transform child in builder.panel)
                 child.gameObject.GetComponent<ButtonFacade>().Dispose();
             created = false;
         }
