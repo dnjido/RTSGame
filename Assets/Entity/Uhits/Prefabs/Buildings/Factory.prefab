@@ -1779,6 +1779,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildTime: 5
+  unitType:
+  - Building
 --- !u!114 &4993191107624571780
 MonoBehaviour:
   m_ObjectHideFlags: 0

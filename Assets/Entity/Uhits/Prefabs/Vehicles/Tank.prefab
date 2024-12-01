@@ -2346,6 +2346,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildTime: 5
+  unitType:
+  - Vehicle
 --- !u!114 &5195961645230550696
 MonoBehaviour:
   m_ObjectHideFlags: 0

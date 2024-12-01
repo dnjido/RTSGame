@@ -72,16 +72,6 @@ namespace RTS
                 GetComponent<ButtonCounter>().SetCount(count);
         }
 
-        //private void Clear(GameObject u)
-        //{
-        //    int count = builder.queue.QueueCount(u);
-        //    if (u != unit && u != null) return;
-        //        GetComponent<ButtonCounter>().SetCount(count);
-        //
-        //    if (u == unit && count <= 0) return;
-        //        GetComponent<ButtonProgressBar>()?.Set(count > 0 ? 1 : 0);
-        //}
-
         public void RightClick()
         {
             if (builder.queue.QueueCount(unit) == 0) return;

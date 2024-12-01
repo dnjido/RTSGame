@@ -1,17 +1,16 @@
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace RTS
 {
-    public interface IStart { void Start(); }
+    public interface IState { 
+        void Start();
+        void Update();
+        void End();
+    }
 
-    public interface IUpdate { void Update(); }
-
-    public interface IEnd { void End(); }
-
-    public class StayState { }
-
-    public class MoveState : IStart
+    public class MoveState : IState
     {
         readonly NavMeshAgent agent;
         readonly Vector3 point;
@@ -27,9 +26,16 @@ namespace RTS
         {
             agent.SetDestination(point);
         }
+
+        public void Update() { }
+
+        public void End()
+        {
+            agent.SetDestination(agent.transform.position);
+        }
     }
 
-    public class FollowState : IStart, IUpdate // Follow command
+    public class FollowState : IState // Follow command
     {
         public readonly NavMeshAgent agent;
         public readonly GameObject unit;
@@ -54,9 +60,14 @@ namespace RTS
             oldPos = unit.transform.position;
             Start();
         }
+
+        public void End()
+        {
+            agent.SetDestination(agent.transform.position);
+        }
     }
 
-    public class AttackState : IStart, IUpdate // Attack command
+    public class AttackState : IState // Attack command
     {
         public readonly NavMeshAgent agent;
         public readonly GameObject unit;
@@ -98,9 +109,14 @@ namespace RTS
             HasTarget = true;
             detector.SetTarget(unit);
         }
+
+        public void End()
+        {
+            agent.SetDestination(agent.transform.position);
+        }
     }
 
-    public class MoveAttackState : IStart, IUpdate // Attack while moving command
+    public class MoveAttackState : IState // Attack while moving command
     {
         public readonly NavMeshAgent agent;
         public readonly Vector3 point;
@@ -134,6 +150,93 @@ namespace RTS
         {
             hasTarget = true;
             agent.SetDestination(agent.gameObject.transform.position);
+        }
+
+        public void End()
+        {
+            agent.SetDestination(agent.transform.position);
+        }
+    }
+
+    public class MineState : IState
+    {
+        private readonly NavMeshAgent agent;
+        protected readonly GameObject harvester;
+        protected readonly GameObject target;
+        protected readonly Vector3 point;
+        protected readonly HarvestMovement move;
+        protected readonly OreMining mine;
+
+        protected bool busy;
+
+        public MineState(NavMeshAgent a, GameObject t, GameObject h) // Move command
+        {
+            agent = a;
+            target = t;
+            point = t.GetComponent<IHarvest>().point;
+            harvester = h;
+            mine = harvester.GetComponent<OreMining>();
+            move = harvester.GetComponent<HarvestMovement>();
+            Start();
+        }
+
+        public void Start()
+        {
+            agent.SetDestination(point);
+            agent.stoppingDistance = 0;
+        }
+
+        public virtual void Update()
+        {
+            if (DeployDist(1)) Deploy();
+
+            SetBusy(target.GetComponent<IHarvest>().currentHarvester && DeployDist(5));
+
+            if (mine.full) End();
+        }
+
+        public virtual void Deploy() =>
+            mine.Load(target);
+
+        public void SetBusy(bool b)
+        {
+            if (b == busy) return;
+
+            agent.stoppingDistance = !b ? 0 : 5;
+            agent.SetDestination(!b ? point : agent.transform.position);
+            busy = b;
+        }
+
+        public virtual void End()
+        {
+            target.GetComponent<IHarvest>().currentHarvester = null;
+            move.MoveTo(move.currentPlant);
+        }
+
+        protected bool DeployDist(float d) => 
+            Vector3.Distance(harvester.transform.position, point) <= d;
+    }
+
+    public class PlantState : MineState, IState
+    {
+        public PlantState(NavMeshAgent a, GameObject t, GameObject h) : base(a, t, h) { }
+
+        public override void Deploy() =>
+            mine.Unload(target);
+
+        public override void Update()
+        {
+            if (DeployDist(1)) Deploy();
+
+            SetBusy(target.GetComponent<IHarvest>().currentHarvester && DeployDist(5));
+
+            if (mine.empty) End();
+        }
+
+        public override void End()
+        {
+            target.GetComponent<IHarvest>().currentHarvester = null;
+            move.MoveTo(move.currentMine);
         }
     }
 }

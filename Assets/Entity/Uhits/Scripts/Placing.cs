@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections;
 using Zenject;
 
-public class Placing : MonoBehaviour
+public class Placing : MonoBehaviour // Placement of units on the map
 {
     private bool placing;
     private Vector3 start, half;
@@ -63,13 +63,13 @@ public class Placing : MonoBehaviour
 
     private bool CanPlace()
     {
-        bool place;
         start = gameObject.transform.position + GetComponent<BoxCollider>().center;
         Collider[] hitColliders = Physics.OverlapBox(start, half);// ,11111111 << 7 , ~(001 << 7)
         foreach (Collider collider in hitColliders)
         {
             if (collider.gameObject.tag == "Unit" && collider.gameObject != gameObject)
-                { placeMarker.color = Color.red; return false; }
+                { placeMarker.color = Color.red; 
+                return false; }
         }
 
         placeMarker.color = Color.green;

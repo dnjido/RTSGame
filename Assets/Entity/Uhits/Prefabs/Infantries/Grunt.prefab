@@ -516,6 +516,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildTime: 2
+  unitType:
+  - Infantries
 --- !u!114 &3527236495079419573
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,10 +8,6 @@ namespace RTS
         public Vector3 point;
         public GameObject unit;
         public bool enemy;
-        public Vector3 VectorSelector() => 
-            unit ? unit.transform.position : point;
-        public Vector3 IsEnemy(float distance, GameObject g) => 
-            enemy ? unit.transform.position - unit.transform.forward * distance : unit.transform.position;
     }
 
     public class UnitMovement : MonoBehaviour // Moving a unit to a point or to another unit.
@@ -19,11 +15,11 @@ namespace RTS
         public bool hasMove;
         [SerializeField] private float speed;
         [SerializeField] private float rangeStop, rangeAttack;
-        private NavMeshAgent agent;
-        private MoveStruct moveStruct;
-        IUpdate updater;
+        protected NavMeshAgent agent;
+        protected MoveStruct moveStruct;
+        protected IState updater;
 
-        void Start()
+        protected virtual void Start()
         {
             moveStruct = new MoveStruct();
             agent = GetComponent<NavMeshAgent>();
@@ -38,8 +34,6 @@ namespace RTS
             if (updater != null) updater.Update();
         }
 
-        private float GetDistance() => Vector3.Distance(transform.position, moveStruct.unit.transform.position);
-
         public void SetPoint(Vector3 p)
         {
             moveStruct.unit = null;
@@ -49,13 +43,10 @@ namespace RTS
             if (Input.GetKey("a")) 
                 updater = new MoveAttackState(agent, moveStruct.point, GetComponent<DetectEnemy>());
             else
-            {
-                updater = null;
-                new MoveState(agent, moveStruct.point);
-            }
+                updater = new MoveState(agent, moveStruct.point);
         }
 
-        private void SetUnit(GameObject u)
+        protected virtual void SetUnit(GameObject u)
         {
             moveStruct.unit = u;
             moveStruct.enemy = u.GetComponent<UnitTeam>().team != 1;

@@ -25,7 +25,7 @@ namespace RTS
 
         public static GameObject RayUnit()
         {
-            RaycastHit hit = RayHit(11111111 << 7);
+            RaycastHit hit = RayHit(111111111 << 6);
             if (hit.transform != null)
                 return hit.transform.gameObject;
             else

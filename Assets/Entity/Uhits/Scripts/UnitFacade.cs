@@ -19,6 +19,7 @@ namespace RTS
     public class UnitFacade : MonoBehaviour, IUnitConstruct
     {
         [SerializeField] private float buildTime;
+        [SerializeField] public string[] unitType;
         [SerializeField] private UnitTransform unitTr;
 
         public void Construct(UnitTransform ut)
