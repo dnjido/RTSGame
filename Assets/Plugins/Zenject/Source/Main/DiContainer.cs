@@ -2030,6 +2030,17 @@ namespace Zenject
                     Rotation = rotation
                 });
         }
+        
+        public GameObject InstantiatePrefab(
+            UnityEngine.Object prefab, Vector3 position, Quaternion rotation)
+        {
+            return InstantiatePrefab(
+                prefab, new GameObjectCreationParameters
+                {
+                    Position = position,
+                    Rotation = rotation
+                });
+        }
 
         // Create a new game object from a prefab and fill in dependencies for all children
         public GameObject InstantiatePrefab(
