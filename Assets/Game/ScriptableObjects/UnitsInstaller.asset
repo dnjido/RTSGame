@@ -1,0 +1,240 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9180c00efe8c4349b6cc44d5deb2ebe, type: 3}
+  m_Name: UnitsInstaller
+  m_EditorClassIdentifier: 
+  units:
+  - generalStats:
+      name: Grunt
+      buildTime: 2
+      cost: 5
+      energy: 0
+    attackStats:
+      damage: 3
+      range: 10
+      attackRate: 0.5
+      projectile: {fileID: 483396936959846643, guid: ad8b874c7cfa370489b66c2ea6b83611, type: 3}
+    healthStats:
+      health: 30
+      armor: 0
+    moveStats:
+      speed: 5
+      rotate: 3
+    buildStats:
+      buttons: {fileID: 0}
+      units: []
+      secondUnits: []
+    harvestingStats:
+      maxLoad: 0
+      grub: 0
+      delay: 0
+  - generalStats:
+      name: Harvester
+      buildTime: 5
+      cost: 40
+      energy: 0
+    attackStats:
+      damage: 3
+      range: 10
+      attackRate: 0.5
+      projectile: {fileID: 483396936959846643, guid: ad8b874c7cfa370489b66c2ea6b83611, type: 3}
+    healthStats:
+      health: 200
+      armor: 30
+    moveStats:
+      speed: 5
+      rotate: 3
+    buildStats:
+      buttons: {fileID: 0}
+      units: []
+      secondUnits: []
+    harvestingStats:
+      maxLoad: 100
+      grub: 5
+      delay: 0.5
+  - generalStats:
+      name: Tank
+      buildTime: 5
+      cost: 20
+      energy: 0
+    attackStats:
+      damage: 10
+      range: 10
+      attackRate: 2
+      projectile: {fileID: 483396936959846643, guid: 58f9bcbd2bf4b3c4887ebedafb3c2bb4, type: 3}
+    healthStats:
+      health: 100
+      armor: 10
+    moveStats:
+      speed: 5
+      rotate: 3
+    buildStats:
+      buttons: {fileID: 0}
+      units: []
+      secondUnits: []
+    harvestingStats:
+      maxLoad: 0
+      grub: 0
+      delay: 0
+  builds:
+  - generalStats:
+      name: Construction Yard
+      buildTime: 20
+      cost: 60
+      energy: 10
+    attackStats:
+      damage: 0
+      range: 0
+      attackRate: 0
+      projectile: {fileID: 0}
+    healthStats:
+      health: 500
+      armor: 20
+    moveStats:
+      speed: 0
+      rotate: 0
+    buildStats:
+      buttons: {fileID: 1694945996326168417, guid: 0d70bf881af38884982bfe1fdaa0d03c, type: 3}
+      units:
+      - {fileID: 8774239786412580442, guid: 22621a4affb7a0246912a358491d02f5, type: 3}
+      - {fileID: 8774239786412580442, guid: 74358f6f10b708d45b8d7856ff9c7620, type: 3}
+      - {fileID: 1322281611438512396, guid: e1f8f53bf9ae9374abab6a7e7a7ce964, type: 3}
+      - {fileID: 8774239786412580442, guid: 2bf8b3c9063ec274b8edb2b7f401f257, type: 3}
+      secondUnits:
+      - {fileID: 1322281611438512396, guid: 96f13fa15ddd85f43b4c7465b1376b18, type: 3}
+    harvestingStats:
+      maxLoad: 0
+      grub: 0
+      delay: 0
+  - generalStats:
+      name: Generator
+      buildTime: 5
+      cost: 20
+      energy: 20
+    attackStats:
+      damage: 0
+      range: 0
+      attackRate: 0
+      projectile: {fileID: 0}
+    healthStats:
+      health: 200
+      armor: 5
+    moveStats:
+      speed: 0
+      rotate: 0
+    buildStats:
+      buttons: {fileID: 0}
+      units: []
+      secondUnits: []
+    harvestingStats:
+      maxLoad: 0
+      grub: 0
+      delay: 0
+  - generalStats:
+      name: Plant
+      buildTime: 10
+      cost: 50
+      energy: -10
+    attackStats:
+      damage: 0
+      range: 0
+      attackRate: 0
+      projectile: {fileID: 0}
+    healthStats:
+      health: 300
+      armor: 10
+    moveStats:
+      speed: 0
+      rotate: 0
+    buildStats:
+      buttons: {fileID: 0}
+      units: []
+      secondUnits: []
+    harvestingStats:
+      maxLoad: 0
+      grub: 0
+      delay: 0
+  - generalStats:
+      name: Barrack
+      buildTime: 5
+      cost: 20
+      energy: -10
+    attackStats:
+      damage: 0
+      range: 0
+      attackRate: 0
+      projectile: {fileID: 0}
+    healthStats:
+      health: 200
+      armor: 5
+    moveStats:
+      speed: 0
+      rotate: 0
+    buildStats:
+      buttons: {fileID: 1694945996326168417, guid: 5ddcea38eb863a0439b5666f04fcade5, type: 3}
+      units:
+      - {fileID: 5307056716202305016, guid: 2ccca55940d8e20478c797473a3c7f1f, type: 3}
+      secondUnits: []
+    harvestingStats:
+      maxLoad: 0
+      grub: 0
+      delay: 0
+  - generalStats:
+      name: Factory
+      buildTime: 10
+      cost: 50
+      energy: -10
+    attackStats:
+      damage: 0
+      range: 0
+      attackRate: 0
+      projectile: {fileID: 0}
+    healthStats:
+      health: 300
+      armor: 10
+    moveStats:
+      speed: 0
+      rotate: 0
+    buildStats:
+      buttons: {fileID: 1694945996326168417, guid: 5ddcea38eb863a0439b5666f04fcade5, type: 3}
+      units:
+      - {fileID: 7577197719430435339, guid: 7745a385b71d60a4092db4f8323878cd, type: 3}
+      - {fileID: 7577197719430435339, guid: 8607b31b8dfbe4a448f4ad5c3457a8d0, type: 3}
+      secondUnits: []
+    harvestingStats:
+      maxLoad: 0
+      grub: 0
+      delay: 0
+  - generalStats:
+      name: Turret
+      buildTime: 5
+      cost: 20
+      energy: -10
+    attackStats:
+      damage: 5
+      range: 10
+      attackRate: 0.5
+      projectile: {fileID: 483396936959846643, guid: ad8b874c7cfa370489b66c2ea6b83611, type: 3}
+    healthStats:
+      health: 150
+      armor: 10
+    moveStats:
+      speed: 0
+      rotate: 0
+    buildStats:
+      buttons: {fileID: 1694945996326168417, guid: 5ddcea38eb863a0439b5666f04fcade5, type: 3}
+      units: []
+      secondUnits: []
+    harvestingStats:
+      maxLoad: 0
+      grub: 0
+      delay: 0

@@ -6,6 +6,7 @@ namespace RTS
     {
         [SerializeField] private float maxOre, countOre;
         [SerializeField] private GameObject harvestPoint;
+
         public bool empty { get; private set; }
         public GameObject currentHarvester { get; set; }
         public Vector3 point => harvestPoint.transform.position;
@@ -15,6 +16,8 @@ namespace RTS
             countOre = maxOre;
         }
 
+        public float GetOre() => countOre;
+
         private void Change(float c) =>
             countOre = Mathf.Clamp(countOre + c, 0, maxOre);
 
@@ -22,7 +25,11 @@ namespace RTS
         {
             if (empty || !currentHarvester) return;
             Change(-c);
-            if (countOre == 0) empty = true;
+            if (countOre <= 0) 
+            { 
+                empty = true;
+                currentHarvester = null;
+            }
         }
 
         public void Recovery(float c)
@@ -32,6 +39,18 @@ namespace RTS
             empty = false;
         }
 
-        public void SetHarvester(GameObject h) => currentHarvester = h;
+
+
+        public void SetHarvester(GameObject h)
+        {
+            currentHarvester = h;
+            currentHarvester.GetComponent<OreMining>().HarvestEvent += Give;
+        }
+
+        public void ClearHarvester()
+        {
+            currentHarvester.GetComponent<OreMining>().HarvestEvent -= Give;
+            currentHarvester = null;
+        }
     }
 }

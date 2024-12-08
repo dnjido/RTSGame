@@ -2587,7 +2587,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9e15580dee7a9542ba55e0d6722931e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildTime: 5
+  statsCategory: 0
+  ID: 1
+  buildTime: 0
+  cost: 0
   unitType:
   - Vehicle
   - Harvester
@@ -2623,10 +2626,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c2eb8f0760f9e34184a623e49318c6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
   hasMove: 1
-  speed: 5
-  rangeStop: 10
-  rangeAttack: 10
   currentMine: {fileID: 0}
   currentPlant: {fileID: 0}
 --- !u!114 &1520904896261252758
@@ -2655,7 +2656,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd0dfb3e85b566641864bdfb0724e194, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <range>k__BackingField: 10
+  range: 0
   layer: 0
 --- !u!114 &1818135356738668414
 MonoBehaviour:
@@ -2699,9 +2700,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc647eb23b14870419826720ddc67b8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rate: 0.5
-  damage: 4
-  projectile: {fileID: 483396936959846643, guid: ad8b874c7cfa370489b66c2ea6b83611, type: 3}
+  rate: 0
+  damage: 0
+  projectile: {fileID: 0}
   firePoint: {fileID: 2281755699667100520}
 --- !u!114 &4425032795919837680
 MonoBehaviour:
@@ -2715,9 +2716,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a8b000ec32cb7443b538133544b35ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 200
+  maxHealth: 0
+  armor: 0
   currentHealth: 0
-  armor: 30
 --- !u!114 &1270421364333849810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2748,10 +2749,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d621615b0d8c704fbe846179e33c2ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxLoad: 100
-  currentLoad: 0
+  maxLoad: 0
   oreCount: 0
-  loadDelay: 0.5
+  loadDelay: 0
+  currentLoad: 0
 --- !u!114 &2602091116069572837
 MonoBehaviour:
   m_ObjectHideFlags: 0

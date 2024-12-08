@@ -813,9 +813,11 @@ GameObject:
   - component: {fileID: 5311555412134609167}
   - component: {fileID: 3234308419122592620}
   - component: {fileID: 3652354955855539459}
+  - component: {fileID: 2303017914867003046}
   - component: {fileID: 7378839042823217336}
   - component: {fileID: 1853681772370947507}
   - component: {fileID: 5257853328073124182}
+  - component: {fileID: -2670228374930691606}
   m_Layer: 0
   m_Name: ConstructionYard
   m_TagString: Unit
@@ -884,7 +886,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9e15580dee7a9542ba55e0d6722931e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildTime: 5
+  statsCategory: 1
+  ID: 0
+  buildTime: 0
+  cost: 0
   unitType:
   - Building
 --- !u!114 &5311555412134609167
@@ -935,8 +940,28 @@ MonoBehaviour:
   point: {fileID: 5921142112535648445}
   movePoint: {fileID: 7776404437668935058}
   unitsList:
+  - {fileID: 8774239786412580442, guid: 22621a4affb7a0246912a358491d02f5, type: 3}
+  - {fileID: 8774239786412580442, guid: 74358f6f10b708d45b8d7856ff9c7620, type: 3}
   - {fileID: 1322281611438512396, guid: e1f8f53bf9ae9374abab6a7e7a7ce964, type: 3}
   - {fileID: 8774239786412580442, guid: 2bf8b3c9063ec274b8edb2b7f401f257, type: 3}
+  complete: {fileID: 0}
+--- !u!114 &2303017914867003046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3019882121298011891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e0949796b9dbde43ba877ba6927381f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <ButtonPrefab>k__BackingField: {fileID: 1694945996326168417, guid: 0d70bf881af38884982bfe1fdaa0d03c, type: 3}
+  point: {fileID: 5921142112535648445}
+  movePoint: {fileID: 7898244479498919741, guid: 2bf8b3c9063ec274b8edb2b7f401f257, type: 3}
+  unitsList:
+  - {fileID: 1322281611438512396, guid: 96f13fa15ddd85f43b4c7465b1376b18, type: 3}
   complete: {fileID: 0}
 --- !u!114 &7378839042823217336
 MonoBehaviour:
@@ -964,9 +989,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a8b000ec32cb7443b538133544b35ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 500
+  maxHealth: 0
+  armor: 0
   currentHealth: 0
-  armor: 30
 --- !u!114 &5257853328073124182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -980,6 +1005,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   placeMarker: {fileID: 4107948157887999968}
+--- !u!114 &-2670228374930691606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3019882121298011891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be5111188e2d49140961907186f715b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  energy: 0
+  powerDisable: 0
 --- !u!1 &3569372798214414361
 GameObject:
   m_ObjectHideFlags: 0

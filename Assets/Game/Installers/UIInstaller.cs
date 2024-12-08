@@ -1,5 +1,3 @@
-using RTS;
-using UnityEngine;
 using Zenject;
 
 public class UIInstaller : MonoInstaller

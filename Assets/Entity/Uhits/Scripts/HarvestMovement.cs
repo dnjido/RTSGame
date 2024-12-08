@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,10 +10,42 @@ namespace RTS
 
         protected override void Start()
         {
-            base.Start();
+            base.Start(); 
+            
+            StartCoroutine(HarvestStartCoroutine());
+        }
+
+        private IEnumerator HarvestStartCoroutine()
+        {
+            yield return new WaitForSeconds(Time.deltaTime);
+            RefreshPlant();
+            RefreshMine();
+        }
+
+        public void RefreshMine() 
+        {
             currentMine = SearchMine();
+            if (!currentMine) { SetUnit(currentPlant); return; }
+            SetMine(currentMine);
+        } 
+
+        public void RefreshPlant()
+        {
             currentPlant = SearchPlant();
-            SetUnit(SearchMine());
+            if (!currentPlant) return;
+            SetPlant(currentPlant);
+        }
+
+        private void SetMine(GameObject m)
+        {
+            updater = new MineState(agent, m, gameObject, currentPlant);
+            SetHarvestUnit(m, SearchMine());
+        }
+
+        private void SetPlant(GameObject m)
+        {
+            updater = new PlantState(agent, m, gameObject, currentMine);
+            SetHarvestUnit(m, SearchPlant());
         }
 
         protected override void SetUnit(GameObject u)
@@ -22,18 +55,28 @@ namespace RTS
 
             if (GetUnitType.Type("Ore", facade))
             {
-                updater = new MineState(agent, u, gameObject);
-                SetHarvestUnit(currentMine, SearchMine());
+                currentMine = u;
+                SetMine(u);
                 return; 
             }
             if (GetUnitType.Type("Plant", facade))
             {
-                updater = new PlantState(agent, u, gameObject);
-                SetHarvestUnit(currentPlant, SearchPlant());
+                currentPlant = u;
+                SetPlant(u);
                 return;
             }
 
+            currentMine.GetComponent<IHarvest>().currentHarvester = null;
             base.SetUnit(u);
+        }
+
+        public override void SetPoint(Vector3 p)
+        {
+            base.SetPoint(p);
+            if (!currentMine) return;
+
+            currentMine.GetComponent<IHarvest>().currentHarvester = null;
+            currentMine = null;
         }
 
         private void SetHarvestUnit(GameObject getU, GameObject setU)
@@ -61,11 +104,13 @@ namespace RTS
 
             if (minesL.Count <= 0) return null;
 
+            List<GameObject> minesT = new List<GameObject>();
             foreach (GameObject mine in minesL)
             {
-                if(mine.GetComponent<Mine>().empty) 
-                    minesL.Remove(mine);
+                if(mine.GetComponent<Mine>().GetOre() > 0)
+                    minesT.Add(mine);
             }
+            minesL = minesT;
 
             if (minesL.Count <= 0) return null;
 
@@ -88,13 +133,13 @@ namespace RTS
 
             if (plantsL.Count <= 0) return null;
 
+            List<GameObject> plantsT = new List<GameObject>();
             foreach (GameObject plant in plantsL)
             {
-                if(plant.GetComponent<UnitTeam>().team != GetComponent<UnitTeam>().team)
-                    plantsL.Remove(plant);
+                if (plant.GetComponent<UnitTeam>().team == GetComponent<UnitTeam>().team)
+                    plantsT.Add(plant);
             }
-
-            if (plantsL.Count <= 0) return null;
+            plantsL = plantsT;
 
             GameObject nearMine = FindNearest.FindObject(plantsL.ToArray(), transform.position);
 

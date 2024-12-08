@@ -1784,8 +1784,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildTime: 0
+  cost: 0
   unitType:
   - Ore
+  energy: 0
 --- !u!114 &7237938733233703925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1828,9 +1830,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxOre: 100
   countOre: 0
-  harvestPoint: {fileID: 0}
-  empty: 0
-  currentHarvester: {fileID: 194243694599628017}
+  harvestPoint: {fileID: 194243694599628017}
 --- !u!1 &9138786052519940807
 GameObject:
   m_ObjectHideFlags: 0

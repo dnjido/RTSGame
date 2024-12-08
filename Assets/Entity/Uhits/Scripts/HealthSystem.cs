@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zenject;
 
 namespace RTS
 {
@@ -19,8 +20,8 @@ namespace RTS
 
     public class HealthSystem : MonoBehaviour, IDamage, IHealing, IDeath
     {
-        [SerializeField] private float maxHealth, currentHealth;
-        [SerializeField] private float armor;
+        [SerializeField] private float maxHealth, armor;
+        [SerializeField] private float currentHealth;
 
         public delegate void DamageDelegate(float health);
         public event DamageDelegate DamageEvent;
@@ -29,6 +30,13 @@ namespace RTS
         public event DeathDelegate DeathEvent;
 
         void Start() => currentHealth = maxHealth;
+
+        [Inject]
+        public void UnitStats(GetStats g)
+        {
+            maxHealth = g.Stats(gameObject).healthStats.health;
+            armor = g.Stats(gameObject).healthStats.armor;
+        }
 
         public void ApplyDamage(float count)
         {

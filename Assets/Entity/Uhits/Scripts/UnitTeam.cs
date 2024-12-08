@@ -2,12 +2,16 @@ using UnityEngine;
 
 namespace RTS
 {
+    public interface IUnitTeam
+    {
+        public int team {  get; set; }
+    }
 
-    public class UnitTeam : MonoBehaviour
+    public class UnitTeam : MonoBehaviour, IUnitTeam // Unit team that sets up color and detect layer
     {
         [SerializeField] private int _team;
         public int team { get => _team;
-            private set { ChangeTeam(); _team = value; }
+            set { ChangeTeam(); _team = value; }
         }
         public TeamColors teamColor;
 

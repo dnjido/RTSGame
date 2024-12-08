@@ -1709,6 +1709,7 @@ GameObject:
   - component: {fileID: 8558151751774299135}
   - component: {fileID: 7141187340633381412}
   - component: {fileID: 8911204404720478814}
+  - component: {fileID: 7678396161423070908}
   m_Layer: 0
   m_Name: Factory
   m_TagString: Unit
@@ -1725,7 +1726,7 @@ Transform:
   m_GameObject: {fileID: 8774239786412580442}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -49.83008, y: 8.280868e-17, z: -18.646856}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1778,7 +1779,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9e15580dee7a9542ba55e0d6722931e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildTime: 5
+  statsCategory: 1
+  ID: 4
+  buildTime: 0
+  cost: 0
   unitType:
   - Building
 --- !u!114 &4993191107624571780
@@ -1829,8 +1833,8 @@ MonoBehaviour:
   point: {fileID: 4431716092203801128}
   movePoint: {fileID: 2694643511800308684}
   unitsList:
+  - {fileID: 7577197719430435339, guid: 7745a385b71d60a4092db4f8323878cd, type: 3}
   - {fileID: 7577197719430435339, guid: 8607b31b8dfbe4a448f4ad5c3457a8d0, type: 3}
-  - {fileID: 5307056716202305016, guid: 2ccca55940d8e20478c797473a3c7f1f, type: 3}
 --- !u!114 &8558151751774299135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1857,9 +1861,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a8b000ec32cb7443b538133544b35ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 500
+  maxHealth: 0
+  armor: 0
   currentHealth: 0
-  armor: 30
 --- !u!114 &8911204404720478814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1873,6 +1877,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   placeMarker: {fileID: 7219759893774446675}
+--- !u!114 &7678396161423070908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8774239786412580442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be5111188e2d49140961907186f715b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  energy: 0
+  powerDisable: 0
 --- !u!1 &8915732999533621457
 GameObject:
   m_ObjectHideFlags: 0

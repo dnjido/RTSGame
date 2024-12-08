@@ -16,22 +16,39 @@ namespace RTS
         public int team;
     }
 
-    public class UnitFacade : MonoBehaviour, IUnitConstruct
+    public class UnitFacade : MonoBehaviour, IUnitConstruct // Sets up main unit characteristics
     {
-        [SerializeField] private float buildTime;
+        public StatsCategoryList statsCategory = new StatsCategoryList();
+
+        [SerializeField] private int ID;
+
+        public (int, int) GetIDs() => (ID, (int)statsCategory);
+
+        public float buildTime;
+        public float cost;
+
+        public float costPerTick => buildTime * Time.deltaTime;
+
         [SerializeField] public string[] unitType;
         [SerializeField] private UnitTransform unitTr;
+
+        public GetStats stats { get; private set; }
+
+        [Inject]
+        public void UnitStats(GetStats g)
+        {
+            stats = g;
+            buildTime = g.Stats(gameObject).generalStats.buildTime;
+            cost = g.Stats(gameObject).generalStats.cost;
+        }
 
         public void Construct(UnitTransform ut)
         {
             unitTr = ut;
             transform.position = unitTr.spawnPoint;
             transform.rotation = unitTr.rotate;
-            //transform.LookAt(unitTr.end);
             GetComponent<UnitTeam>().SetTeam(unitTr.team);
         }
-
-        public float GetBuildTime() => buildTime;
 
         public class Factory : PlaceholderFactory<GameObject, UnitTransform, GameObject>
         {

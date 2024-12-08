@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace RTS
 {
-    public class ButtonSpawner
+    public class ButtonSpawner //  Creating production buttons on the user interface
     {
         private bool created;
         private readonly BuildUnit builder;

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using Zenject;
 
 namespace RTS
 {
@@ -12,9 +13,9 @@ namespace RTS
 
     public class UnitMovement : MonoBehaviour // Moving a unit to a point or to another unit.
     {
+        [SerializeField]private float speed;
+
         public bool hasMove;
-        [SerializeField] private float speed;
-        [SerializeField] private float rangeStop, rangeAttack;
         protected NavMeshAgent agent;
         protected MoveStruct moveStruct;
         protected IState updater;
@@ -27,6 +28,12 @@ namespace RTS
             moveStruct.point = transform.position;
         }
 
+        [Inject]
+        public void UnitStats(GetStats g)
+        {
+            speed = g.Stats(gameObject).moveStats.speed;
+        }
+
         void FixedUpdate() => StateUpdater();
 
         private void StateUpdater() 
@@ -34,7 +41,7 @@ namespace RTS
             if (updater != null) updater.Update();
         }
 
-        public void SetPoint(Vector3 p)
+        public virtual void SetPoint(Vector3 p)
         {
             moveStruct.unit = null;
             moveStruct.enemy = false;
@@ -54,7 +61,7 @@ namespace RTS
             if(!moveStruct.enemy)
                 updater = new FollowState(agent, moveStruct.unit);
             else
-                updater = new AttackState(agent, moveStruct.unit, GetComponent<DetectEnemy>());
+                updater = new AttackState(agent, moveStruct.unit);
         }
 
         public void Command()

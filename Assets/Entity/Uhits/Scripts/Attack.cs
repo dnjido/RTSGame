@@ -8,24 +8,33 @@ namespace RTS
     {
         [SerializeField] private float rate, damage;
         [SerializeField] private GameObject projectile;
+
         [SerializeField] private Transform firePoint;
         ProjectileFacade.Factory projectileFactory;
-        private bool hasFire = true;
+        private bool hasFire = true, stopFire;
         private GameObject target;
+
+        [Inject]
+        public void UnitStats(GetStats g)
+        {
+            rate = g.Stats(gameObject).attackStats.attackRate;
+            damage = g.Stats(gameObject).attackStats.damage;
+            projectile = g.Stats(gameObject).attackStats.projectile;
+        }
 
         [Inject]
         public void ProjectileFactory(ProjectileFacade.Factory f) =>
             projectileFactory = f;
 
-        void Start() =>
+        void OnEnable() =>
             GetComponent<DetectEnemy>().TargetEvent += SetTarget;
 
-        void OnDestroy() =>
+        void OnDisable() =>
             GetComponent<DetectEnemy>().TargetEvent -= SetTarget;
 
         void Update()
         {
-            if (hasFire && target)
+            if (hasFire && target && !stopFire)
                 StartCoroutine(FireCoroutine());
         }
 
@@ -44,6 +53,8 @@ namespace RTS
             yield return new WaitForSeconds(rate);
             hasFire = true;
         }
+
+        public void SetStop(bool s) => stopFire = s;
     }
 
     public class SetProjectile

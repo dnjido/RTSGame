@@ -1,19 +1,22 @@
 using UnityEngine;
 using System.Collections;
 using Zenject;
+using RTS;
 
 namespace RTS
 {
     public class BuildUnit : MonoBehaviour  // Produces units that are in the queue.
     {
-        [field: SerializeField] public GameObject ButtonPrefab { get; private set; }
+        [field: SerializeField] public GameObject ButtonPrefab { get; protected set; }
         public Transform panel { get; private set; }
 
         [SerializeField] private Transform point, movePoint;
-        [SerializeField] private GameObject[] unitsList;
+        [SerializeField] protected GameObject[] unitsList;
 
         private UnitFacade.Factory unitFactory;
         public BuildQueue queue { get; private set; }
+        public PlayerResources[] money { get; private set; }
+        public GetStats stats { get; private set; }
         public Timer timer => queue.timer;
         protected ButtonSpawner buttons;
 
@@ -21,9 +24,28 @@ namespace RTS
 
         private void Update()
         {
-            queue?.timer?.Tick();
             if (GetComponent<Selection>().isSelected) SetMovePoint();
+            if (queue.timer == null) return;
+
+            ChangeResource();
         }
+
+        [Inject]
+        public void UnitStats(GetStats g)
+        {
+            stats = g;
+            SetUnitList();
+        }
+
+        public virtual void SetUnitList()
+        {
+            unitsList = stats.Stats(gameObject).buildStats.units;
+            ButtonPrefab = stats.Stats(gameObject).buildStats.buttons;
+        }
+
+        [Inject]
+        public void Resource(PlayerResources[] r) =>
+            money = r;
 
         [Inject]
         public void ButtonPanel(SidePanel p) =>
@@ -50,6 +72,14 @@ namespace RTS
             buttons.Buttons(s);
         }
 
+        private void ChangeResource()
+        {
+            int team = GetUnitStats.Team(gameObject);
+            float tick = stats.Stats(queue.currentUnit).generalStats.costPerTick;
+            if (money[team - 1].CheckAndChange(-tick))
+                queue?.timer?.Tick();
+        }
+
         public void StartQueue(int id) =>
             SelectClass(id)?.Start();
 
@@ -68,7 +98,10 @@ namespace RTS
         public GameObject GetUnit(int id) => unitsList[id];
 
         public float BuildTime(int id) =>
-            unitsList[id].GetComponent<UnitFacade>().GetBuildTime();
+            stats.Stats(unitsList[id]).generalStats.buildTime;
+
+        public float BuildCost(int id) =>
+            stats.Stats(unitsList[id]).generalStats.cost;
 
         private BuilderStates SelectClass(int id)
         {

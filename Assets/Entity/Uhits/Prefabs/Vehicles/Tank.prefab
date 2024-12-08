@@ -2345,7 +2345,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9e15580dee7a9542ba55e0d6722931e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildTime: 5
+  statsCategory: 0
+  ID: 2
+  buildTime: 0
+  cost: 0
   unitType:
   - Vehicle
 --- !u!114 &5195961645230550696
@@ -2382,10 +2385,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca21b62e32dbe6c4da02ad86aa6a8948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
   hasMove: 1
-  speed: 5
-  rangeStop: 10
-  rangeAttack: 10
 --- !u!114 &1520904896261252758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2412,7 +2413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd0dfb3e85b566641864bdfb0724e194, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <range>k__BackingField: 10
+  range: 0
   layer: 0
 --- !u!114 &1818135356738668414
 MonoBehaviour:
@@ -2456,9 +2457,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc647eb23b14870419826720ddc67b8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rate: 2
-  damage: 10
-  projectile: {fileID: 483396936959846643, guid: 58f9bcbd2bf4b3c4887ebedafb3c2bb4, type: 3}
+  rate: 0
+  damage: 0
+  projectile: {fileID: 0}
   firePoint: {fileID: 2281755699667100520}
 --- !u!114 &4425032795919837680
 MonoBehaviour:
@@ -2472,9 +2473,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a8b000ec32cb7443b538133544b35ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 0
+  armor: 0
   currentHealth: 0
-  armor: 30
 --- !u!114 &1270421364333849810
 MonoBehaviour:
   m_ObjectHideFlags: 0
