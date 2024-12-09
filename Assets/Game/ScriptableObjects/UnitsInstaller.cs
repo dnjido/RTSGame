@@ -71,7 +71,7 @@ namespace RTS
 
 
 
-    public class GetUnitStats
+    public class GU
     {
         public static int Team(GameObject unit)
         {
@@ -85,10 +85,23 @@ namespace RTS
             catch { return unit.AddComponent<DetectEnemy>(); }
         }
 
-        public T NullComponent<T>(GameObject unit) where T : Component
+        public static T NullComponent<T>(GameObject unit) where T : Component
         {
             try { return unit.GetComponent<T>(); }
             catch { return unit.AddComponent<T>(); }
         }
+
+        public static T NullComponent<T>(Component comp) where T : Component
+        {
+            GameObject unit = comp.gameObject;
+            try { return unit.GetComponent<T>(); }
+            catch { return unit.AddComponent<T>(); }
+        }
+
+        //public static T NullObjectt<T>() where T : class
+        //{
+        //    try { return new T() as class; }
+        //    catch { return unit.AddComponent<T>(); }
+        //}
     }
 }

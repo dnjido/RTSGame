@@ -13,7 +13,7 @@ namespace RTS
             projTr = pt;
             transform.position = projTr.start;
             transform.LookAt(projTr.end);
-            transform.DOMove(projTr.end, projTr.Duration(speed)).SetEase(Ease.Linear).OnComplete(Damage);
+            transform.DOMove(projTr.end, speed).SetEase(Ease.Linear).OnComplete(Damage).SetSpeedBased();
         }
 
         private void Damage()

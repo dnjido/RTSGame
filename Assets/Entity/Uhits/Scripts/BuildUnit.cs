@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections;
 using Zenject;
-using RTS;
 
 namespace RTS
 {
@@ -74,7 +73,7 @@ namespace RTS
 
         private void ChangeResource()
         {
-            int team = GetUnitStats.Team(gameObject);
+            int team = GU.Team(gameObject);
             float tick = stats.Stats(queue.currentUnit).generalStats.costPerTick;
             if (money[team - 1].CheckAndChange(-tick))
                 queue?.timer?.Tick();

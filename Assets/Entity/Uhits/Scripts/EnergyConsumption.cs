@@ -6,7 +6,7 @@ namespace RTS
     public class EnergyConsumption : MonoBehaviour //Struct of units characteristics
     {
         [SerializeField] private float energy;
-        private int team => GetUnitStats.Team(gameObject);
+        private int team => GU.Team(gameObject);
 
         [SerializeField] private bool powerDisable;
 

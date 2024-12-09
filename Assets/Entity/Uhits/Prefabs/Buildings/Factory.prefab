@@ -631,7 +631,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9064358231352453562
 Transform:
   m_ObjectHideFlags: 0
@@ -1783,6 +1783,7 @@ MonoBehaviour:
   ID: 4
   buildTime: 0
   cost: 0
+  unitTarget: 0
   unitType:
   - Building
 --- !u!114 &4993191107624571780

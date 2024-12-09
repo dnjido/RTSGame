@@ -784,6 +784,7 @@ MonoBehaviour:
   ID: 1
   buildTime: 0
   cost: 0
+  unitTarget: 0
   unitType:
   - Building
 --- !u!114 &4993191107624571780

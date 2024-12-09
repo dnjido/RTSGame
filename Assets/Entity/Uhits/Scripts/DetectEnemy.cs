@@ -1,13 +1,16 @@
 using System;
 using UnityEngine;
-using static UnityEngine.EventSystems.EventTrigger;
 using Zenject;
 
 namespace RTS
 {
     public class DetectEnemy : MonoBehaviour //Detection of the enemy within range.
     {
-        [SerializeField]private float range;
+        [SerializeField] private float range;
+        //[SerializeField]private int canAttackTarget;
+
+        [SerializeField] private UnitTarget[] canAttackTarget = new UnitTarget[1];
+        [SerializeField] private int bitwiseTarget;
 
         private Collider target;
         private bool stopDetect;
@@ -27,9 +30,32 @@ namespace RTS
         public void UnitStats(GetStats g)
         {
             range = g.Stats(gameObject).attackStats.range;
+
+            UnitTarget[] targ = g.Stats(gameObject).attackStats.canAttackTarget;
+            if (targ.Length >= 1)
+                canAttackTarget = g.Stats(gameObject).attackStats.canAttackTarget;
+            BitwiseAttackTarget();
         }
 
         void Update() => Check();
+
+        private void BitwiseAttackTarget()
+        {
+            int lenght = canAttackTarget.Length;
+
+            for (int i = 0; i < lenght; i++)
+            {
+                int t = 1 << (int)canAttackTarget[i];
+                bitwiseTarget = bitwiseTarget | t;
+            }
+        }
+
+        private bool TargetEqual(GameObject u)
+        {
+            int b = u.GetComponent<UnitFacade>().getBitwiseTarget;
+            print(b + ", " + bitwiseTarget);
+            return (bitwiseTarget & b) != 0;
+        }
 
         public float GetRange() => range;
 
@@ -54,9 +80,12 @@ namespace RTS
             {
                 GameObject u = col.gameObject;
                 //if (gameObject != unit && unit.GetComponent<UnitTeam>().team.team != GetComponent<UnitTeam>().team.team){ }
-                target = col;
-                unit = u;
-                break;
+                if (TargetEqual(u))
+                {
+                    target = col;
+                    unit = u;
+                    break;
+                }
             }
         }
 

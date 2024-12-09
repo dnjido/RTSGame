@@ -18,7 +18,7 @@ namespace RTS
 
     public class UnitFacade : MonoBehaviour, IUnitConstruct // Sets up main unit characteristics
     {
-        public StatsCategoryList statsCategory = new StatsCategoryList();
+        [SerializeField] private StatsCategoryList statsCategory = new StatsCategoryList();
 
         [SerializeField] private int ID;
 
@@ -29,6 +29,10 @@ namespace RTS
 
         public float costPerTick => buildTime * Time.deltaTime;
 
+        [SerializeField] private UnitTarget unitTarget;
+        public int getTarget => (int)unitTarget;
+        public int getBitwiseTarget => 1 << (int)unitTarget;
+
         [SerializeField] public string[] unitType;
         [SerializeField] private UnitTransform unitTr;
 
@@ -38,6 +42,7 @@ namespace RTS
         public void UnitStats(GetStats g)
         {
             stats = g;
+            unitTarget = g.Stats(gameObject).generalStats.targetType;
             buildTime = g.Stats(gameObject).generalStats.buildTime;
             cost = g.Stats(gameObject).generalStats.cost;
         }

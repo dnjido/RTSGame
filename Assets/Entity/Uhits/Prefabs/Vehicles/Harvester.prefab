@@ -2591,6 +2591,7 @@ MonoBehaviour:
   ID: 1
   buildTime: 0
   cost: 0
+  unitTarget: 0
   unitType:
   - Vehicle
   - Harvester
@@ -2657,6 +2658,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 0
+  canAttackTarget: 00000000
+  bitwiseTarget: 0
   layer: 0
 --- !u!114 &1818135356738668414
 MonoBehaviour:

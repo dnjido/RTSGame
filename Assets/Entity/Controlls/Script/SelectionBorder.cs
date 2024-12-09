@@ -35,6 +35,7 @@ namespace RTS
         // Update is called once per frame
         void Update()
         {
+
             if (!canSelection) return;
             if (Input.GetMouseButtonDown(0)) StartSelection();
             if (isSelecting) Selecting();
@@ -51,12 +52,12 @@ namespace RTS
             selectionBox.gameObject.SetActive(true);
             rectTransform.anchoredPosition = startMousePosition;
             rectTransform.sizeDelta = Vector2.zero;
-            positions.pos1 = CursorRay.RayPoint();
+            positions.pos1 = CursorRay.RayHit(int.MaxValue).point;
         }
 
         private void Selecting()
         {
-            positions.pos2 = CursorRay.RayPoint();
+            positions.pos2 = CursorRay.RayHit(int.MaxValue).point;//CursorRay.RayPoint();
             Vector2 currentMousePosition = CursorPosition.LocalPos(cam, canvas);
             Vector2 size = currentMousePosition - startMousePosition;
             rectTransform.sizeDelta = new Vector2(Mathf.Abs(size.x), Mathf.Abs(size.y));

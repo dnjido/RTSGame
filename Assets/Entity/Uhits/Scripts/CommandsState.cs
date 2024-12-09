@@ -1,3 +1,4 @@
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,91 +12,91 @@ namespace RTS
 
     public class MoveState : IState
     {
-        readonly NavMeshAgent agent;
-        readonly Vector3 point;
+        public readonly GameObject unit;
+        public readonly Vector3 point;
+        public readonly IMovement move;
 
-        public MoveState(NavMeshAgent a, Vector3 p) // Move command
+        public MoveState(GameObject u, IMovement m, Vector3 p) // Move command
         {
-            agent = a;
+            unit = u;
             point = p;
+            move = m;
             Start();
         }
 
-        public void Start()
-        {
-            agent.SetDestination(point);
-        }
+        public void Start() => 
+            move.StartMove(point);
 
         public void Update() { }
 
-        public void End()
-        {
-            agent.SetDestination(agent.transform.position);
-        }
+        public void End() =>
+            move.StopMove();
     }
 
     public class FollowState : IState // Follow command
     {
-        public readonly NavMeshAgent agent;
         public readonly GameObject unit;
+        public readonly GameObject unitMove;
+        public readonly IMovement move;
         private Vector3 oldPos;
 
-        public FollowState(NavMeshAgent a, GameObject u)
+        public FollowState(GameObject u, IMovement m, GameObject um)
         {
-            agent = a;
             unit = u;
+            unitMove = um;
+            move = m;
             Start();
         }
 
         public void Start() =>
-            agent.SetDestination(unit.transform.position);
+            move.StartMove(unitMove.transform.position);
 
         public void Update()
         {
-            if (!unit) return;
+            if (!unitMove) return;
 
-            if (!TargetMove.Move(oldPos, unit.transform.position, 0.01f)) return;
+            if (!TargetMove.Move(oldPos, unitMove.transform.position, 0.01f)) return;
 
-            oldPos = unit.transform.position;
+            oldPos = unitMove.transform.position;
             Start();
         }
 
-        public void End()
-        {
-            agent.SetDestination(agent.transform.position);
-        }
+        public void End() =>
+            move.StopMove();
     }
 
     public class AttackState : IState // Attack command
     {
-        public readonly NavMeshAgent agent;
         public readonly GameObject unit;
+        public readonly GameObject unitMove;
+        public readonly IMovement move;
         public readonly DetectEnemy detector;
         private Vector3 oldPos;
         private bool HasTarget;
 
-        public AttackState(NavMeshAgent a, GameObject u)
+        public AttackState(GameObject u, IMovement m, GameObject um)
         {
-            agent = a;
             unit = u;
-            detector = GetUnitStats.Detector(agent.gameObject);
+            unitMove = um;
+            move = m;
+            detector = GU.NullComponent<DetectEnemy>(unit);
             Start();
         }
 
         public void Start() =>
-            agent.SetDestination(unit.transform.position);
+            move.StartMove(unitMove.transform.position);
 
         public void Update()
         {
-            if (!unit) return;
+            if (!unitMove) return;
 
-            if (TargetMove.Move(oldPos, unit.transform.position, 0.01f))
+            if (TargetMove.Move(oldPos, unitMove.transform.position, 0.01f))
             {
-                oldPos = unit.transform.position;
-                Start();
+                oldPos = unitMove.transform.position;
+                move.StartMove(unitMove.transform.position);
             }
 
-            if (Vector3.Distance(agent.gameObject.transform.position, unit.transform.position) <= detector.GetRange())
+            if (Vector3.Distance(unit.transform.position, unitMove.transform.position) <= detector.GetRange())
             {
                 if (!HasTarget) SetTarget();
             }
@@ -104,34 +105,34 @@ namespace RTS
 
         private void SetTarget()
         {
-            agent.SetDestination(agent.gameObject.transform.position);
+            move.StopMove();
             HasTarget = true;
             detector.SetTarget(unit);
         }
 
-        public void End()
-        {
-            agent.SetDestination(agent.transform.position);
-        }
+        public void End() => 
+            move.StopMove();
     }
 
     public class MoveAttackState : IState // Attack while moving command
     {
-        public readonly NavMeshAgent agent;
+        public readonly GameObject unit;
         public readonly Vector3 point;
+        public readonly IMovement move;
         public readonly DetectEnemy detector;
         private bool hasTarget;
 
-        public MoveAttackState(NavMeshAgent a, Vector3 p, DetectEnemy d)
+        public MoveAttackState(GameObject u, IMovement m, Vector3 p)
         {
-            agent = a;
+            unit = u;
             point = p;
-            detector = d;
+            move = m;
+            detector = GU.NullComponent<DetectEnemy>(unit);
             Start();
         }
 
         public void Start() =>
-            agent.SetDestination(point);
+            move.StartMove(point);
 
         public void Update()
         {
@@ -141,71 +142,73 @@ namespace RTS
             if (detector.GetUnit() == null && hasTarget)
             {
                 hasTarget = false;
-                Start();
+                move.StartMove(point);
             }
         }
 
         private void HasTarget()
         {
             hasTarget = true;
-            agent.SetDestination(agent.gameObject.transform.position);
+            move.StopMove();
         }
 
         public void End()
         {
-            agent.SetDestination(agent.transform.position);
+            move.StopMove();
         }
     }
 
     public class MineState : IState
     {
-        private readonly NavMeshAgent agent;
-        protected readonly GameObject harvester;
-        protected readonly GameObject target;
+        public readonly GameObject unit;
+        public readonly GameObject unitMove;
+        public readonly IMovement move;
         protected readonly GameObject returnPoint;
         protected readonly Vector3 point;
-        protected readonly HarvestMovement move;
+        protected readonly HarvestMovement moveH;
+        protected readonly NavMeshAgent agent;
         protected readonly OreMining mine;
 
         protected bool busy;
 
-        public MineState(NavMeshAgent a, GameObject t, GameObject h, GameObject r) // Move command
+        public MineState(GameObject u, IMovement m, GameObject um, GameObject r) // Move command
         {
-            agent = a;
-            target = t;
-            point = t.GetComponent<IHarvest>().point;
-            harvester = h;
+            unit = u;
+            unitMove = um;
+            move = m;
+            point = um.GetComponent<IHarvest>().point;
             returnPoint = r;
-            mine = harvester.GetComponent<OreMining>();
-            move = harvester.GetComponent<HarvestMovement>();
+            mine = unit.GetComponent<OreMining>();
+            moveH = unit.GetComponent<HarvestMovement>();
+            agent = unit.GetComponent<NavMeshAgent>();
             Start();
         }
 
         public virtual void Start()
         {
-            agent.SetDestination(point);
-            agent.stoppingDistance = 0; 
+            move.StartMove(point);
+            unit.GetComponent<NavMeshAgent>().stoppingDistance = 0; 
         }
 
         public virtual void Update()
         {
             GetDistance();
 
-            if (!target || target.GetComponent<Mine>().empty)
-                move.RefreshMine();
+            if (!unitMove || unitMove.GetComponent<Mine>().empty)
+                moveH.RefreshMine();
 
             if (mine.full) End();
         }
 
         public virtual void Deploy() =>
-            mine.Load(target);
+            mine.Load(unitMove);
 
         public void GetDistance()
         {
             if (DeployDist(1)) Deploy();
 
-            if (target)
-                SetBusy(target.GetComponent<IHarvest>().currentHarvester && DeployDist(5));
+            if (unitMove)
+                SetBusy(unitMove.GetComponent<IHarvest>().currentHarvester && DeployDist(5));
         }
 
         public void SetBusy(bool b)
@@ -214,7 +217,7 @@ namespace RTS
 
 
             agent.stoppingDistance = !b ? 0 : 5;
-            agent.SetDestination(!b ? point : agent.transform.position);
+            agent.SetDestination(!b ? point : unit.transform.position);
             busy = b;
         }
 
@@ -222,27 +225,27 @@ namespace RTS
         {
             if (!returnPoint) return;
 
-            target.GetComponent<IHarvest>().ClearHarvester();
-            move.MoveTo(returnPoint);
+            unitMove.GetComponent<IHarvest>().ClearHarvester();
+            moveH.MoveTo(returnPoint);
         }
 
         protected bool DeployDist(float d) => 
-            Vector3.Distance(harvester.transform.position, point) <= d;
+            Vector3.Distance(unit.transform.position, point) <= d;
     }
 
     public class PlantState : MineState, IState
     {
-        public PlantState(NavMeshAgent a, GameObject t, GameObject h, GameObject r) : base(a, t, h, r) { }
+        public PlantState(GameObject u, IMovement m, GameObject um, GameObject r) : base(u, m, um, r) { }
 
         public override void Deploy() =>
-            mine.Unload(target);
+            mine.Unload(unitMove);
 
         public override void Update()
         {
             GetDistance();
 
-            if (target == null || target.GetComponent<UnitTeam>().team != harvester.GetComponent<UnitTeam>().team)
-                harvester.GetComponent<HarvestMovement>().RefreshPlant();
+            if (unitMove == null || unitMove.GetComponent<UnitTeam>().team != unit.GetComponent<UnitTeam>().team)
+                unit.GetComponent<HarvestMovement>().RefreshPlant();
 
             if (mine.empty) End(); 
         }

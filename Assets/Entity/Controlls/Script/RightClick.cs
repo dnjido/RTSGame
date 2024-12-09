@@ -41,7 +41,7 @@ namespace RTS
 
         public void SetTarget(GameObject obj)
         {
-            UnitMovement um = obj.GetComponent<UnitMovement>();
+            TemplateMovement um = obj.GetComponent<TemplateMovement>();
             um.Command();
         }
     }

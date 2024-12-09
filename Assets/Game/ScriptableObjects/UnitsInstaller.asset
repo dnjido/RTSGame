@@ -18,10 +18,12 @@ MonoBehaviour:
       buildTime: 2
       cost: 5
       energy: 0
+      targetType: 0
     attackStats:
       damage: 3
       range: 10
       attackRate: 0.5
+      canAttackTarget: 00000000
       projectile: {fileID: 483396936959846643, guid: ad8b874c7cfa370489b66c2ea6b83611, type: 3}
     healthStats:
       health: 30
@@ -42,10 +44,12 @@ MonoBehaviour:
       buildTime: 5
       cost: 40
       energy: 0
+      targetType: 0
     attackStats:
       damage: 3
       range: 10
       attackRate: 0.5
+      canAttackTarget: 00000000
       projectile: {fileID: 483396936959846643, guid: ad8b874c7cfa370489b66c2ea6b83611, type: 3}
     healthStats:
       health: 200
@@ -66,14 +70,68 @@ MonoBehaviour:
       buildTime: 5
       cost: 20
       energy: 0
+      targetType: 0
     attackStats:
       damage: 10
       range: 10
       attackRate: 2
+      canAttackTarget: 00000000
       projectile: {fileID: 483396936959846643, guid: 58f9bcbd2bf4b3c4887ebedafb3c2bb4, type: 3}
     healthStats:
       health: 100
       armor: 10
+    moveStats:
+      speed: 5
+      rotate: 3
+    buildStats:
+      buttons: {fileID: 0}
+      units: []
+      secondUnits: []
+    harvestingStats:
+      maxLoad: 0
+      grub: 0
+      delay: 0
+  - generalStats:
+      name: Helicopter
+      buildTime: 5
+      cost: 30
+      energy: 0
+      targetType: 1
+    attackStats:
+      damage: 4
+      range: 10
+      attackRate: 0.5
+      canAttackTarget: 0000000001000000
+      projectile: {fileID: 483396936959846643, guid: ad8b874c7cfa370489b66c2ea6b83611, type: 3}
+    healthStats:
+      health: 70
+      armor: 5
+    moveStats:
+      speed: 10
+      rotate: 3
+    buildStats:
+      buttons: {fileID: 0}
+      units: []
+      secondUnits: []
+    harvestingStats:
+      maxLoad: 0
+      grub: 0
+      delay: 0
+  - generalStats:
+      name: Rocketman
+      buildTime: 4
+      cost: 7
+      energy: 0
+      targetType: 0
+    attackStats:
+      damage: 10
+      range: 10
+      attackRate: 1
+      canAttackTarget: 0000000001000000
+      projectile: {fileID: 483396936959846643, guid: 091154cfe60b45a4da090231019ef0ee, type: 3}
+    healthStats:
+      health: 30
+      armor: 0
     moveStats:
       speed: 5
       rotate: 3
@@ -91,10 +149,12 @@ MonoBehaviour:
       buildTime: 20
       cost: 60
       energy: 10
+      targetType: 0
     attackStats:
       damage: 0
       range: 0
       attackRate: 0
+      canAttackTarget: 
       projectile: {fileID: 0}
     healthStats:
       health: 500
@@ -120,10 +180,12 @@ MonoBehaviour:
       buildTime: 5
       cost: 20
       energy: 20
+      targetType: 0
     attackStats:
       damage: 0
       range: 0
       attackRate: 0
+      canAttackTarget: 
       projectile: {fileID: 0}
     healthStats:
       health: 200
@@ -144,10 +206,12 @@ MonoBehaviour:
       buildTime: 10
       cost: 50
       energy: -10
+      targetType: 0
     attackStats:
       damage: 0
       range: 0
       attackRate: 0
+      canAttackTarget: 
       projectile: {fileID: 0}
     healthStats:
       health: 300
@@ -168,10 +232,12 @@ MonoBehaviour:
       buildTime: 5
       cost: 20
       energy: -10
+      targetType: 0
     attackStats:
       damage: 0
       range: 0
       attackRate: 0
+      canAttackTarget: 
       projectile: {fileID: 0}
     healthStats:
       health: 200
@@ -193,10 +259,12 @@ MonoBehaviour:
       buildTime: 10
       cost: 50
       energy: -10
+      targetType: 0
     attackStats:
       damage: 0
       range: 0
       attackRate: 0
+      canAttackTarget: 
       projectile: {fileID: 0}
     healthStats:
       health: 300
@@ -219,10 +287,12 @@ MonoBehaviour:
       buildTime: 5
       cost: 20
       energy: -10
+      targetType: 0
     attackStats:
       damage: 5
       range: 10
       attackRate: 0.5
+      canAttackTarget: 0000000001000000
       projectile: {fileID: 483396936959846643, guid: ad8b874c7cfa370489b66c2ea6b83611, type: 3}
     healthStats:
       health: 150

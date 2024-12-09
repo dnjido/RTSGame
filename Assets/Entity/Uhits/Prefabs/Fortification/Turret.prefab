@@ -296,6 +296,7 @@ MonoBehaviour:
   ID: 5
   buildTime: 0
   cost: 0
+  unitTarget: 0
   unitType:
   - Building
 --- !u!114 &-8899566187268125203
@@ -402,6 +403,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 0
+  canAttackTarget: 
+  bitwiseTarget: 0
   layer: 0
 --- !u!114 &703845814823803956
 MonoBehaviour:

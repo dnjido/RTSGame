@@ -22,6 +22,7 @@ namespace RTS
         public float cost;
         public float energy;
         public float costPerTick => cost / (buildTime / Time.deltaTime);
+        public UnitTarget targetType;
     }
 
     [Serializable]
@@ -30,6 +31,7 @@ namespace RTS
         public float damage;
         public float range;
         public float attackRate;
+        public UnitTarget[] canAttackTarget;
         public GameObject projectile;
     }
 
