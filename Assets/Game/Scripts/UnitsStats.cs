@@ -29,6 +29,7 @@ namespace RTS
     public struct AttackStats
     {
         public float damage;
+        public AttackType attackType;
         public float range;
         public float attackRate;
         public UnitTarget[] canAttackTarget;
@@ -40,6 +41,7 @@ namespace RTS
     {
         public float health;
         public float armor;
+        public ArmorType armorType;
     }
 
     [Serializable]

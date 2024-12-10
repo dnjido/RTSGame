@@ -21,6 +21,7 @@ MonoBehaviour:
       targetType: 0
     attackStats:
       damage: 3
+      attackType: 0
       range: 10
       attackRate: 0.5
       canAttackTarget: 00000000
@@ -28,6 +29,7 @@ MonoBehaviour:
     healthStats:
       health: 30
       armor: 0
+      armorType: 0
     moveStats:
       speed: 5
       rotate: 3
@@ -47,6 +49,7 @@ MonoBehaviour:
       targetType: 0
     attackStats:
       damage: 3
+      attackType: 0
       range: 10
       attackRate: 0.5
       canAttackTarget: 00000000
@@ -54,6 +57,7 @@ MonoBehaviour:
     healthStats:
       health: 200
       armor: 30
+      armorType: 2
     moveStats:
       speed: 5
       rotate: 3
@@ -73,6 +77,7 @@ MonoBehaviour:
       targetType: 0
     attackStats:
       damage: 10
+      attackType: 2
       range: 10
       attackRate: 2
       canAttackTarget: 00000000
@@ -80,6 +85,7 @@ MonoBehaviour:
     healthStats:
       health: 100
       armor: 10
+      armorType: 2
     moveStats:
       speed: 5
       rotate: 3
@@ -99,6 +105,7 @@ MonoBehaviour:
       targetType: 1
     attackStats:
       damage: 4
+      attackType: 0
       range: 10
       attackRate: 0.5
       canAttackTarget: 0000000001000000
@@ -106,6 +113,7 @@ MonoBehaviour:
     healthStats:
       health: 70
       armor: 5
+      armorType: 1
     moveStats:
       speed: 10
       rotate: 3
@@ -125,6 +133,7 @@ MonoBehaviour:
       targetType: 0
     attackStats:
       damage: 10
+      attackType: 1
       range: 10
       attackRate: 1
       canAttackTarget: 0000000001000000
@@ -132,6 +141,7 @@ MonoBehaviour:
     healthStats:
       health: 30
       armor: 0
+      armorType: 0
     moveStats:
       speed: 5
       rotate: 3
@@ -152,6 +162,7 @@ MonoBehaviour:
       targetType: 0
     attackStats:
       damage: 0
+      attackType: 0
       range: 0
       attackRate: 0
       canAttackTarget: 
@@ -159,6 +170,7 @@ MonoBehaviour:
     healthStats:
       health: 500
       armor: 20
+      armorType: 3
     moveStats:
       speed: 0
       rotate: 0
@@ -183,6 +195,7 @@ MonoBehaviour:
       targetType: 0
     attackStats:
       damage: 0
+      attackType: 0
       range: 0
       attackRate: 0
       canAttackTarget: 
@@ -190,6 +203,7 @@ MonoBehaviour:
     healthStats:
       health: 200
       armor: 5
+      armorType: 3
     moveStats:
       speed: 0
       rotate: 0
@@ -209,6 +223,7 @@ MonoBehaviour:
       targetType: 0
     attackStats:
       damage: 0
+      attackType: 0
       range: 0
       attackRate: 0
       canAttackTarget: 
@@ -216,6 +231,7 @@ MonoBehaviour:
     healthStats:
       health: 300
       armor: 10
+      armorType: 3
     moveStats:
       speed: 0
       rotate: 0
@@ -235,6 +251,7 @@ MonoBehaviour:
       targetType: 0
     attackStats:
       damage: 0
+      attackType: 0
       range: 0
       attackRate: 0
       canAttackTarget: 
@@ -242,6 +259,7 @@ MonoBehaviour:
     healthStats:
       health: 200
       armor: 5
+      armorType: 3
     moveStats:
       speed: 0
       rotate: 0
@@ -262,13 +280,15 @@ MonoBehaviour:
       targetType: 0
     attackStats:
       damage: 0
+      attackType: 0
       range: 0
       attackRate: 0
       canAttackTarget: 
       projectile: {fileID: 0}
     healthStats:
-      health: 300
+      health: 150
       armor: 10
+      armorType: 3
     moveStats:
       speed: 0
       rotate: 0
@@ -290,6 +310,7 @@ MonoBehaviour:
       targetType: 0
     attackStats:
       damage: 5
+      attackType: 0
       range: 10
       attackRate: 0.5
       canAttackTarget: 0000000001000000
@@ -297,6 +318,7 @@ MonoBehaviour:
     healthStats:
       health: 150
       armor: 10
+      armorType: 3
     moveStats:
       speed: 0
       rotate: 0

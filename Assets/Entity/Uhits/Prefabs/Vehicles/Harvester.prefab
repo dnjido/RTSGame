@@ -2706,6 +2706,7 @@ MonoBehaviour:
   rate: 0
   damage: 0
   projectile: {fileID: 0}
+  attackType: 0
   firePoint: {fileID: 2281755699667100520}
 --- !u!114 &4425032795919837680
 MonoBehaviour:
@@ -2721,6 +2722,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 0
   armor: 0
+  armorType: 0
   currentHealth: 0
 --- !u!114 &1270421364333849810
 MonoBehaviour:

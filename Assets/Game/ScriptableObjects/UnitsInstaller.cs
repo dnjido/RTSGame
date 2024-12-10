@@ -3,6 +3,7 @@ using UnityEngine;
 using Zenject;
 using System.Linq;
 using System.Collections.Generic;
+using System;
 
 [CreateAssetMenu(fileName = "UnitsInstaller", menuName = "Installers/UnitsInstaller")]
 public class UnitsInstaller : ScriptableObjectInstaller<UnitsInstaller>
@@ -97,11 +98,14 @@ namespace RTS
             try { return unit.GetComponent<T>(); }
             catch { return unit.AddComponent<T>(); }
         }
+    }
 
-        //public static T NullObjectt<T>() where T : class
-        //{
-        //    try { return new T() as class; }
-        //    catch { return unit.AddComponent<T>(); }
-        //}
+    public class NO
+    {
+        public static T NullObjectt<T>(object c) where T : new()
+        {
+            try { return (T)Convert.ChangeType(c, typeof(T)); }
+            catch { return new T(); }
+        }
     }
 }

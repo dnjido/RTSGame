@@ -14,6 +14,7 @@ namespace RTS
         public Quaternion rotate;
         public GameObject target;
         public float damage;
+        public AttackType attackType;
 
         public float Distance() => Vector3.Distance(start, end);
         public float Duration(float speed) => speed / Distance();

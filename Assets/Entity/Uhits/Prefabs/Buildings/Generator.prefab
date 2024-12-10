@@ -846,6 +846,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 0
   armor: 0
+  armorType: 0
   currentHealth: 0
 --- !u!114 &8911204404720478814
 MonoBehaviour:

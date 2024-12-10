@@ -19,7 +19,7 @@ namespace RTS
         private void Damage()
         {
             if(projTr.target) 
-                projTr.target.GetComponent<IDamage>().ApplyDamage(projTr.damage);
+                projTr.target.GetComponent<IDamage>().ApplyDamage(projTr.damage, projTr.attackType);
             Destroy(gameObject);
         }
     }

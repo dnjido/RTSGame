@@ -5,23 +5,18 @@ namespace RTS
 {
     public interface IDamage
     {
-        public void ApplyDamage(float count);
-    }
-
-    public interface IHealing
-    {
+        public void ApplyDamage(float count, AttackType attackType);
         public void Healing(float count);
-    }
-
-    public interface IDeath
-    {
         public void Death();
     }
 
-    public class HealthSystem : MonoBehaviour, IDamage, IHealing, IDeath
+    public class HealthSystem : MonoBehaviour, IDamage
     {
         [SerializeField] private float maxHealth, armor;
+        [SerializeField] private ArmorType armorType;
         [SerializeField] private float currentHealth;
+
+        private ArmorTypeStats[] attackReduced;
 
         public delegate void DamageDelegate(float health);
         public event DamageDelegate DamageEvent;
@@ -36,12 +31,22 @@ namespace RTS
         {
             maxHealth = g.Stats(gameObject).healthStats.health;
             armor = g.Stats(gameObject).healthStats.armor;
+            armorType = g.Stats(gameObject).healthStats.armorType;
         }
 
-        public void ApplyDamage(float count)
+        [Inject]
+        public void SetReduce(AttackTypeStats[] r)
+        {
+            attackReduced = r[(int)armorType].attack;
+        }
+
+        public void ApplyDamage(float count, AttackType attackType)
         {
             DamageEvent?.Invoke(HealthCalc.GetPercent(currentHealth, maxHealth));
+
+            count *= attackReduced[(int)attackType].reduce;
             currentHealth = HealthCalc.Change(-count, currentHealth, armor);
+
             if (HealthCalc.GetPercent(currentHealth, maxHealth) <= 0) Death();
         }
 

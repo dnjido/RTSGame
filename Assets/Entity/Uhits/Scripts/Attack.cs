@@ -8,6 +8,7 @@ namespace RTS
     {
         [SerializeField] private float rate, damage;
         [SerializeField] private GameObject projectile;
+        [SerializeField] private AttackType attackType;
 
         [SerializeField] private Transform firePoint;
         ProjectileFacade.Factory projectileFactory;
@@ -19,6 +20,7 @@ namespace RTS
         {
             rate = g.Stats(gameObject).attackStats.attackRate;
             damage = g.Stats(gameObject).attackStats.damage;
+            attackType = g.Stats(gameObject).attackStats.attackType;
             projectile = g.Stats(gameObject).attackStats.projectile;
         }
 
@@ -42,7 +44,7 @@ namespace RTS
 
         private void Fire()
         {
-            ProjectileTransform tr = SetProjectile.Create(damage, target, transform.position);
+            ProjectileTransform tr = SetProjectile.Create(damage, target, transform.position, attackType);
             GameObject p = projectileFactory.Create(projectile, tr);
             hasFire = false;
         }
@@ -59,13 +61,14 @@ namespace RTS
 
     public class SetProjectile
     {
-        public static ProjectileTransform Create(float damage, GameObject enemy, Vector3 point)
+        public static ProjectileTransform Create(float damage, GameObject enemy, Vector3 point, AttackType attackType)
         {
             ProjectileTransform tr = new ProjectileTransform();
             tr.target = enemy;
             tr.start = point;
             tr.end = enemy.transform.position;
             tr.damage = damage;
+            tr.attackType = attackType;
             return tr;
         }
     }

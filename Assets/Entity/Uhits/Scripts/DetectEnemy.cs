@@ -53,7 +53,6 @@ namespace RTS
         private bool TargetEqual(GameObject u)
         {
             int b = u.GetComponent<UnitFacade>().getBitwiseTarget;
-            print(b + ", " + bitwiseTarget);
             return (bitwiseTarget & b) != 0;
         }
 
@@ -79,7 +78,6 @@ namespace RTS
             foreach (Collider col in hitColliders)
             {
                 GameObject u = col.gameObject;
-                //if (gameObject != unit && unit.GetComponent<UnitTeam>().team.team != GetComponent<UnitTeam>().team.team){ }
                 if (TargetEqual(u))
                 {
                     target = col;

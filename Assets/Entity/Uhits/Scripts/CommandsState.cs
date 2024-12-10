@@ -107,7 +107,7 @@ namespace RTS
         {
             move.StopMove();
             HasTarget = true;
-            detector.SetTarget(unit);
+            detector.SetTarget(unitMove);
         }
 
         public void End() => 
