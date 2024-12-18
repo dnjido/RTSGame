@@ -19,7 +19,10 @@ namespace RTS
         public Timer timer => queue.timer;
         protected ButtonSpawner buttons;
 
+        protected FabricsList[] fabricList;
+
         public int countList => unitsList.Length;
+        public int team => GetComponent<UnitTeam>().team;
 
         private void Update()
         {
@@ -43,6 +46,15 @@ namespace RTS
         }
 
         [Inject]
+        public void FabricsList(FabricsList[] f) =>
+            fabricList = f;
+
+        public void SetList()
+        {
+            fabricList[team - 1].Add(gameObject);
+        }
+
+        [Inject]
         public void Resource(PlayerResources[] r) =>
             money = r;
 
@@ -58,18 +70,32 @@ namespace RTS
         public void ButtonFactory(ButtonFacade.Factory f) =>
             buttons = new ButtonSpawner(f, this);
 
-        private void Start()
+        private void Awake()
         {
             queue = new BuildQueue();
-            queue.BuildSpawnEvent += Complete;
-            GetComponent<Selection>().SelectedEvent += Selected;
         }
 
-        private void Selected(bool s)
+        private void OnEnable()
+        {
+            queue.BuildSpawnEvent += Complete;
+            GetComponent<Selection>().SelectedEvent += Selected;
+            GetComponent<HealthSystem>().DeathEvent += Destroy;
+        }
+
+        protected void Selected(bool s) 
         {
             movePoint.GetChild(0).gameObject.SetActive(s);
-            buttons.Buttons(s);
+            MakeButtons(s);
         }
+
+        private void Destroy()
+        {
+            buttons.Buttons(false);
+            fabricList[team - 1].Remove(gameObject);
+        }
+
+        public void MakeButtons(bool s) =>
+            buttons.Buttons(s);
 
         private void ChangeResource()
         {
@@ -131,14 +157,21 @@ namespace RTS
             UnitTransform tr = SetUnit.Create(
                 point.position,
                 transform.rotation,
-                GetComponent<UnitTeam>().team);
+                team);
             return unitFactory.Create(unit, tr);
         }
 
         private IEnumerator MoveToPoint(GameObject unit)
         {
             yield return new WaitForSeconds(Time.deltaTime);
-            unit.GetComponentInChildren<UnitMovement>().SetPoint(movePoint.position);
+            unit.GetComponent<TemplateMovement>().SetPoint(movePoint.position);
+        }
+
+        private void OnDisable()
+        {
+            queue.BuildSpawnEvent -= Complete;
+            GetComponent<Selection>().SelectedEvent -= Selected;
+            GetComponent<HealthSystem>().DeathEvent -= Destroy;
         }
     }
 }

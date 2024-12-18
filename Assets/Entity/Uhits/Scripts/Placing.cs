@@ -27,6 +27,13 @@ namespace RTS
         void Start()
         {
             half = Vector3.Scale(GetComponent<BoxCollider>().size, transform.localScale) / 2;
+            StartCoroutine(CheckPlace());
+        }
+
+        private IEnumerator CheckPlace()
+        {
+            yield return new WaitForSeconds(.1f);
+            if (!placing) StartCoroutine(Click());
         }
 
         void Update()
@@ -52,8 +59,17 @@ namespace RTS
 
             SetPlacing(false);
             PlaceEvent?.Invoke(gameObject);
+            Activate();
             Destroy(placeMarker.gameObject);
             Destroy(this);
+        }
+
+        private void Activate()
+        {
+            GetComponent<UnitTeam>()?.Activate();
+            GetComponent<EnergyConsumption>()?.SetEnergy();
+            GetComponent<FogClear>()?.Make();
+            GetComponent<BuildUnit>()?.SetList();
         }
 
         private void Remove()

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Linq;
 
 namespace RTS
 {
@@ -19,5 +20,16 @@ namespace RTS
 
         public void Placing(GameObject u) =>
             u.GetComponent<Placing>().SetPlacing(true);
+
+        protected virtual void SelectedAlt(bool alt)
+        {
+            Selected(!alt);
+        }
+
+        public void ClearButtons()
+        {
+            buttons.Buttons(false);
+            MakeButtons(true);
+        }
     }
 }

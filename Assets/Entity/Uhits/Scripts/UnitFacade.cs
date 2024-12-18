@@ -34,7 +34,7 @@ namespace RTS
         public int getBitwiseTarget => 1 << (int)unitTarget;
 
         [SerializeField] public string[] unitType;
-        [SerializeField] private UnitTransform unitTr;
+        [SerializeField] public UnitTransform unitTr;
 
         public GetStats stats { get; private set; }
 
@@ -52,7 +52,7 @@ namespace RTS
             unitTr = ut;
             transform.position = unitTr.spawnPoint;
             transform.rotation = unitTr.rotate;
-            GetComponent<UnitTeam>().SetTeam(unitTr.team);
+            //GetComponent<UnitTeam>().SetTeam(unitTr.team);
         }
 
         public class Factory : PlaceholderFactory<GameObject, UnitTransform, GameObject>

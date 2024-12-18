@@ -8,6 +8,10 @@ namespace RTS
             unitsList = stats.Stats(gameObject).buildStats.secondUnits;
             ButtonPrefab = stats.Stats(gameObject).buildStats.buttons;
         }
-    }
 
+        protected override void SelectedAlt(bool alt)
+        {
+            Selected(alt);
+        }
+    }
 }

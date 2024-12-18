@@ -58,6 +58,7 @@ namespace RTS
         public virtual void SetPoint(Vector3 p)
         {
             moveStruct.SetPoint(p);
+            SetMoveType();
 
             if (Input.GetKey("a"))
                 updater = new MoveAttackState(gameObject, moveType, p);
@@ -68,6 +69,7 @@ namespace RTS
         protected virtual void SetUnit(GameObject u)
         {
             moveStruct.SetPoint(u);
+            SetMoveType();
 
             if (!moveStruct.enemy)
                 updater = new FollowState(gameObject, moveType, u);
@@ -78,8 +80,6 @@ namespace RTS
         public void Command()
         {
             GameObject ray = CursorRay.RayUnit();
-
-            SetMoveType();
 
             if (ray != null && ray.tag == "Unit")
                 SetUnit(ray);

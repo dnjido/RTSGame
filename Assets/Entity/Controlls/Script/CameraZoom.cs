@@ -4,9 +4,9 @@ namespace RTS
 {
     public class CameraZoom : MonoBehaviour // Camera zoom
     {
-        public float zoomSpeed = 2f;
-        public float minZoom = 5f;
-        public float maxZoom = 20f;
+        [SerializeField]private float zoomSpeed = 2f;
+        [SerializeField]private float minZoom = 5f;
+        [SerializeField]private float maxZoom = 20f;
 
         void Update() => Scroll();
 

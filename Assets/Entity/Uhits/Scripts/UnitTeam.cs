@@ -1,5 +1,4 @@
 using UnityEngine;
-
 namespace RTS
 {
     public interface IUnitTeam
@@ -9,6 +8,7 @@ namespace RTS
 
     public class UnitTeam : MonoBehaviour, IUnitTeam // Unit team that sets up color and detect layer
     {
+        private int trTeam => GetComponent<UnitFacade>().unitTr.team;
         [SerializeField] private int _team;
         public int team { get => _team;
             set { ChangeTeam(); _team = value; }
@@ -18,7 +18,12 @@ namespace RTS
         public Material color;
         public int status;
 
-        void Start() => SetTeam(_team);
+        void Start() 
+        {
+            if(!GetComponent<Placing>()) SetTeam(_team);
+        }
+
+        public void Activate() => SetTeam(trTeam != 0 ? trTeam : _team);
 
         public void SetTeam(int t) => team = t;
 
@@ -49,6 +54,7 @@ namespace RTS
             {
                 parts.GetComponent<Renderer>().material = color;
             }
+            GetComponent<MapMarker>()?.SetColor(color.GetColor("_Color"));
         }
 
         private void ValidateColor()

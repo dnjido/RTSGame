@@ -46,7 +46,7 @@ namespace RTS
 
     public class CursorOnUI
     {
-        public static bool CursorOverUI()
+        public static List<RaycastResult> RaycastResult()
         {
             PointerEventData pointerData = new PointerEventData(EventSystem.current)
             {
@@ -54,7 +54,21 @@ namespace RTS
             };
             List<RaycastResult> results = new List<RaycastResult>();
             EventSystem.current.RaycastAll(pointerData, results);
-            return results.Count > 0;
+            return results;
+        }
+
+        public static bool CursorOverUI()
+        {
+            return RaycastResult().Count > 0;
+        }
+
+        public static bool CursorOverName(string name)
+        {
+            foreach (var item in RaycastResult())
+            {
+                if (item.gameObject.name == name) return true;
+            }
+            return false;
         }
     }
 }

@@ -25,12 +25,12 @@ namespace RTS
         public void GetEnergy(PlayerResources[] r)
         {
             playerResources = r;
-            currentResource.PowerEvent += Disable;
-            SetEnergy();
         }
 
         public void SetEnergy()
         {
+            currentResource.PowerEvent += Disable;
+            //SetEnergy();
             if (energy <= 0) currentResource.ChangeEnergy(-energy * mult);
             else currentResource.ChangeMaxEnergy(energy * mult);
             currentResource.ChangePower();

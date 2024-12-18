@@ -14,18 +14,23 @@ namespace RTS
         public bool isSelected
         {
             get => _isSelected;
-            set
-            {
-                if (!hasSelecting) return;
-                _isSelected = value;
-                circle.SetActive(value);
-                SelectedEvent?.Invoke(value);
-            }
+            set => Selecting(value);
         }
+
+        private int team => GetComponent<UnitTeam>().team;
 
         public delegate void SelectedDelegate(bool select);
         public event SelectedDelegate SelectedEvent;
 
         private bool _isSelected;
+
+        private void Selecting(bool s)
+        {
+            if (!hasSelecting || team != 1) return;
+
+            _isSelected = s;
+            circle.SetActive(s);
+            SelectedEvent?.Invoke(s);
+        }
     }
 }
