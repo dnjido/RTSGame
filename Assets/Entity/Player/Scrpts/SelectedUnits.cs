@@ -13,6 +13,13 @@ namespace RTS
         public SelectedUnitsList selected = new SelectedUnitsList();
         private int count;
 
+        public bool GetTeam(GameObject unit)
+        {
+            if(!unit.GetComponent<UnitTeam>()) return false;
+            UnitTeam team = unit.GetComponent<UnitTeam>();
+            return team.team == 1;
+        }
+
         public void AddUnits(Collider[] col)
         {
             if (col.Length != count) ClearUnits();
@@ -22,8 +29,7 @@ namespace RTS
             foreach (Collider collider in col)
             {
                 Selection sel = collider.gameObject.GetComponent<Selection>();
-                //TeamNumber team = collider.gameObject.GetComponent<TeamNumber>();
-                if (sel)
+                if (sel && GetTeam(collider.gameObject))
                 {
                     sel.isSelected = true;
                     u.Add(collider.gameObject);

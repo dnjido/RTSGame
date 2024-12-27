@@ -14,13 +14,19 @@ namespace RTS
         {
             playerResources = r;
             ID = 0;
-            currentResource.MoneyEvent += SetCount;
+            OnEnable();
             counter = GetComponent<TMP_Text>();
             SetCount();
         }
 
         protected override void SetCount() =>
             counter.text = Mathf.Floor(resource).ToString() + "$";
+
+        private void OnEnable()
+        {
+            if (currentResource == null) return;
+            currentResource.MoneyEvent += SetCount;
+        }
 
         private void OnDestroy() =>
             currentResource.MoneyEvent -= SetCount;

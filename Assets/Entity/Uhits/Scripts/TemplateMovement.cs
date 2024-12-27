@@ -66,6 +66,14 @@ namespace RTS
                 updater = new MoveState(gameObject, moveType, p);
         }
 
+        public virtual void MoveAI(Vector3 p)
+        {
+            moveStruct.SetPoint(p);
+            SetMoveType();
+
+            updater = new MoveAttackState(gameObject, moveType, p);
+        }
+
         protected virtual void SetUnit(GameObject u)
         {
             moveStruct.SetPoint(u);

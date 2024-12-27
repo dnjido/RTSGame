@@ -8,10 +8,24 @@ namespace RTS
         [SerializeField] private GameObject prefab, parent;
         [SerializeField] private GameObject UI;
 
-        void Start()
+        private HealthSystem health => GetComponent<HealthSystem>();
+        private RepairBuild repair => GetComponent<RepairBuild>();
+
+        void Awake()
         {
             UI = Instantiate(prefab, parent.transform, false);
-            GetComponent<HealthSystem>().DamageEvent += ChangeValue;
+        }
+
+        void OnEnable()
+        {
+            if (health) health.DamageEvent += ChangeValue;
+            if (repair) repair.RepairEvent += RepairIcon;
+        }
+
+        void OnDisable()
+        {
+            if (health) health.DamageEvent -= ChangeValue;
+            if (repair) repair.RepairEvent -= RepairIcon;
         }
 
         void Update() =>
@@ -20,6 +34,11 @@ namespace RTS
         public void ChangeValue(float c)
         {
             UI.GetComponent<SetBar>().Change(c);
+        }
+
+        public void RepairIcon(bool r)
+        {
+            UI.GetComponent<SetBar>().Repair(r);
         }
     }
 }

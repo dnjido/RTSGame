@@ -21,17 +21,17 @@ namespace RTS
         private SelectedUnits selectedUnits;
         public bool canSelection = true;
 
+        private Vector3 point => CursorRay.RayHit(~(1 << 3)).point;
+
         [Inject]
         public void Construct(SelectedUnits su) => selectedUnits = su;
 
         void Start()
         {
-            //if (!selectionBox) return;
             rectTransform = selectionBox.GetComponent<RectTransform>();
             positions = new BorderPos();
         }
 
-        // Update is called once per frame
         void Update()
         {
 
@@ -51,12 +51,12 @@ namespace RTS
             selectionBox.gameObject.SetActive(true);
             rectTransform.anchoredPosition = startMousePosition;
             rectTransform.sizeDelta = Vector2.zero;
-            positions.pos1 = CursorRay.RayHit(~(1 << 3)).point;
+            positions.pos1 = point;
         }
 
         private void Selecting()
         {
-            positions.pos2 = CursorRay.RayHit(~(1 << 3)).point;//CursorRay.RayPoint();
+            positions.pos2 = point;
             Vector2 currentMousePosition = CursorPosition.LocalPos(cam, canvas);
             Vector2 size = currentMousePosition - startMousePosition;
             rectTransform.sizeDelta = new Vector2(Mathf.Abs(size.x), Mathf.Abs(size.y));
@@ -77,7 +77,7 @@ namespace RTS
             float halfz = Mathf.Abs(pos1.z - pos2.z) / 2;
             Vector3 half = new Vector3(halfx, 20, halfz);
 
-            Collider[] hitColliders = Physics.OverlapBox(center, half, Quaternion.identity, 11111111 << 7);// , 1 << 6
+            Collider[] hitColliders = Physics.OverlapBox(center, half, Quaternion.identity, 0b11111111 << 7);// , 1 << 6
             selectedUnits.AddUnits(hitColliders);
         }
     }

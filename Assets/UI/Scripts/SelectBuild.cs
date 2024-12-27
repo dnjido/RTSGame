@@ -1,10 +1,12 @@
-using RTS;
+using System;
+using System.Linq;
 using UnityEngine;
 using Zenject;
+using System.Collections.Generic;
 
 namespace RTS
 {
-    public class SelectBuild : MonoBehaviour
+    public class SelectBuild : MonoBehaviour // Select build type from category
     {
         [SerializeField] private GameObject prefabs;
         [SerializeField] private GameObject[] buttons;
@@ -14,23 +16,23 @@ namespace RTS
         [SerializeField] private int id;
         [SerializeField] private new string tag;
 
+        [SerializeField] private int team = 1;
+
+        private Func<GameObject, SelectBuild> selBuild = obj => obj.GetComponent<SelectBuild>();
+
+        private List<GameObject> BuildList() => 
+            fabricList[0].List(tag);
+
         private FabricsList[] fabricList;
 
         [Inject]
         public void FabricsList(FabricsList[] f) =>
             fabricList = f;
 
-        private GameObject FindBuild()
-        {
-            string name = prefabs.name;
-            return GameObject.Find(name);
-        }
-
         public void GetBuild()
         {
             ClearAllBuild();
-            //GameObject b = FindBuild();
-            GameObject b = fabricList[0].List(tag)[id];
+            GameObject b = BuildList()[id];
 
             b.GetComponent<Selection>().isSelected = true;
             AltBuild(b);
@@ -39,27 +41,25 @@ namespace RTS
 
         public void ClearBuild()
         {
-            //FindBuild().GetComponent<Selection>().isSelected = false;
-            fabricList[0].List(tag)[id].GetComponent<Selection>().isSelected = false;
+            BuildList()[id].GetComponent<Selection>().isSelected = false;
             created = false;
         }
 
         public void ClearAllBuild()
         {
-            foreach (GameObject b in buttons)
+            GameObject match;
+            try
             {
-                SelectBuild sel = b.GetComponent<SelectBuild>();
-                if (sel.created)
-                    sel.ClearBuild();
-
-                if (sel == this) 
-                {
-                    id++;
-                    if (id >= fabricList[0].List(tag).Count) id = 0;
-                }
-                //else sel.ClearBuild();
-                //else { id = 0; print("b34br"); }
+                match = buttons.Single(p => selBuild(p).created == true); 
             }
+            catch (InvalidOperationException) { return; }
+
+            selBuild(match).ClearBuild();
+
+            if (selBuild(match) == this) 
+                id = id++ >= BuildList().Count - 1 ? 0 : id++;
+            else
+                selBuild(match).id = 0;
         }
 
         public void AltBuild(GameObject build)

@@ -9,21 +9,29 @@ namespace RTS
         public void Return();
     }
 
-    public class RotateBody : MonoBehaviour, IRotate
+    public class RotateBody : MonoBehaviour, IRotate // Rotate unit to target
     {
         private float initAngularSpeed;
-        private NavMeshAgent agent;
         private GameObject target;
+
+        private DetectEnemy detect => GetComponent<DetectEnemy>();
+        private NavMeshAgent agent => GetComponent<NavMeshAgent>();
 
         void Start()
         {
-            agent = GetComponent<NavMeshAgent>();
             initAngularSpeed = agent.angularSpeed;
-            GetComponent<DetectEnemy>().TargetEvent += SetTarget;
+            //detect.TargetEvent += SetTarget;
+            OnEnable();
+        }
+
+        void OnEnable()
+        {
+            if (detect == null) return;
+            detect.TargetEvent += SetTarget;
         }
 
         void OnDestroy() =>
-            GetComponent<DetectEnemy>().TargetEvent -= SetTarget;
+            detect.TargetEvent -= SetTarget;
 
         void Update() => Rotating();
 

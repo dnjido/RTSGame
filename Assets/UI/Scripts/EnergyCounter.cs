@@ -14,15 +14,20 @@ namespace RTS
         {
             playerResources = r;
             ID = 0;
-            currentResource.EnergyEvent += SetCount;
+            OnEnable();
             SetCount();
         }
 
         protected override void SetCount()
-        { 
-            if(resource == 0) return;
-            float current = Mathf.Clamp(resource / maxResource, 0.01f, 1);
-            rectTransform.localScale = new Vector2(1, current);
+        {
+            float current = Mathf.Clamp(resource / maxResource, 0.01f, 1); 
+            rectTransform.localScale = new Vector3(1, 1, current != float.NaN ? current : 0);
+        }
+
+        private void OnEnable()
+        {
+            if (currentResource == null) return;
+            currentResource.EnergyEvent += SetCount;
         }
 
         private void OnDestroy() =>

@@ -27,7 +27,7 @@ namespace RTS
 
         public static Vector3 RayPoint()
         {
-            RaycastHit hit = RayHit(11 >> 0);
+            RaycastHit hit = RayHit(0b11 >> 0);
             if(hit.point != null)
                 return hit.point;
             else 
@@ -36,7 +36,7 @@ namespace RTS
 
         public static GameObject RayUnit()
         {
-            RaycastHit hit = RayHit(111111111 << 6);
+            RaycastHit hit = RayHit(0b11111111 << 7);
             if (hit.transform != null)
                 return hit.transform.gameObject;
             else

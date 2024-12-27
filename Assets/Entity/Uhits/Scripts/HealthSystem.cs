@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -24,7 +25,12 @@ namespace RTS
         public delegate void DeathDelegate();
         public event DeathDelegate DeathEvent;
 
+        public float percent => currentHealth / maxHealth;
+
         void Start() => currentHealth = maxHealth;
+
+        public float GetHealth() => currentHealth;
+        public float MaxHealth() => maxHealth;
 
         [Inject]
         public void UnitStats(GetStats g)
@@ -42,16 +48,19 @@ namespace RTS
 
         public void ApplyDamage(float count, AttackType attackType)
         {
-            DamageEvent?.Invoke(HealthCalc.GetPercent(currentHealth, maxHealth));
+            DamageEvent?.Invoke(percent);
 
             count *= attackReduced[(int)attackType].reduce;
             currentHealth = HealthCalc.Change(-count, currentHealth, armor);
 
-            if (HealthCalc.GetPercent(currentHealth, maxHealth) <= 0) Death();
+            if (percent <= 0) Death();
         }
 
-        public void Healing(float count) =>
-            HealthCalc.Change(count, currentHealth, 0);
+        public void Healing(float count)
+        {
+            DamageEvent?.Invoke(percent);
+            currentHealth = HealthCalc.Change(count, currentHealth, 0);
+        }
 
         public void Death() 
         {
@@ -59,5 +68,4 @@ namespace RTS
             Destroy(gameObject);
         }
     }
-
 }

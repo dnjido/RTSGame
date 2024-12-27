@@ -7,22 +7,35 @@ namespace RTS
         public bool visibile { get; private set; }
 
         private int team => GetComponent<UnitTeam>().team;
+        private int layer => GetComponent<UnitTeam>().relationship;
+        bool init = false;
+        bool equal => ((1 << 0) & layer) != 0;
 
-        private void Update()
+        private void Update() => Hide();
+
+        private void Start()
         {
-            Hide();
+            if (!GetComponent<Placing>() || !equal) StartClear(true);
         }
+
+        public void StartClear(bool b) 
+        {
+            if (equal) init = b;
+        } 
 
         private void Hide()
         {
-            if (team == 1) return;
-
+            if (equal && !init) return;
             visibile = Ray();
-
             if (visibile == transform.GetChild(0).gameObject.activeSelf) return;
+            SetVisibility(visibile);
+        }
 
+        private void SetVisibility(bool v)
+        {
             foreach (Transform t in transform)
-               t.gameObject.SetActive(visibile);
+                t.gameObject.SetActive(v);
+
         }
 
         private bool Ray()

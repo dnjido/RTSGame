@@ -44,7 +44,7 @@ namespace RTS
 
         private void Fire()
         {
-            ProjectileTransform tr = SetProjectile.Create(damage, target, transform.position, attackType);
+            ProjectileTransform tr = SetProjectile.Create(damage, target, firePoint.transform.position, attackType);
             GameObject p = projectileFactory.Create(projectile, tr);
             hasFire = false;
         }

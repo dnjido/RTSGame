@@ -1,24 +1,37 @@
 using UnityEngine;
 using System.Collections;
 using Zenject;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace RTS
 {
     public class Placing : MonoBehaviour // Placement of units on the map
     {
+        public IPlacedEvent placedEvent;
         private bool placing;
-        private Vector3 start, half;
         private SelectionBorder selectionBorder;
         [SerializeField] private SpriteRenderer placeMarker;
+        public bool hasPlaced;
+        private FabricsList[] fabricList;
 
-        public delegate void PlaceDelegate(GameObject unit);
-        public event PlaceDelegate PlaceEvent;
+        int team => GetComponent<UnitFacade>().unitTr.team - 1;
+
+        private Vector3 center => GetComponent<BoxCollider>().center;
+        public Vector3 size => Vector3.Scale(GetComponent<BoxCollider>().size, transform.localScale);
+        private Vector3 half => size / 2;
 
         [Inject]
-        public void Construct(SelectionBorder sb) => selectionBorder = sb;
+        public void Construct(SelectionBorder sb) => 
+            selectionBorder = sb;
+
+        [Inject]
+        public void Fabrics(FabricsList[] f) =>
+            fabricList = f;
 
         public void SetPlacing(bool b)
         {
+            hasPlaced = b;
             placing = b;
             selectionBorder.canSelection = !b;
             placeMarker.gameObject.SetActive(b);
@@ -26,19 +39,13 @@ namespace RTS
 
         void Start()
         {
-            half = Vector3.Scale(GetComponent<BoxCollider>().size, transform.localScale) / 2;
-            StartCoroutine(CheckPlace());
-        }
-
-        private IEnumerator CheckPlace()
-        {
-            yield return new WaitForSeconds(.1f);
-            if (!placing) StartCoroutine(Click());
+            if(!hasPlaced) 
+                StartCoroutine(Click());
         }
 
         void Update()
         {
-            if (!placing) return;
+            if (!placing && !hasPlaced) return;
             Move();
             Place();
             Remove();
@@ -53,12 +60,18 @@ namespace RTS
             if (Input.GetMouseButtonDown(0) && placing) StartCoroutine(Click());
         }
 
+        public void PlaceAI(Vector3 pos)
+        {
+            transform.position = pos;
+            StartCoroutine(Click());
+        } 
+
         private IEnumerator Click()
         {
             yield return new WaitForSeconds(Time.deltaTime);
 
             SetPlacing(false);
-            PlaceEvent?.Invoke(gameObject);
+            placedEvent?.Placing();
             Activate();
             Destroy(placeMarker.gameObject);
             Destroy(this);
@@ -67,9 +80,10 @@ namespace RTS
         private void Activate()
         {
             GetComponent<UnitTeam>()?.Activate();
-            GetComponent<EnergyConsumption>()?.SetEnergy();
+            GetComponent<EnergyConsumption>()?.Activate();
             GetComponent<FogClear>()?.Make();
-            GetComponent<BuildUnit>()?.SetList();
+            GetComponent<SetBuildList>()?.SetList();
+            GetComponent<HideUnit>()?.StartClear(true);
         }
 
         private void Remove()
@@ -78,20 +92,41 @@ namespace RTS
                 Destroy(gameObject);
         }
 
+        private float NearYards()
+        {
+            List<GameObject> list = fabricList[team].List("Yard");
+
+            return list.Max(p => Vector3.Distance(p.transform.position, transform.position));
+        }
+
+        public void RemoveAI() => Destroy(gameObject);
+
         private bool CanPlace()
         {
-            start = gameObject.transform.position + GetComponent<BoxCollider>().center;
-            Collider[] hitColliders = Physics.OverlapBox(start, half);// ,11111111 << 7 , ~(001 << 7)
+            Vector3 start = gameObject.transform.position + center;
+            Collider[] hitColliders = Physics.OverlapBox(start, half);
+            print(NearYards() >= 25);
             foreach (Collider collider in hitColliders)
             {
-                if (collider.gameObject.tag == "Unit" && collider.gameObject != gameObject)
+                if ((collider.gameObject.tag == "Unit" && collider.gameObject != gameObject) || NearYards() >= 35)
                 {
                     placeMarker.color = Color.red;
                     return false;
                 }
             }
-
             placeMarker.color = Color.green;
+            return true;
+        }
+
+        public bool IsAreaClear(Vector3 coord)
+        {
+            Vector3 start = coord;
+            Collider[] hitColliders = Physics.OverlapBox(start, half);
+            foreach (Collider collider in hitColliders)
+            {
+                if (collider.gameObject.tag == "Unit" && collider.gameObject != gameObject)
+                    return false;
+            }
             return true;
         }
     }

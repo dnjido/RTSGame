@@ -114,10 +114,12 @@ namespace RTS
     {
         public static int Layers(UnitTeam tm)
         {
-            int l = 11111111 << 7;
-            int t = 1 << 6 + tm.team;
-            t = ~t;
-            return l & t;
+            int l = 0b11111111;
+            int t = tm.relationship;
+            t = ~t; 
+            t = l & t;
+            
+            return t << 7;
         }
     }
 }

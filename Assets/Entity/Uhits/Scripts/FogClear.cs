@@ -1,3 +1,5 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace RTS
@@ -6,7 +8,10 @@ namespace RTS
     {
         [SerializeField] private GameObject FogCleaner;
         [SerializeField] private float yOffset, size;
+
         private int team => GetComponent<UnitTeam>().team;
+        private int layer => GetComponent<UnitTeam>().relationship;
+        bool equal => ((1 << 0) & layer) != 0;
 
         private void Start()
         {
@@ -15,7 +20,7 @@ namespace RTS
 
         public void Make()
         {
-            if (team != 1) return;
+            if (!equal) return;
 
             GameObject cleaner = Instantiate(FogCleaner, transform, false);
             cleaner.transform.localPosition = new Vector3(0, yOffset, 0);

@@ -20,10 +20,7 @@ namespace RTS
             unit = builder.GetUnit(ID);
             Recovery();
 
-            builder.queue.BuildStartEvent += StartBuild;
-            builder.queue.BuildAddEvent += ChangeCount;
-            builder.queue.BuildEndEvent += Clear;
-            builder.queue.BuildRemoveEvent += Clear;
+            OnEnable();
         }
 
         public void Command()
@@ -80,8 +77,20 @@ namespace RTS
             else builder.Remove(ID);
         }
 
-        public void OnDestroy()
+        public void OnEnable()
         {
+            if (builder == null) return;
+
+            builder.queue.BuildStartEvent += StartBuild;
+            builder.queue.BuildAddEvent += ChangeCount;
+            builder.queue.BuildEndEvent += Clear;
+            builder.queue.BuildRemoveEvent += Clear;
+        }
+
+        public void OnDisable()
+        {
+            if (builder == null) return;
+
             builder.queue.BuildStartEvent -= StartBuild;
             builder.queue.BuildAddEvent -= ChangeCount;
             builder.queue.BuildEndEvent -= Clear;

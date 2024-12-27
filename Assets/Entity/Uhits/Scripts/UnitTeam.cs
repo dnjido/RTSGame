@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using Zenject;
 namespace RTS
 {
     public interface IUnitTeam
@@ -11,17 +13,26 @@ namespace RTS
         private int trTeam => GetComponent<UnitFacade>().unitTr.team;
         [SerializeField] private int _team;
         public int team { get => _team;
-            set { ChangeTeam(); _team = value; }
+            set { _team = value; ChangeTeam(); }
         }
         public TeamColors teamColor;
 
         public Material color;
-        public int status;
+        public int relationship;
 
-        void Start() 
+        private Relationship[] _relationships;
+
+        private ColorfulParts part => GetComponent<ColorfulParts>();
+        private DetectEnemy detect => GetComponent<DetectEnemy>();
+
+        void Awake()
         {
-            if(!GetComponent<Placing>()) SetTeam(_team);
+            if (!GetComponent<Placing>()) Activate();
         }
+
+        [Inject]
+        public void Relationship(Relationship[] r) =>
+            _relationships = r;
 
         public void Activate() => SetTeam(trTeam != 0 ? trTeam : _team);
 
@@ -33,39 +44,39 @@ namespace RTS
         {
             color = teamColor.materials[team - 1];
             SetStatus();
+            SetColor();
         }
 
         public void SetStatus()
         {
-            gameObject.layer = 6 + team;
-            status = 6 + team;
-            SetColor();
+            relationship = _relationships[team - 1].relationship;
+            //_relationships = null;
 
-            if (GetComponent<DetectEnemy>() == null) return;
-            GetComponent<DetectEnemy>().layer = DetectLayers.Layers(this);
+            gameObject.layer = 6 + team;
+
+            if(detect) detect.layer = DetectLayers.Layers(this);
         }
 
         private void SetColor()
         {
-            if (!GetComponent<ColorfulParts>()) return;
+            if (!part) return;
 
-            ColorfulParts part = GetComponent<ColorfulParts>();
-            foreach (GameObject parts in part.parts)
-            {
+            foreach (GameObject parts in part.parts) 
                 parts.GetComponent<Renderer>().material = color;
-            }
+
             GetComponent<MapMarker>()?.SetColor(color.GetColor("_Color"));
         }
 
         private void ValidateColor()
         {
-            if (!GetComponent<ColorfulParts>()) return;
+            if (!part) return;
+            int tm = _team == 0 ? 1 : _team;
+            color = teamColor.materials[tm - 1];
 
-            ColorfulParts part = GetComponent<ColorfulParts>();
-            foreach (GameObject parts in part.parts)
-            {
-                parts.GetComponent<Renderer>().material = teamColor.materials[_team - 1];
-            }
+            foreach (GameObject parts in part.parts) 
+                parts.GetComponent<Renderer>().material = color;
+
+            GetComponent<MapMarker>()?.SetColor(color.GetColor("_Color"));
         }
     }
 }

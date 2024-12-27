@@ -1,23 +1,31 @@
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
+using UnityEngine.AI;
 
 namespace RTS
 {
-    public class RotateTower : MonoBehaviour, IRotate
+    public class RotateTower : MonoBehaviour, IRotate // Rotate tower to target
     {
         [SerializeField] private float speed;
         [SerializeField] private GameObject tower;
         private Quaternion initRot;
         private GameObject target;
 
+        private DetectEnemy detect => GetComponent<DetectEnemy>();
+
         void Start()
         {
-            initRot = tower.transform.localRotation; 
-            GetComponent<DetectEnemy>().TargetEvent += SetTarget;
+            initRot = tower.transform.localRotation;
+            OnEnable();
+        }
+
+        void OnEnable()
+        {
+            if (detect == null) return;
+            detect.TargetEvent += SetTarget;
         }
 
         void OnDestroy() =>
-            GetComponent<DetectEnemy>().TargetEvent -= SetTarget;
+            detect.TargetEvent -= SetTarget;
 
         void Update() => Rotating();
 

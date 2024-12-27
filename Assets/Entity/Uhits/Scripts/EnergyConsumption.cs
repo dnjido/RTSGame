@@ -27,10 +27,14 @@ namespace RTS
             playerResources = r;
         }
 
+        public void Activate()
+        {
+            OnEnable();
+            SetEnergy();
+        }
+
         public void SetEnergy()
         {
-            currentResource.PowerEvent += Disable;
-            //SetEnergy();
             if (energy <= 0) currentResource.ChangeEnergy(-energy * mult);
             else currentResource.ChangeMaxEnergy(energy * mult);
             currentResource.ChangePower();
@@ -38,11 +42,19 @@ namespace RTS
 
         private void Disable(bool b)
         {
+            if (this == null) return;
+
             GetComponent<Attack>()?.SetStop(!b);
             GetComponent<DetectEnemy>()?.SetStop(!b);
         }
 
-        private void OnDestroy()
+        private void OnEnable()
+        {
+            if (currentResource == null) return;
+            currentResource.PowerEvent += Disable;
+        }
+
+        private void OnDisable()
         {
             mult = -1;
             SetEnergy();

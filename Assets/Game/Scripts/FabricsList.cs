@@ -5,12 +5,14 @@ using System;
 namespace RTS
 {
     [Serializable]
-    public class FabricsList
+    public class FabricsList // List of production build
     {
         public List<GameObject> Yards;
         public List<GameObject> Barracks;
         public List<GameObject> Fabrics;
         public List<GameObject> Aerodroms;
+        public List<GameObject> Generators;
+        public List<GameObject> Plants;
 
         public void Add(GameObject item) =>
             Selecting(item).Add(item);
@@ -41,6 +43,8 @@ namespace RTS
             if (tag == "Barrack") return Barracks;
             if (tag == "Factory") return Fabrics;
             //if (a == "Aerodroms") return Aerodroms;
+            if (tag == "Generator") return Generators;
+            if (tag == "Plant") return Plants;
             return null;
         }
     }

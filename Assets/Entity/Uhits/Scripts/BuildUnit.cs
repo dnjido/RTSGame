@@ -1,6 +1,10 @@
 using UnityEngine;
 using System.Collections;
 using Zenject;
+using System.Collections.Generic;
+using System.Linq;
+using NUnit.Framework;
+using System;
 
 namespace RTS
 {
@@ -19,15 +23,13 @@ namespace RTS
         public Timer timer => queue.timer;
         protected ButtonSpawner buttons;
 
-        protected FabricsList[] fabricList;
-
         public int countList => unitsList.Length;
         public int team => GetComponent<UnitTeam>().team;
 
         private void Update()
         {
             if (GetComponent<Selection>().isSelected) SetMovePoint();
-            if (queue.timer == null) return;
+            if (timer == null) return;
 
             ChangeResource();
         }
@@ -43,15 +45,6 @@ namespace RTS
         {
             unitsList = stats.Stats(gameObject).buildStats.units;
             ButtonPrefab = stats.Stats(gameObject).buildStats.buttons;
-        }
-
-        [Inject]
-        public void FabricsList(FabricsList[] f) =>
-            fabricList = f;
-
-        public void SetList()
-        {
-            fabricList[team - 1].Add(gameObject);
         }
 
         [Inject]
@@ -75,14 +68,7 @@ namespace RTS
             queue = new BuildQueue();
         }
 
-        private void OnEnable()
-        {
-            queue.BuildSpawnEvent += Complete;
-            GetComponent<Selection>().SelectedEvent += Selected;
-            GetComponent<HealthSystem>().DeathEvent += Destroy;
-        }
-
-        protected void Selected(bool s) 
+        protected void Selected(bool s)
         {
             movePoint.GetChild(0).gameObject.SetActive(s);
             MakeButtons(s);
@@ -91,7 +77,6 @@ namespace RTS
         private void Destroy()
         {
             buttons.Buttons(false);
-            fabricList[team - 1].Remove(gameObject);
         }
 
         public void MakeButtons(bool s) =>
@@ -111,7 +96,7 @@ namespace RTS
         public void Undo(int id) =>
             SelectClass(id)?.Undo();
 
-        public void Remove(int id) 
+        public void Remove(int id)
         {
             BuildCommandsStruct str = MakeBuildStruct.Make(unitsList[id], BuildTime(id));
             queue?.Remove(str);
@@ -122,11 +107,32 @@ namespace RTS
 
         public GameObject GetUnit(int id) => unitsList[id];
 
+        public int GetID(GameObject id)
+        {
+            return unitsList.Select((unit, index) => new { unit, index })
+                    .FirstOrDefault(x => x.unit == id)?.index ?? -1;
+        }
+
+        
+
         public float BuildTime(int id) =>
             stats.Stats(unitsList[id]).generalStats.buildTime;
 
         public float BuildCost(int id) =>
             stats.Stats(unitsList[id]).generalStats.cost;
+
+        public int QueueCount() =>
+            queue.buildCount;
+
+        public List<int> GetWithAttr(string attr) 
+        {
+            List<int> list = unitsList
+                .Select((unit, index) => new { unit, index })
+                .Where(x => GetAttr.GetAttribute(x.unit, attr)) 
+                .Select(x => x.index).ToList();
+
+            return list;
+        }
 
         private BuilderStates SelectClass(int id)
         {
@@ -165,6 +171,13 @@ namespace RTS
         {
             yield return new WaitForSeconds(Time.deltaTime);
             unit.GetComponent<TemplateMovement>().SetPoint(movePoint.position);
+        }
+
+        private void OnEnable()
+        {
+            queue.BuildSpawnEvent += Complete;
+            GetComponent<Selection>().SelectedEvent += Selected;
+            GetComponent<HealthSystem>().DeathEvent += Destroy;
         }
 
         private void OnDisable()

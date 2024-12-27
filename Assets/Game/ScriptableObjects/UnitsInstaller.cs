@@ -80,10 +80,28 @@ namespace RTS
             catch { return 1; }
         }
 
+        public static int Relationship(GameObject unit)
+        {
+            try { return unit.GetComponent<UnitTeam>().relationship; }
+            catch { return 0; }
+        }
+
         public static DetectEnemy Detector(GameObject unit)
         {
             try { return unit.GetComponent<DetectEnemy>(); }
             catch { return unit.AddComponent<DetectEnemy>(); }
+        }
+
+        public static UnitFacade Facade(GameObject unit)
+        {
+            try { return unit.GetComponent<UnitFacade>(); }
+            catch { return unit.AddComponent<UnitFacade>(); }
+        }
+
+        public static string[] Attribute(GameObject unit)
+        {
+            try { return unit.GetComponent<UnitFacade>().unitType; }
+            catch { return new string[0]; }
         }
 
         public static T NullComponent<T>(GameObject unit) where T : Component
@@ -106,6 +124,28 @@ namespace RTS
         {
             try { return (T)Convert.ChangeType(c, typeof(T)); }
             catch { return new T(); }
+        }
+    }
+
+    public static class GetAttr
+    {
+        public static bool GetAttribute(GameObject unit, string attr)
+        {
+            foreach (string a in GU.Attribute(unit))
+                if (a == attr) return true;
+
+            return false;
+        }
+
+        public static List<GameObject> GetUnitsWihAttr(GameObject[] units, string attr)
+        {
+            List<GameObject> list = new List<GameObject>();
+
+            foreach (GameObject u in units)
+                if (GetAttribute(u, attr))
+                    list.Add(u);
+
+            return list;
         }
     }
 }

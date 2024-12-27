@@ -1,25 +1,38 @@
 using UnityEngine;
 using System.Linq;
+using System;
 
 namespace RTS
 {
+    public interface IPlacedEvent
+    {
+        public void Placing();
+    }
 
-    public class ConstructBuild : BuildUnit  // Produces units that are in the queue.
+    public class ConstructBuild : BuildUnit, IPlacedEvent  // Produces units that are in the queue.
     {
         public GameObject complete;
 
         protected override void Complete(GameObject unit) => complete = unit;
 
-        public void Placing(ConstructCommand b)
+        private Func<GameObject, Placing> place = obj => obj.GetComponent<Placing>();
+
+        public void PlacingCommand(ConstructCommand b)
         {
-            GameObject u = Spawn(complete);
-            Placing(u);
-            b.placedUnit = u.GetComponent<Placing>();
-            u.GetComponent<Placing>().PlaceEvent += b.Placing;
+            GameObject construct = SpawnConstruct();
+
+            b.placedUnit = place(construct);
+            place(construct).SetPlacing(true);
+            place(construct).placedEvent = b;
         }
 
-        public void Placing(GameObject u) =>
-            u.GetComponent<Placing>().SetPlacing(true);
+        public void Placing() => complete = null;
+
+        public GameObject SpawnConstruct()
+        {
+            GameObject u = Spawn(complete);
+            return u;
+        }
 
         protected virtual void SelectedAlt(bool alt)
         {

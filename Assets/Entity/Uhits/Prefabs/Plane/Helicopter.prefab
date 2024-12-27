@@ -281,6 +281,38 @@ Transform:
   - {fileID: 6009340700666778843}
   m_Father: {fileID: 7931592220866867305}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1472808294543937991
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 862130288338795108}
+  m_Layer: 7
+  m_Name: CirlceParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &862130288338795108
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1472808294543937991}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8997557715195287742}
+  m_Father: {fileID: 7931592220866867305}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1487227320454070435
 GameObject:
   m_ObjectHideFlags: 0
@@ -1887,11 +1919,11 @@ Transform:
   m_GameObject: {fileID: 7223126914390480705}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.05, z: 0}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 1}
+  m_LocalPosition: {x: 0, y: 0.05000019, z: 0}
+  m_LocalScale: {x: 2.5, y: 2.4999998, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7931592220866867305}
+  m_Father: {fileID: 862130288338795108}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!212 &3306503511982383438
 SpriteRenderer:
@@ -2077,7 +2109,7 @@ Transform:
   m_GameObject: {fileID: 7291479740735814009}
   serializedVersion: 2
   m_LocalRotation: {x: -0.70710677, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 3.2, z: 0.00000029802322}
+  m_LocalPosition: {x: 0, y: 3.1999998, z: 0}
   m_LocalScale: {x: 3.1999998, y: 3.1999998, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2125,7 +2157,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.39215684, b: 0.39215684, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -2289,7 +2321,7 @@ Transform:
   m_Children:
   - {fileID: 8047887995086296893}
   - {fileID: 4027137089072747291}
-  - {fileID: 8997557715195287742}
+  - {fileID: 862130288338795108}
   - {fileID: 5097289701495981104}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2354,7 +2386,7 @@ MonoBehaviour:
   cost: 0
   unitTarget: 1
   unitType:
-  - Vehicle
+  - Combat
 --- !u!114 &1055397345093509943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2445,8 +2477,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _team: 1
   teamColor: {fileID: 11400000, guid: 119ae537ca48130449b641f84f379918, type: 2}
-  color: {fileID: 0}
-  status: 0
+  color: {fileID: 2100000, guid: ac1bba5b6755705489a5f77eea0bb464, type: 2}
+  relationship: 0
 --- !u!114 &668850522247469136
 MonoBehaviour:
   m_ObjectHideFlags: 0

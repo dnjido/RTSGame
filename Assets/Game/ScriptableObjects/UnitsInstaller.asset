@@ -267,6 +267,7 @@ MonoBehaviour:
       buttons: {fileID: 1694945996326168417, guid: 5ddcea38eb863a0439b5666f04fcade5, type: 3}
       units:
       - {fileID: 5307056716202305016, guid: 2ccca55940d8e20478c797473a3c7f1f, type: 3}
+      - {fileID: 5307056716202305016, guid: d8c4d17188960bc458383c4682de8acd, type: 3}
       secondUnits: []
     harvestingStats:
       maxLoad: 0

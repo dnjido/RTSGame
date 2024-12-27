@@ -34,13 +34,25 @@ namespace RTS
         public void SetHarvester(GameObject h)
         {
             currentHarvester = h;
-            currentHarvester.GetComponent<OreMining>().HarvestEvent += Grab;
+            OnEnable();
         }
 
         public void ClearHarvester()
         {
-            currentHarvester.GetComponent<OreMining>().HarvestEvent -= Grab;
+            OnDisable();
             currentHarvester = null;
+        }
+
+        private void OnEnable()
+        {
+            if (!currentHarvester) return;
+            currentHarvester.GetComponent<OreMining>().HarvestEvent += Grab;
+        }
+
+        private void OnDisable()
+        {
+            if (!currentHarvester) return;
+            currentHarvester.GetComponent<OreMining>().HarvestEvent -= Grab;
         }
     }
 }

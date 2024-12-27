@@ -1,8 +1,9 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace RTS
 {
-    public class ConstructCommand : MonoBehaviour, IBUttonInit //Buttons responsible for structure construction.
+    public class ConstructCommand : MonoBehaviour, IBUttonInit, IPlacedEvent //Buttons responsible for structure construction.
     {
         private ConstructBuild builder;
         private int ID;
@@ -16,9 +17,7 @@ namespace RTS
             unit = builder.GetUnit(ID);
             Recovery();
 
-            builder.queue.BuildStartEvent += StartBuild;
-            builder.queue.BuildEndEvent += Complete;
-            builder.queue.BuildRemoveEvent += Clear;
+            OnEnable();
         }
 
         public void Command()
@@ -30,13 +29,13 @@ namespace RTS
                 builder.StartQueue(ID);
                 GetComponent<ButtonProgressBar>()?.Set(1);
             }
-            else builder.Placing(this);
+            else builder.PlacingCommand(this);
         }
 
-        public void Placing(GameObject u)
+        public void Placing()
         {
-            Clear(u);
-            u.GetComponent<Placing>().PlaceEvent -= Placing;
+            Clear(null);
+            builder.complete = null;
         }
 
         public void Resume() 
@@ -81,8 +80,17 @@ namespace RTS
             builder.Undo(ID);
         }
 
-        public void OnDestroy()
+        public void OnEnable()
         {
+            if (!builder) return;
+            builder.queue.BuildStartEvent += StartBuild;
+            builder.queue.BuildEndEvent += Complete;
+            builder.queue.BuildRemoveEvent += Clear;
+        }
+
+        public void OnDisable()
+        {
+            if (!builder) return;
             builder.queue.BuildStartEvent -= StartBuild;
             builder.queue.BuildEndEvent -= Complete;
             builder.queue.BuildRemoveEvent -= Clear;
