@@ -2,6 +2,7 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using static RTS.ICommandQueue;
 
 namespace RTS
 {
@@ -22,7 +23,27 @@ namespace RTS
         }
     }
 
-    public class BuildQueue // Build queue
+    public interface ICommandQueue
+    {
+        public int QueueCount(GameObject unit);
+        public GameObject LastUnit(GameObject unit);
+        public GameObject currentUnit {  get; }
+        public int buildCount { get; }
+
+        delegate void StartDelegate(Timer timer, GameObject unit);
+        event StartDelegate BuildStartEvent;
+        
+        delegate void EndDelegate(GameObject unit);
+        event EndDelegate BuildEndEvent;
+        
+        delegate void RemoveDelegate(GameObject unit);
+        event RemoveDelegate BuildRemoveEvent;
+        
+        delegate void AddDelegate(GameObject unit);
+        event AddDelegate BuildAddEvent;
+    }
+
+    public class BuildQueue : ICommandQueue // Build queue
     {
         List<BuildCommandsStruct> build = new List<BuildCommandsStruct>();
         public Timer timer { get; private set; }
@@ -30,24 +51,17 @@ namespace RTS
         public int buildCount => build.Count;
         public GameObject currentUnit => buildCount > 0 ? build[0].unit : null;
 
-        public delegate void StartDelegate(Timer timer, GameObject unit);
+        //public delegate void SpawnDelegate(GameObject unit);
+        //public event SpawnDelegate BuildSpawnEvent;
+
         public event StartDelegate BuildStartEvent;
-
-        public delegate void EndDelegate(GameObject unit);
         public event EndDelegate BuildEndEvent;
-
-        public delegate void RemoveDelegate(GameObject unit);
         public event RemoveDelegate BuildRemoveEvent;
-
-        public delegate void AddDelegate(GameObject unit);
         public event AddDelegate BuildAddEvent;
-
-        public delegate void SpawnDelegate(GameObject unit);
-        public event SpawnDelegate BuildSpawnEvent;
 
         public void BuildEnd()
         {
-            BuildSpawnEvent?.Invoke(build[0].unit);
+            //BuildSpawnEvent?.Invoke(build[0].unit);
 
             GameObject last = LastUnit(build[0].unit);
             build.RemoveAt(0);
@@ -78,13 +92,13 @@ namespace RTS
 
         public void BuildRemove(BuildCommandsStruct c)
         {
+            BuildRemoveEvent?.Invoke(LastUnit(c.unit));
+
             build.Remove(c);
 
             if (buildCount <= 0) TimerClear();
             else { BuildStart(); 
                 timer.pause = true; }
-
-            BuildRemoveEvent?.Invoke(LastUnit(c.unit));
         }
 
         public void Remove(BuildCommandsStruct c)

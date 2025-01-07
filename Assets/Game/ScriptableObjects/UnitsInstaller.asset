@@ -15,6 +15,7 @@ MonoBehaviour:
   units:
   - generalStats:
       name: Grunt
+      icon: {fileID: 21300000, guid: 2551e71e2e830f64db0119449783fda3, type: 3}
       buildTime: 2
       cost: 5
       energy: 0
@@ -43,6 +44,7 @@ MonoBehaviour:
       delay: 0
   - generalStats:
       name: Harvester
+      icon: {fileID: 21300000, guid: 0cc2510c87159c84f8bf4665485d0b87, type: 3}
       buildTime: 5
       cost: 40
       energy: 0
@@ -71,12 +73,13 @@ MonoBehaviour:
       delay: 0.5
   - generalStats:
       name: Tank
+      icon: {fileID: 21300000, guid: 16c838d7f6792f4488f735ca988d023a, type: 3}
       buildTime: 5
       cost: 20
       energy: 0
       targetType: 0
     attackStats:
-      damage: 10
+      damage: 30
       attackType: 2
       range: 10
       attackRate: 2
@@ -99,6 +102,7 @@ MonoBehaviour:
       delay: 0
   - generalStats:
       name: Helicopter
+      icon: {fileID: 21300000, guid: 4e3658dcbecff8746b4df463edfab449, type: 3}
       buildTime: 5
       cost: 30
       energy: 0
@@ -127,7 +131,8 @@ MonoBehaviour:
       delay: 0
   - generalStats:
       name: Rocketman
-      buildTime: 4
+      icon: {fileID: 21300000, guid: 3556a0089aa96544eb260b68fc0eb04d, type: 3}
+      buildTime: 3
       cost: 7
       energy: 0
       targetType: 0
@@ -153,9 +158,39 @@ MonoBehaviour:
       maxLoad: 0
       grub: 0
       delay: 0
+  - generalStats:
+      name: APC
+      icon: {fileID: 21300000, guid: 0023bd3ba2c896e4898fd3f56bc95407, type: 3}
+      buildTime: 3
+      cost: 8
+      energy: 0
+      targetType: 0
+    attackStats:
+      damage: 3
+      attackType: 0
+      range: 10
+      attackRate: 0.5
+      canAttackTarget: 00000000
+      projectile: {fileID: 483396936959846643, guid: ad8b874c7cfa370489b66c2ea6b83611, type: 3}
+    healthStats:
+      health: 35
+      armor: 2
+      armorType: 2
+    moveStats:
+      speed: 8
+      rotate: 3
+    buildStats:
+      buttons: {fileID: 0}
+      units: []
+      secondUnits: []
+    harvestingStats:
+      maxLoad: 0
+      grub: 0
+      delay: 0
   builds:
   - generalStats:
       name: Construction Yard
+      icon: {fileID: 21300000, guid: 9f0fdddec554da544a77b2d6a31fda0d, type: 3}
       buildTime: 20
       cost: 60
       energy: 10
@@ -181,6 +216,7 @@ MonoBehaviour:
       - {fileID: 8774239786412580442, guid: 74358f6f10b708d45b8d7856ff9c7620, type: 3}
       - {fileID: 1322281611438512396, guid: e1f8f53bf9ae9374abab6a7e7a7ce964, type: 3}
       - {fileID: 8774239786412580442, guid: 2bf8b3c9063ec274b8edb2b7f401f257, type: 3}
+      - {fileID: 8774239786412580442, guid: d9f3aa469a1f4d0458a4254ea0073d38, type: 3}
       secondUnits:
       - {fileID: 1322281611438512396, guid: 96f13fa15ddd85f43b4c7465b1376b18, type: 3}
     harvestingStats:
@@ -189,6 +225,7 @@ MonoBehaviour:
       delay: 0
   - generalStats:
       name: Generator
+      icon: {fileID: 21300000, guid: 1b921a81e8b10684caf3ee496146eefb, type: 3}
       buildTime: 5
       cost: 20
       energy: 20
@@ -217,6 +254,7 @@ MonoBehaviour:
       delay: 0
   - generalStats:
       name: Plant
+      icon: {fileID: 21300000, guid: 382efbdb905b8bd4e90765f499939e58, type: 3}
       buildTime: 10
       cost: 50
       energy: -10
@@ -245,6 +283,7 @@ MonoBehaviour:
       delay: 0
   - generalStats:
       name: Barrack
+      icon: {fileID: 21300000, guid: 297ad421e059e094a9071a547794cd59, type: 3}
       buildTime: 5
       cost: 20
       energy: -10
@@ -275,6 +314,7 @@ MonoBehaviour:
       delay: 0
   - generalStats:
       name: Factory
+      icon: {fileID: 21300000, guid: 0023bd3ba2c896e4898fd3f56bc95407, type: 3}
       buildTime: 10
       cost: 50
       energy: -10
@@ -296,8 +336,9 @@ MonoBehaviour:
     buildStats:
       buttons: {fileID: 1694945996326168417, guid: 5ddcea38eb863a0439b5666f04fcade5, type: 3}
       units:
-      - {fileID: 7577197719430435339, guid: 7745a385b71d60a4092db4f8323878cd, type: 3}
+      - {fileID: 7577197719430435339, guid: 009ce87e1ceaa4744a921c24cbcdfe20, type: 3}
       - {fileID: 7577197719430435339, guid: 8607b31b8dfbe4a448f4ad5c3457a8d0, type: 3}
+      - {fileID: 7577197719430435339, guid: 7745a385b71d60a4092db4f8323878cd, type: 3}
       secondUnits: []
     harvestingStats:
       maxLoad: 0
@@ -305,6 +346,7 @@ MonoBehaviour:
       delay: 0
   - generalStats:
       name: Turret
+      icon: {fileID: 21300000, guid: 603ffb15d6f10794e86fd1ca55d0da2b, type: 3}
       buildTime: 5
       cost: 20
       energy: -10
@@ -312,7 +354,7 @@ MonoBehaviour:
     attackStats:
       damage: 5
       attackType: 0
-      range: 10
+      range: 20
       attackRate: 0.5
       canAttackTarget: 0000000001000000
       projectile: {fileID: 483396936959846643, guid: ad8b874c7cfa370489b66c2ea6b83611, type: 3}
@@ -326,6 +368,36 @@ MonoBehaviour:
     buildStats:
       buttons: {fileID: 1694945996326168417, guid: 5ddcea38eb863a0439b5666f04fcade5, type: 3}
       units: []
+      secondUnits: []
+    harvestingStats:
+      maxLoad: 0
+      grub: 0
+      delay: 0
+  - generalStats:
+      name: Aerodrome
+      icon: {fileID: 21300000, guid: e48f09e615fb3bd42822a55e28d561e6, type: 3}
+      buildTime: 10
+      cost: 50
+      energy: -10
+      targetType: 0
+    attackStats:
+      damage: 0
+      attackType: 0
+      range: 0
+      attackRate: 0
+      canAttackTarget: 
+      projectile: {fileID: 0}
+    healthStats:
+      health: 100
+      armor: 10
+      armorType: 3
+    moveStats:
+      speed: 0
+      rotate: 0
+    buildStats:
+      buttons: {fileID: 1694945996326168417, guid: 5ddcea38eb863a0439b5666f04fcade5, type: 3}
+      units:
+      - {fileID: 7577197719430435339, guid: c9cc9a953ff68ce4fa2983de3900ddbc, type: 3}
       secondUnits: []
     harvestingStats:
       maxLoad: 0

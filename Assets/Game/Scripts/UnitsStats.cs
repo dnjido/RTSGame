@@ -18,6 +18,7 @@ namespace RTS
     public struct GeneralStats
     {
         public string name;
+        public Sprite icon;
         public int buildTime;
         public float cost;
         public float energy;

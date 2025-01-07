@@ -104,6 +104,18 @@ namespace RTS
             catch { return new string[0]; }
         }
 
+        public static bool HasAttribute(GameObject unit, string attr)
+        {
+            try { return Attribute(unit).Any(a => a == attr); }
+            catch { return false; }
+        }
+
+        public static bool EqualAttribute(GameObject unit1, GameObject unit2)
+        {
+            try { return Attribute(unit1).Any(a => Attribute(unit2).Contains(a)); }
+            catch { return false; }
+        }
+
         public static T NullComponent<T>(GameObject unit) where T : Component
         {
             try { return unit.GetComponent<T>(); }

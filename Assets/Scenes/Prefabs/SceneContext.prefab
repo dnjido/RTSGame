@@ -1,0 +1,475 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &20959498233178919
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2776941341950134545}
+  - component: {fileID: 6495642720026911251}
+  m_Layer: 0
+  m_Name: MapContext
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2776941341950134545
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20959498233178919}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -187.20258, y: -5.0414915, z: -176.77963}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9001583218178169087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6495642720026911251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20959498233178919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 477539dbab3352d459f8113313e70305, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startGame:
+    startGameProperties:
+      map:
+        name: 
+        scene: 
+        thumbnail: {fileID: 0}
+        playerCount: 0
+        size: {x: 0, y: 0}
+      playerProperties:
+      - active: 0
+        team: 0
+        isBot: 0
+        difficulty: 0
+        startPoint: 0
+        relationship: 0
+      - active: 0
+        team: 0
+        isBot: 0
+        difficulty: 0
+        startPoint: 0
+        relationship: 0
+      - active: 0
+        team: 0
+        isBot: 0
+        difficulty: 0
+        startPoint: 0
+        relationship: 0
+      - active: 0
+        team: 0
+        isBot: 0
+        difficulty: 0
+        startPoint: 0
+        relationship: 0
+      - active: 0
+        team: 0
+        isBot: 0
+        difficulty: 0
+        startPoint: 0
+        relationship: 0
+      - active: 0
+        team: 0
+        isBot: 0
+        difficulty: 0
+        startPoint: 0
+        relationship: 0
+      - active: 0
+        team: 0
+        isBot: 0
+        difficulty: 0
+        startPoint: 0
+        relationship: 0
+      - active: 0
+        team: 0
+        isBot: 0
+        difficulty: 0
+        startPoint: 0
+        relationship: 0
+    hasPlaying:
+      status: 0000000000000000
+      relationship: []
+    AI: []
+    relationships: []
+    startPoints:
+    - startPoint: {fileID: 0}
+      team: 0
+    - startPoint: {fileID: 0}
+      team: 0
+--- !u!1 &2930514582351864029
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9001583218178169087}
+  - component: {fileID: 7332631846190190653}
+  - component: {fileID: 8138968125707613666}
+  - component: {fileID: 1394823337418748353}
+  - component: {fileID: 342018752819221806}
+  - component: {fileID: 1486142628949784435}
+  - component: {fileID: 2350731834177568190}
+  - component: {fileID: 7500747633347905060}
+  - component: {fileID: 6976647625810505}
+  - component: {fileID: 8346431003574484606}
+  m_Layer: 0
+  m_Name: SceneContext
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9001583218178169087
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2930514582351864029}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2776941341950134545}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7332631846190190653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2930514582351864029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89715ad69b973a14899afa2c6730b30b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scriptableObjectInstallers:
+  - {fileID: 11400000, guid: 37c6725449aaeb74b98c6bc5c6ec142b, type: 2}
+  - {fileID: 11400000, guid: 6846f217e06b493468382673092ba806, type: 2}
+  - {fileID: 11400000, guid: 1ba4bf76e9743d84c9ae6731f1a09fb2, type: 2}
+  _monoInstallers:
+  - {fileID: 1394823337418748353}
+  - {fileID: 8138968125707613666}
+  - {fileID: 342018752819221806}
+  - {fileID: 1486142628949784435}
+  - {fileID: 6976647625810505}
+  - {fileID: 2350731834177568190}
+  - {fileID: 7500747633347905060}
+  - {fileID: 6495642720026911251}
+  _installerPrefabs: []
+  _autoRun: 1
+  OnPreInstall:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPostInstall:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPreResolve:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPostResolve:
+    m_PersistentCalls:
+      m_Calls: []
+  _parentNewObjectsUnderSceneContext: 0
+  _contractNames: []
+  _parentContractNames: []
+--- !u!114 &8138968125707613666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2930514582351864029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d6cab6a39bc76c47b4cad3a351f430c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1394823337418748353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2930514582351864029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2e5334d0ce820140b58bdf239442b89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &342018752819221806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2930514582351864029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 514c6db7905857a4581b006b91ecbf1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1486142628949784435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2930514582351864029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 178ba577c30d83847851f86773aa45c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerResources:
+  - money: 300
+    energy: 0
+    currentEnergy: 0
+    power: 0
+  - money: 300
+    energy: 0
+    currentEnergy: 0
+    power: 0
+  - money: 300
+    energy: 0
+    currentEnergy: 0
+    power: 0
+  - money: 300
+    energy: 0
+    currentEnergy: 0
+    power: 0
+  - money: 300
+    energy: 0
+    currentEnergy: 0
+    power: 0
+  - money: 300
+    energy: 0
+    currentEnergy: 0
+    power: 0
+  - money: 300
+    energy: 0
+    currentEnergy: 0
+    power: 0
+  - money: 300
+    energy: 0
+    currentEnergy: 0
+    power: 0
+  playerFabrics:
+  - Yards: []
+    Barracks: []
+    Fabrics: []
+    Aerodroms: []
+    Generators: []
+    Plants: []
+  - Yards: []
+    Barracks: []
+    Fabrics: []
+    Aerodroms: []
+    Generators: []
+    Plants: []
+  - Yards: []
+    Barracks: []
+    Fabrics: []
+    Aerodroms: []
+    Generators: []
+    Plants: []
+  - Yards: []
+    Barracks: []
+    Fabrics: []
+    Aerodroms: []
+    Generators: []
+    Plants: []
+  - Yards: []
+    Barracks: []
+    Fabrics: []
+    Aerodroms: []
+    Generators: []
+    Plants: []
+  - Yards: []
+    Barracks: []
+    Fabrics: []
+    Aerodroms: []
+    Generators: []
+    Plants: []
+  - Yards: []
+    Barracks: []
+    Fabrics: []
+    Aerodroms: []
+    Generators: []
+    Plants: []
+  - Yards: []
+    Barracks: []
+    Fabrics: []
+    Aerodroms: []
+    Generators: []
+    Plants: []
+  playerRelationships:
+  - team: 1
+  - team: 0
+  - team: 1
+  - team: 0
+  - team: 1
+  - team: 0
+  - team: 0
+  - team: 1
+--- !u!114 &2350731834177568190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2930514582351864029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d4a9b18c5f94e344af72210f303cf0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7500747633347905060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2930514582351864029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6e14d4fcf1a3b345b3483a342ff919b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AIs:
+  - monoBehaviour: {fileID: 0}
+    isAI: 0
+    team: 1
+    difficulty: 0
+  - monoBehaviour: {fileID: 0}
+    isAI: 1
+    team: 2
+    difficulty: 1
+  - monoBehaviour: {fileID: 0}
+    isAI: 1
+    team: 3
+    difficulty: 0
+  - monoBehaviour: {fileID: 0}
+    isAI: 0
+    team: 4
+    difficulty: 0
+  - monoBehaviour: {fileID: 0}
+    isAI: 0
+    team: 5
+    difficulty: 0
+  - monoBehaviour: {fileID: 0}
+    isAI: 0
+    team: 6
+    difficulty: 0
+  - monoBehaviour: {fileID: 0}
+    isAI: 0
+    team: 7
+    difficulty: 0
+  - monoBehaviour: {fileID: 0}
+    isAI: 0
+    team: 8
+    difficulty: 0
+--- !u!114 &6976647625810505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2930514582351864029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e72d56fc380dd3c44b63920b9b46fa51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPlaying:
+    status: 0000000000000000
+    relationship: []
+--- !u!114 &8346431003574484606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2930514582351864029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54e430e4179d90849bfbaea50c0d2b14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startGameProperties:
+    map:
+      name: 
+      scene: 
+      thumbnail: {fileID: 0}
+      playerCount: 0
+      size: {x: 0, y: 0}
+    playerProperties:
+    - active: 0
+      team: 0
+      isBot: 0
+      difficulty: 0
+      startPoint: 0
+      relationship: 0
+    - active: 0
+      team: 0
+      isBot: 0
+      difficulty: 0
+      startPoint: 0
+      relationship: 0
+    - active: 0
+      team: 0
+      isBot: 0
+      difficulty: 0
+      startPoint: 0
+      relationship: 0
+    - active: 0
+      team: 0
+      isBot: 0
+      difficulty: 0
+      startPoint: 0
+      relationship: 0
+    - active: 0
+      team: 0
+      isBot: 0
+      difficulty: 0
+      startPoint: 0
+      relationship: 0
+    - active: 0
+      team: 0
+      isBot: 0
+      difficulty: 0
+      startPoint: 0
+      relationship: 0
+    - active: 0
+      team: 0
+      isBot: 0
+      difficulty: 0
+      startPoint: 0
+      relationship: 0
+    - active: 0
+      team: 0
+      isBot: 0
+      difficulty: 0
+      startPoint: 0
+      relationship: 0

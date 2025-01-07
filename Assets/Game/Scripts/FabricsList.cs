@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using Zenject;
 
 namespace RTS
 {
@@ -19,6 +20,7 @@ namespace RTS
 
         public void Remove(GameObject item) =>
             Selecting(item).Remove(item);
+
 
         public List<GameObject> Selecting(GameObject item)
         {
@@ -42,10 +44,24 @@ namespace RTS
             if (tag == "Yard") return Yards;
             if (tag == "Barrack") return Barracks;
             if (tag == "Factory") return Fabrics;
-            //if (a == "Aerodroms") return Aerodroms;
+            if (tag == "Aerodroms") return Aerodroms;
             if (tag == "Generator") return Generators;
             if (tag == "Plant") return Plants;
             return null;
+        }
+
+        public bool HasBuild()
+        {
+            List<GameObject> Append = new List<GameObject>();
+
+            Append.AddRange(Yards);
+            Append.AddRange(Barracks);
+            Append.AddRange(Fabrics);
+            Append.AddRange(Aerodroms);
+            Append.AddRange(Generators);
+            Append.AddRange(Plants);
+
+            return Append.Count > 0;
         }
     }
 }

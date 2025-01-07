@@ -12,12 +12,12 @@ namespace RTS
         public bool isAI;
 
         [SerializeField] private int team;
-        [SerializeField] private float reactionTime = 1f;
-        [SerializeField] private float timerAttack = 10f;
-        [SerializeField] GameObject[] buildList;
+        [SerializeField] private AIDifficultyList difficulty = (AIDifficultyList)1;
+        private AIDifficulty aiProperties;
+        private AIDifficulty[] AIs;
 
         public int getTeam => team;
-        public GameObject[] getBuildList => buildList;
+        public GameObject[] getBuildList => aiProperties.buildList;
 
         public FabricsList builders { get; private set; }
         public PlayerResources resources { get; private set; }
@@ -32,32 +32,36 @@ namespace RTS
 
         public void SetTeam(int t) => team = t;
 
-        public void Init(FabricsList b, PlayerResources r)
+        public void Init(FabricsList b, PlayerResources r, AIDifficulty[] d)
         {
             builders = b;
             resources = r;
+            AIs = d;
+
             new MakeUnits(this);
             new MakeConstruct(this);
             new AIAttack(this);
-            Start();
         }
 
-        public void Start()
+        public void Start(AIDifficultyList d)
         {
+            difficulty = d;
+            aiProperties = AIs[(int)difficulty];
+
             monoBehaviour.StartCoroutine(AIActionCoroutine());
             monoBehaviour.StartCoroutine(AIAttackCoroutine());
         }
 
         private IEnumerator AIActionCoroutine()
         {
-            yield return new WaitForSeconds(reactionTime);
+            yield return new WaitForSeconds(aiProperties.reactionTime);
             Action();
             monoBehaviour.StartCoroutine(AIActionCoroutine());
         }
 
         private IEnumerator AIAttackCoroutine()
         {
-            yield return new WaitForSeconds(timerAttack);
+            yield return new WaitForSeconds(aiProperties.timerAttack);
             Attack();
             monoBehaviour.StartCoroutine(AIAttackCoroutine());
         }

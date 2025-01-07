@@ -21,7 +21,7 @@ namespace RTS
 
         private void GetCombatUnits()
         {
-            List<GameObject> units = GetTeam(GetUnits("Combat").ToArray(), true);
+            List<GameObject> units = GetTeam(GetUnits("Combat").ToArray());
             Command(units);
         }
 
@@ -45,13 +45,23 @@ namespace RTS
             return false;
         }
 
-        private List<GameObject> GetTeam(GameObject[] unit, bool ally)
+        private List<GameObject> GetRelationship(GameObject[] unit, bool ally)
         {
             List<GameObject> list = new List<GameObject>();
 
             foreach (GameObject u in unit)
                 if (RelationshipEqual(u) == ally) list.Add(u);
 
+            return list;
+        }
+
+        private List<GameObject> GetTeam(GameObject[] unit)
+        {
+            List<GameObject> list = new List<GameObject>();
+        
+            foreach (GameObject u in unit)
+                if (GU.Team(u) == team + 1) list.Add(u);
+        
             return list;
         }
 
@@ -63,8 +73,12 @@ namespace RTS
 
         private Vector3 GetPoint()
         {
-            List<GameObject> yards = GetTeam(GetUnits("Yard").ToArray(), false);
-            return yards[Random.Range(0, yards.Count)].transform.position;
+            try
+            {
+                List<GameObject> yards = GetRelationship(GetUnits("Yard").ToArray(), false);
+                return yards[Random.Range(0, yards.Count)].transform.position;
+            }
+            catch {  return Vector3.zero; }
         }
     }
 }

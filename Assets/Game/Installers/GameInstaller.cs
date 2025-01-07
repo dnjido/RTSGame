@@ -1,3 +1,4 @@
+using System.Linq;
 using Zenject;
 
 namespace RTS
@@ -10,19 +11,14 @@ namespace RTS
 
         public void SetRelationship()
         {
-            int i = 0;
-            foreach (var r in playerRelationships)
-            {
-                r.SetRelationship(playerRelationships, i);
-                i++;
-            }
+            playerRelationships.Select((r, i) => { 
+                r.SetRelationship(playerRelationships, i); return r; });
         }
 
         public override void InstallBindings()
         {
             Container.BindInstances(playerResources);
             Container.BindInstances(playerFabrics);
-            SetRelationship();
             Container.BindInstances(playerRelationships);
         }
     }
