@@ -1,4 +1,3 @@
-using RTS;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,16 +12,25 @@ namespace RTS
     {
         [SerializeField] public EndGameText gameStatusUI;
         public bool[] status = new bool[8];
-        public Relationship[] relationship;
-        public MonoBehaviour monoBehaviour;
-        //public readonly Relationship[] relationship;
+        private Relationship[] relationship;
+        private MonoBehaviour monoBehaviour;
 
-        public HasPlaying(Relationship[] r) =>
+        [SerializeField] private bool hasSetStatus;
+
+        public void Init(MonoBehaviour mb, Relationship[] r, EndGameText end)
+        {
             relationship = r;
+            monoBehaviour = mb;
+            gameStatusUI = end;
+        }
+
+        public void EnableSetStatus(bool b) => 
+            hasSetStatus = b;
 
         public void SetStatus(int id, bool a)
         {
-            //print("HAS PLAYING" + playing);
+            if (!hasSetStatus) return;
+
             status[id] = a;
             PlayerStatus(id);
         }
@@ -31,7 +39,6 @@ namespace RTS
         {
             if (PlayerLose(id)) EndGame("You Lose");
             else if (PlayerWin()) EndGame("You Win");
-
         }
 
         public bool PlayerLose(int id) => id == 0;

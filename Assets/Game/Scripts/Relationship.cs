@@ -1,10 +1,12 @@
 using System;
+using UnityEngine;
 
 namespace RTS
 {
     [Serializable]
     public class Relationship
     {
+        public int id;
         public Teams team;
         public int relationship { get; private set; }
 

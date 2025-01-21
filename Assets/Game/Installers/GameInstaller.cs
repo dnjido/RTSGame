@@ -11,8 +11,8 @@ namespace RTS
 
         public void SetRelationship()
         {
-            playerRelationships.Select((r, i) => { 
-                r.SetRelationship(playerRelationships, i); return r; });
+            playerRelationships.Select((r, i) => 
+                { r.SetRelationship(playerRelationships, i); return r; });
         }
 
         public override void InstallBindings()

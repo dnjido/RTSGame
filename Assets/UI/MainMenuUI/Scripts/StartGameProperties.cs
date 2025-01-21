@@ -12,15 +12,6 @@ namespace RTS
     {
         public MapProperties map;
         public PlayerPropertiesStruct[] playerProperties = new PlayerPropertiesStruct[8];
-                                                         //public List<PlayerPropertiesStruct> playerProperties = new List<PlayerPropertiesStruct>();
-
-        //private StartGameProperties()
-        //{
-        //    for (int i = 0; i < playerProperties.Length; i++) 
-        //    {
-        //        playerProperties[i] = new PlayerPropertiesStruct();
-        //    }
-        //}
 
         public delegate void ChangeMapDelegate(MapProperties map);
         public event ChangeMapDelegate ChangeMapEvent;

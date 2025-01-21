@@ -63,11 +63,8 @@ namespace RTS
         public void PlaceAI(Vector3 pos)
         {
             transform.position = pos;
-            //SetPlacing(false);
             placedEvent?.Placing();
-            //Activate();
             Destroy(placeMarker.gameObject);
-            //StartCoroutine(Click());
         } 
 
         private IEnumerator Click()
@@ -78,7 +75,6 @@ namespace RTS
             placedEvent?.Placing();
             Activate();
             Destroy(placeMarker.gameObject);
-            //Destroy(this);
         }
 
         private void Activate() => GetComponent<UnitActivate>()?.Activate();

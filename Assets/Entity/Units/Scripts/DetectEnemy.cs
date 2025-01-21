@@ -1,10 +1,19 @@
 using System;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Zenject;
+using static RTS.ISetTarget;
 
 namespace RTS
 {
-    public class DetectEnemy : MonoBehaviour //Detection of the enemy within range.
+    public interface ISetTarget
+    {
+        delegate void TargetDelegate(GameObject u);
+        event TargetDelegate TargetEvent;
+    }
+
+        public class DetectEnemy : MonoBehaviour, ISetTarget //Detection of the enemy within range.
     {
         [SerializeField] private float range;
         //[SerializeField]private int canAttackTarget;
@@ -17,13 +26,13 @@ namespace RTS
         public int layer;
 
         private GameObject _unit;
-        private GameObject unit { get => _unit;
+        private GameObject unit { 
+            get => _unit;
             set {
                 _unit = value;
                 TargetEvent?.Invoke(value);}
         }
 
-        public delegate void TargetDelegate(GameObject u);
         public event TargetDelegate TargetEvent;
 
         [Inject]
@@ -41,13 +50,8 @@ namespace RTS
 
         private void BitwiseAttackTarget()
         {
-            int lenght = canAttackTarget.Length;
-
-            for (int i = 0; i < lenght; i++)
-            {
-                int t = 1 << (int)canAttackTarget[i];
-                bitwiseTarget = bitwiseTarget | t;
-            }
+            bitwiseTarget = canAttackTarget.
+                Aggregate(0, (current, target) => current | (1 << (int)target));
         }
 
         private bool TargetEqual(GameObject u)
@@ -75,16 +79,12 @@ namespace RTS
 
         private void Find(Collider[] hitColliders)
         {
-            foreach (Collider col in hitColliders)
-            {
-                GameObject u = col.gameObject;
-                if (TargetEqual(u))
-                {
-                    target = col;
-                    unit = u;
-                    break;
-                }
-            }
+            Collider targetCollider = hitColliders.FirstOrDefault(col => TargetEqual(col.gameObject));
+            
+            if (!targetCollider) return;
+
+            target = targetCollider;
+            unit = targetCollider.gameObject;
         }
 
         public void SetStop(bool s) => stopDetect = s;

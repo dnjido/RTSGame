@@ -35,7 +35,7 @@ namespace RTS
         public void Relationship(Relationship[] r) =>
             _relationships = r;
 
-        public void Activate() => SetTeam(trTeam != 0 ? trTeam : _team);
+        public void Activate() => SetTeam(team);
 
         public void SetTeam(int t) => team = t;
 
@@ -82,6 +82,6 @@ namespace RTS
 
         public void SetLayer() => gameObject.layer = 6 + team;
 
-        public void RemoveLayer() => gameObject.layer = 1 << 2;
+        public void RemoveLayer() => gameObject.layer = 2;
     }
 }

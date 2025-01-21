@@ -52,8 +52,7 @@ namespace RTS
             unitTr = ut;
             transform.position = unitTr.spawnPoint;
             transform.rotation = unitTr.rotate;
-            //GetComponent<UnitTeam>().SetTeam(unitTr.team);
-            GetComponent<UnitTeam>().team = (unitTr.team);
+            GetComponent<UnitTeam>().team = unitTr.team;
         }
 
         public class Factory : PlaceholderFactory<GameObject, UnitTransform, GameObject>

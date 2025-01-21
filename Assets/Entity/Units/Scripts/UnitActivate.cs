@@ -1,6 +1,3 @@
-using RTS;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace RTS
@@ -10,13 +7,8 @@ namespace RTS
         [SerializeField] private bool acivate = true;
         private bool init;
 
-        private void Start()
-        {
-            bool act = GetComponent<Placing>().hasPlaced;
-            
-            //if (!act) { Activate(); }
-            if (act) { Deactivate(); }
-        }
+        //private void Start() => 
+        //    Deactivate();
 
         public void Toggle()
         {

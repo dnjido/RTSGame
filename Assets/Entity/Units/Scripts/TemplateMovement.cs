@@ -97,7 +97,7 @@ namespace RTS
         }
     }
 
-    public class TargetMove
+    public static class TargetMove
     {
         public static bool Move(Vector3 old, Vector3 _new, float tolerance) =>
             Vector3.Distance(old, _new) > tolerance;

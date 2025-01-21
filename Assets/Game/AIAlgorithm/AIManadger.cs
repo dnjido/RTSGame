@@ -46,6 +46,11 @@ namespace RTS
         public void Start(AIDifficultyList d)
         {
             difficulty = d;
+            Start();
+        }
+        
+        public void Start()
+        {
             aiProperties = AIs[(int)difficulty];
 
             monoBehaviour.StartCoroutine(AIActionCoroutine());

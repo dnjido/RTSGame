@@ -45,72 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startGame:
-    startGameProperties:
-      map:
-        name: 
-        scene: 
-        thumbnail: {fileID: 0}
-        playerCount: 0
-        size: {x: 0, y: 0}
-      playerProperties:
-      - active: 0
-        team: 0
-        isBot: 0
-        difficulty: 0
-        startPoint: 0
-        relationship: 0
-      - active: 0
-        team: 0
-        isBot: 0
-        difficulty: 0
-        startPoint: 0
-        relationship: 0
-      - active: 0
-        team: 0
-        isBot: 0
-        difficulty: 0
-        startPoint: 0
-        relationship: 0
-      - active: 0
-        team: 0
-        isBot: 0
-        difficulty: 0
-        startPoint: 0
-        relationship: 0
-      - active: 0
-        team: 0
-        isBot: 0
-        difficulty: 0
-        startPoint: 0
-        relationship: 0
-      - active: 0
-        team: 0
-        isBot: 0
-        difficulty: 0
-        startPoint: 0
-        relationship: 0
-      - active: 0
-        team: 0
-        isBot: 0
-        difficulty: 0
-        startPoint: 0
-        relationship: 0
-      - active: 0
-        team: 0
-        isBot: 0
-        difficulty: 0
-        startPoint: 0
-        relationship: 0
-    hasPlaying:
-      status: 0000000000000000
-      relationship: []
-    AI: []
-    relationships: []
     startPoints:
     - startPoint: {fileID: 0}
-      team: 0
+      team: 1
     - startPoint: {fileID: 0}
-      team: 0
+      team: 2
 --- !u!1 &2930514582351864029
 GameObject:
   m_ObjectHideFlags: 0
@@ -325,14 +264,22 @@ MonoBehaviour:
     Generators: []
     Plants: []
   playerRelationships:
-  - team: 1
-  - team: 0
-  - team: 1
-  - team: 0
-  - team: 1
-  - team: 0
-  - team: 0
-  - team: 1
+  - id: 0
+    team: 0
+  - id: 0
+    team: 0
+  - id: 0
+    team: 0
+  - id: 0
+    team: 0
+  - id: 0
+    team: 0
+  - id: 0
+    team: 0
+  - id: 0
+    team: 0
+  - id: 0
+    team: 0
 --- !u!114 &2350731834177568190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -403,8 +350,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPlaying:
-    status: 0000000000000000
-    relationship: []
+    gameStatusUI: {fileID: 0}
+    status: 0100000000000000
+    hasSetStatus: 1
 --- !u!114 &8346431003574484606
 MonoBehaviour:
   m_ObjectHideFlags: 0

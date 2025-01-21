@@ -4,7 +4,7 @@ using Zenject;
 
 namespace RTS
 {
-    public class Attack : MonoBehaviour // Attack enemy
+        public class Attack : MonoBehaviour // Attack enemy
     {
         [SerializeField] private float rate, damage;
         [SerializeField] private GameObject projectile;
@@ -29,10 +29,10 @@ namespace RTS
             projectileFactory = f;
 
         void OnEnable() =>
-            GetComponent<DetectEnemy>().TargetEvent += SetTarget;
+            GetComponent<ISetTarget>().TargetEvent += SetTarget;
 
         void OnDisable() =>
-            GetComponent<DetectEnemy>().TargetEvent -= SetTarget;
+            GetComponent<ISetTarget>().TargetEvent -= SetTarget;
 
         void Update()
         {

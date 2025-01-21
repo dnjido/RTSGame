@@ -11,7 +11,6 @@ public class StartPlayer : MonoBehaviour
     [SerializeField] private GameObject[] startUnits;
 
     private UnitFacade.Factory unitFactory;
-    public int team;
 
     public StartPoint start;
 
@@ -24,7 +23,7 @@ public class StartPlayer : MonoBehaviour
     public void Place()
     {
         if (unitFactory == null || start.team == 0) return;
-        Spawn(startBuild);
+        GameObject unit = Spawn(startBuild);
     }
 
     private GameObject Spawn(GameObject unit)

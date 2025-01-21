@@ -7,27 +7,15 @@ public class StartGameInstaller : MonoInstaller
     [SerializeField] private StartGame startGame;
 
     [Inject]
-    public void Set([InjectOptional] StartGameProperties sg)
+    public void Set([InjectOptional] StartGameProperties sg, AIManadger[] AI, Relationship[] r, HasPlaying p)
     {
-        if (sg == null) startGame.startGameProperties = new StartGameProperties();
-        else startGame.startGameProperties = sg;
+        if (sg == null) startGame.InitEmpty(AI, r, p);
+        else startGame.Init(sg, AI, r, p);
     }
 
-    [Inject]
-    public void Set2(AIManadger[] AI) => startGame.AI = AI;
-
-    [Inject]
-    public void Set3(Relationship[] relationships) => 
-        startGame.relationships = relationships;
-
-    [Inject]
-    public void Set4(HasPlaying p) =>
-        startGame.hasPlaying = p;
-
     public override void InstallBindings()
-    {
-        
+    {        
         Container.BindInstances(startGame);
-        startGame.Start();
+        //startGame.Start();
     }
 }

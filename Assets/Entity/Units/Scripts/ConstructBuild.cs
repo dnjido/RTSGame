@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Linq;
 using System;
-using System.Diagnostics.Contracts;
+using System.Collections;
 using Zenject;
 
 namespace RTS
@@ -18,6 +18,7 @@ namespace RTS
         protected override void Complete(GameObject unit) => complete = unit;
 
         private Func<GameObject, Placing> place = obj => obj.GetComponent<Placing>();
+        private Func<GameObject, UnitActivate> activate = obj => obj.GetComponent<UnitActivate>();
 
         public void PlacingCommand(ConstructCommand b)
         {
@@ -26,6 +27,13 @@ namespace RTS
             b.placedUnit = place(construct);
             place(construct).placedEvent = b;
             place(construct).SetPlacing(true);
+            StartCoroutine(Deactivate(construct));
+        }
+
+        private IEnumerator Deactivate(GameObject construct)
+        {
+            yield return new WaitForSeconds(Time.deltaTime);
+            activate(construct).Deactivate();
         }
 
         public GameObject SpawnAI()
